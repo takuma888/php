@@ -31,6 +31,14 @@ abstract class Module extends Bundle
     }
 
     /**
+     * @return Bundle[]
+     */
+    public function getBundles()
+    {
+        return [];
+    }
+
+    /**
      * @return string
      */
     public function getExecNamespace()

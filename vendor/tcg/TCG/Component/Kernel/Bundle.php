@@ -53,14 +53,6 @@ abstract class Bundle
     }
 
     /**
-     * @return Bundle[]
-     */
-    public function getBundles()
-    {
-        return [];
-    }
-
-    /**
      * @return string[]
      */
     public function getConfigFiles()
