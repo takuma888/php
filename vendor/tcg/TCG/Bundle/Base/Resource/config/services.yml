@@ -1,0 +1,9 @@
+services:
+    tcg.component.parameters:
+        class: TCG\Component\Kernel\Config
+        factory: [@service_container, getParameters]
+        tags: [parameters]
+    tcg.component.file_logger:
+        class: TCG\Component\Logger\FileLogger
+        arguments: [%log_root%, default]
+        tags: [file_logger]

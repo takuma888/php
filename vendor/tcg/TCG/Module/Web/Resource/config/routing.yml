@@ -1,0 +1,4 @@
+routing:
+    homepage:
+        path: /
+        defaults: { _controller: @TCGWebModule:DefaultController:ActionIndex }

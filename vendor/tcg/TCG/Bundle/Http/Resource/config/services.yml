@@ -1,0 +1,48 @@
+services:
+    symfony.component.session_handler.native_handler:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeSessionHandler
+        tags: [session_handler]
+#    symfony.component.session_handler.pdo_handler:
+#        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+#        arguments: []
+#        tags: [session_handler]
+    symfony.component.session_proxy.handler_proxy:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy
+        arguments: [$session_handler]
+        tags: [session_proxy]
+    symfony.component.session_storage:
+        class: Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage
+        arguments: [[], $session_proxy]
+        tags: [session_storage]
+    symfony.component.session:
+        class: Symfony\Component\HttpFoundation\Session\Session
+        arguments: [$session_storage]
+        calls:
+            - [start]
+        tags: [session]
+
+    symfony.component.request:
+        class: Symfony\Component\HttpFoundation\Request
+        factory: [Symfony\Component\HttpFoundation\Request, createFromGlobals]
+        tags: [request]
+        calls:
+            - [setSession, [$session]]
+    symfony.component.request_context:
+        class: Symfony\Component\Routing\RequestContext
+        calls:
+            - [fromRequest, [$request]]
+        tags: [request_context]
+
+    symfony.component.route_collection:
+        class: Symfony\Component\Routing\RouteCollection
+        tags: [route_collection]
+
+    symfony.component.url_matcher:
+        class: Symfony\Component\Routing\Matcher\UrlMatcher
+        arguments: [$route_collection, $request_context]
+        tags: [url_matcher]
+
+    symfony.component.url_generator:
+        class: Symfony\Component\Routing\Generator\UrlGenerator
+        arguments: [$route_collection, $request_context]
+        tags: [url_generator]
