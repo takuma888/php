@@ -1,10 +1,10 @@
 <?php
 
-namespace Tachigo\Bundle\UI;
+namespace TCG\Bundle\UI;
 
 use TCG\Component\Kernel\Bundle;
 
-class TachigoUIBundle extends Bundle
+class TCGUIBundle extends Bundle
 {
 
     public function getParent()

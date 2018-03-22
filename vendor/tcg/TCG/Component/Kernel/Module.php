@@ -65,14 +65,6 @@ abstract class Module extends Bundle
     }
 
     /**
-     * @return Bundle[]
-     */
-    public function getBundles()
-    {
-        return [];
-    }
-
-    /**
      * @param $controller
      * @param $action
      * @return Exec

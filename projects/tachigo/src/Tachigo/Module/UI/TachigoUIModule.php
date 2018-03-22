@@ -3,7 +3,7 @@
 
 namespace Tachigo\Module\UI;
 
-use Tachigo\Bundle\UI\TachigoUIBundle;
+use TCG\Bundle\UI\TCGUIBundle;
 use TCG\Component\Kernel\Module;
 
 class TachigoUIModule extends Module
@@ -12,7 +12,7 @@ class TachigoUIModule extends Module
     public function getBundles()
     {
         return [
-            new TachigoUIBundle(),
+            new TCGUIBundle(),
         ];
     }
 
@@ -21,7 +21,7 @@ class TachigoUIModule extends Module
     {
         return [
             'TCGBaseModule',
-            'TCGWebModule'
+            'TCGWebModule',
         ];
     }
 }
