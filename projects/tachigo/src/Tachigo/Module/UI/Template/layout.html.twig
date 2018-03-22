@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block html_title %} · TUI{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('dist/css/tui.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/tui-doc.css') }}">
+    <link rel="stylesheet" title="Github" href="{{ asset('plugins/highlight/styles/github.min.css') }}">
+    <script type="text/javascript" src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <style type="text/css">
+        .hljs {
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="tui">
+<div class="container-fluid">
+    <div class="row">
+        <main role="main" class="col">
+            <h1 class="td-title" id="content">{{ block('html_title') }}</h1>
+            <p class="td-lead" lang="zh">{% block page_lead %}{% endblock %}</p>
+            {% block main %}{% endblock %}
+        </main>
+    </div>
+</div>
+<script type="text/javascript" src="{{ asset('dist/js/tui.js') }}"></script>
+<script type="text/javascript" src="{{ asset('plugins/highlight/highlight.min.js') }}"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $('pre.highlight code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        })
+    });
+</script>
+</body>
+</html>

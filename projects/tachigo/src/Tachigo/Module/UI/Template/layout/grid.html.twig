@@ -1,0 +1,192 @@
+{% extends '@TachigoUIModule/layout.html.twig' %}
+
+{% block html_title %}12栏栅格 -- Grid system{{ parent() }}{% endblock%}
+
+{% block page_lead %}
+    TUI采用了经典的12列栅格布局， 类命名规范和 Bootstrap 相同， 同时支持使用Flex盒子模型进行布局。 如果只需要使用TUI的布局框架， 可以只引用 tui-grid.css (tui-grid.min.css) 样式文件。
+{% endblock %}
+
+{% block main %}
+    <section>
+        <h2 id="grids">栅格系统</h2>
+        <p>
+            TUI 支持使用 Bootstrap4 一样的 <code>flex</code> 盒子模型的栅格系统， 同时也支持不使用 <code>flex</code> 模型的类似 Bootstrap3 的栅格系统。 默认是采用的非 <code>flex</code> 模型的栅格系统， 如果需要使用 <code>flex</code> 模型， 则只需要在 <code>.row</code> 增加类 <code>.flexible</code> 即可。
+        </p>
+        <p>
+            采用 <code>.row</code> 来标记一个元素为横向排版的行。
+        </p>
+        <p>
+            通过在 <code>.col</code> （ 表示列 ） 后面增加 <code>-xs</code> , <code>-sm</code> , <code>-md</code> , <code>-lg</code> , <code>-xl</code> 来进行各种屏幕尺寸的适配， 默认的 <code>.col</code> 是 <code>.col-xs</code> 的简写。 然后通过继续在后面使用宽度后缀 （ 1 - 12 ） 数字来表示列占用行的宽度。
+        </p>
+        <section>
+            <h3 id="row">行 <code>.row</code></h3>
+            <div class="td-example show-grid">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">.col-md-4</div>
+                        <div class="col-md-4">.col-md-4</div>
+                        <div class="col-md-4">.col-md-4</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">.col-md-8</div>
+                        <div class="col-md-4">.col-md-4</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">.col-md-6</div>
+                        <div class="col-md-6">.col-md-6</div>
+                    </div>
+                </div>
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                        <code class="html xml css javascript">
+                            {%- filter escape -%}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">.col-md-4</div>
+        <div class="col-md-4">.col-md-4</div>
+        <div class="col-md-4">.col-md-4</div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">.col-md-8</div>
+        <div class="col-md-4">.col-md-4</div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">.col-md-6</div>
+        <div class="col-md-6">.col-md-6</div>
+    </div>
+</div>
+                            {%- endfilter -%}
+                        </code>
+                    </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+        <section>
+            <h3 id="flex-row">行 <code>.row.flexible</code></h3>
+            <p>
+                在 <code>.row</code> 所在的元素上加上 <code>.flexible</code> 即可使用 <code>flex</code> 模型的行布局。
+                <code>flex</code> 模型的行布局增加了很多特性， 功能与命名都与 Bootstrap4 一致。 常用特性如下示例。
+            </p>
+            <div class="td-example show-grid">
+                <div class="container-fluid">
+                    <div class="row flexible">
+                        <div class="col">.col 1 of 2</div>
+                        <div class="col">.col 2 of 2</div>
+                    </div>
+                    <div class="row flexible">
+                        <div class="col">.col 1 of 3</div>
+                        <div class="col">.col 2 of 3</div>
+                        <div class="col">.col 3 of 3</div>
+                    </div>
+                    <div class="row flexible">
+                        <div class="col">.col 1 of 3</div>
+                        <div class="col-6">.col-6 2 of 3 (wider)</div>
+                        <div class="col">.col 3 of 3</div>
+                    </div>
+                    <div class="row flexible">
+                        <div class="col">.col 1 of 3</div>
+                        <div class="col-5">.col-5 2 of 3 (wider)</div>
+                        <div class="col">.col 3 of 3</div>
+                    </div>
+                    <div class="row flexible">
+                        <div class="col">.col 1 of 3</div>
+                        <div class="col-md-auto">.col-md-auto Variable width content</div>
+                        <div class="col col-lg-2">.col.col-lg-2 3 of 3</div>
+                    </div>
+                    <div class="row flexible">
+                        <div class="col-sm-9">
+                            Level 1: .col-sm-9
+                            <div class="row flexible">
+                                <div class="col-8 col-sm-6">
+                                    Level 2: .col-8 .col-sm-6
+                                </div>
+                                <div class="col-4 col-sm-6">
+                                    Level 2: .col-4 .col-sm-6
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                        <code class="html xml css javascript">
+                            {%- filter escape -%}
+<div class="container-fluid">
+    <div class="row flexible">
+        <div class="col">.col 1 of 2</div>
+        <div class="col">.col 2 of 2</div>
+    </div>
+    <div class="row flexible">
+        <div class="col">.col 1 of 3</div>
+        <div class="col">.col 2 of 3</div>
+        <div class="col">.col 3 of 3</div>
+    </div>
+    <div class="row flexible">
+        <div class="col">.col 1 of 3</div>
+        <div class="col-6">.col-6 2 of 3 (wider)</div>
+        <div class="col">.col 3 of 3</div>
+    </div>
+    <div class="row flexible">
+        <div class="col">.col 1 of 3</div>
+        <div class="col-5">.col-5 2 of 3 (wider)</div>
+        <div class="col">.col 3 of 3</div>
+    </div>
+    <div class="row flexible">
+        <div class="col">.col 1 of 3</div>
+        <div class="col-md-auto">.col-md-auto Variable width content</div>
+        <div class="col col-lg-2">.col.col-lg-2 3 of 3</div>
+    </div>
+    <div class="row flexible">
+        <div class="col-sm-9">
+            Level 1: .col-sm-9
+            <div class="row flexible">
+                <div class="col-8 col-sm-6">
+                    Level 2: .col-8 .col-sm-6
+                </div>
+                <div class="col-4 col-sm-6">
+                    Level 2: .col-4 .col-sm-6
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                            {%- endfilter -%}
+                        </code>
+                    </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+    </section>
+{% endblock %}

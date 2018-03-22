@@ -1,0 +1,221 @@
+{% extends '@TachigoUIModule/layout.html.twig' %}
+
+{% block html_title %}按钮 -- Button{{ parent() }}{% endblock%}
+
+{% block page_lead %}
+    TUI 按钮样式类命名规范和 Bootstrap 相同， 如果只需要使用TUI的按钮样式， 可以只引用 tui-button.css (tui-button.min.css) 样式文件。
+    在 HTML 中可以显示为按钮的标签有 <code>{% filter escape %}<a></a>{% endfilter %}</code>， <code>{% filter escape %}<button></button>{% endfilter %}</code>， <code>{% filter escape %}<input>{% endfilter %}</code>。 在这些标签中使用类 <code>.btn</code> 即可开始将其显示为按钮样式。
+{% endblock %}
+
+{% block main %}
+    <section>
+        <h2 id="default-btn">默认的主题按钮</h2>
+        <p lang="zh">
+            在可以显示成按钮的标签中增加 <code>.btn-{default|primary|secondary|success|danger|warning|info|light|dark}</code> 类。
+        </p>
+        <div class="td-example">
+            <button type="button" class="btn btn-default">Default</button>
+            <button type="button" class="btn btn-primary">Primary</button>
+            <button type="button" class="btn btn-secondary">Secondary</button>
+            <button type="button" class="btn btn-success">Success</button>
+            <button type="button" class="btn btn-danger">Danger</button>
+            <button type="button" class="btn btn-warning">Warning</button>
+            <button type="button" class="btn btn-info">Info</button>
+            <button type="button" class="btn btn-light">Light</button>
+            <button type="button" class="btn btn-dark">Dark</button>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<button type="button" class="btn btn-default">Default</button>
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-secondary">Secondary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-light">Light</button>
+<button type="button" class="btn btn-dark">Dark</button>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="link-btn">超链接样式的按钮</h2>
+        <p lang="zh">
+            在标签中增加 <code>.btn-link</code> 类， 即可将其显示为超链接样式的按钮。
+        </p>
+        <div class="td-example">
+            <button type="button" class="btn btn-link">Link</button>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<button type="button" class="btn btn-link">Link</button>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="outline-btn">外轮廓样式的按钮</h2>
+        <p lang="zh">
+            在可以显示成按钮的标签中增加 <code>.btn-outline-{default|primary|secondary|success|danger|warning|info|light|dark}</code> 类。
+        </p>
+        <div class="td-example">
+            <button type="button" class="btn btn-outline-default">Default</button>
+            <button type="button" class="btn btn-outline-primary">Primary</button>
+            <button type="button" class="btn btn-outline-secondary">Secondary</button>
+            <button type="button" class="btn btn-outline-success">Success</button>
+            <button type="button" class="btn btn-outline-danger">Danger</button>
+            <button type="button" class="btn btn-outline-warning">Warning</button>
+            <button type="button" class="btn btn-outline-info">Info</button>
+            <button type="button" class="btn btn-outline-light">Light</button>
+            <button type="button" class="btn btn-outline-dark">Dark</button>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<button type="button" class="btn btn-outline-default">Default</button>
+<button type="button" class="btn btn-outline-primary">Primary</button>
+<button type="button" class="btn btn-outline-secondary">Secondary</button>
+<button type="button" class="btn btn-outline-success">Success</button>
+<button type="button" class="btn btn-outline-danger">Danger</button>
+<button type="button" class="btn btn-outline-warning">Warning</button>
+<button type="button" class="btn btn-outline-info">Info</button>
+<button type="button" class="btn btn-outline-light">Light</button>
+<button type="button" class="btn btn-outline-dark">Dark</button>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="btn-effects">按钮的其他效果</h2>
+        <p lang="zh">
+            TUI 提供了按钮样式效果的辅助类 <code>.btn-gradient</code>， <code>.btn-shadow</code>， <code>.btn-rounded</code> 来将 Bootstrap 的按钮效果拆分成可以随意组合的效果， 但是外轮廓样式的按钮是没有 Gradient 效果的。
+        </p>
+        <div class="td-example">
+            <button type="button" class="btn btn-primary">Primary</button>
+            <button type="button" class="btn btn-primary btn-gradient">Primary Gradient</button>
+            <button type="button" class="btn btn-primary btn-shadow">Primary Box shadow</button>
+            <button type="button" class="btn btn-primary btn-rounded">Primary Rounded</button>
+            <button type="button" class="btn btn-primary btn-gradient btn-shadow btn-rounded">Primary Gradient & Box shadow & Rounded</button>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-primary btn-gradient">Primary Gradient</button>
+<button type="button" class="btn btn-primary btn-shadow">Primary Box shadow</button>
+<button type="button" class="btn btn-primary btn-rounded">Primary Rounded</button>
+<button type="button" class="btn btn-primary btn-gradient btn-shadow btn-rounded">Primary Gradient & Box shadow & Rounded</button>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="sized-btn">按钮的大小</h2>
+        <p lang="zh">
+            通过添加类 <code>.btn-{sm|lg}</code> 来控制按钮的大小。
+        </p>
+        <div class="td-example">
+            <button type="button" class="btn btn-primary btn-lg">Large button</button>
+            <button type="button" class="btn btn-secondary btn-lg">Large button</button>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<button type="button" class="btn btn-primary btn-lg">Large button</button>
+<button type="button" class="btn btn-secondary btn-lg">Large button</button>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+        <div class="td-example">
+            <button type="button" class="btn btn-primary btn-sm">Small button</button>
+            <button type="button" class="btn btn-secondary btn-sm">Small button</button>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<button type="button" class="btn btn-primary btn-sm">Small button</button>
+<button type="button" class="btn btn-secondary btn-sm">Small button</button>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+        <p lang="zh">
+            通过添加类 <code>.btn-block</code> 来显示占满父级元素宽度的块级按钮。
+        </p>
+        <div class="td-example">
+            <button type="button" class="btn btn-primary btn-lg btn-block">Block level large button</button>
+            <button type="button" class="btn btn-secondary btn-lg btn-block">Block level large button</button>
+            <button type="button" class="btn btn-primary btn-block">Block level button</button>
+            <button type="button" class="btn btn-secondary btn-block">Block level button</button>
+            <button type="button" class="btn btn-primary btn-sm btn-block">Block level small button</button>
+            <button type="button" class="btn btn-secondary btn-sm btn-block">Block level small button</button>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<button type="button" class="btn btn-primary btn-lg btn-block">Block level large button</button>
+<button type="button" class="btn btn-secondary btn-lg btn-block">Block level large button</button>
+<button type="button" class="btn btn-primary btn-block">Block level button</button>
+<button type="button" class="btn btn-secondary btn-block">Block level button</button>
+<button type="button" class="btn btn-primary btn-sm btn-block">Block level small button</button>
+<button type="button" class="btn btn-secondary btn-sm btn-block">Block level small button</button>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="stated-btn">按钮的状态</h2>
+        <section>
+            <h3 id="active-btn">激活的按钮</h3>
+            <p lang="zh">
+                通过添加类 <code>.active</code> 来强制将按钮状态设置为激活，这个效果一般只用在使用标签 <code>{% filter escape %}<a></a>{% endfilter %}</code> 做按钮显示的时候。
+                且最好添加 <code>aria-pressed="true"</code> 属性。
+            </p>
+            <div class="td-example">
+                <a href="#active-btn" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Primary link</a>
+                <a href="#active-btn" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Link</a>
+            </div>
+        </section>
+        <section>
+            <h3 id="disabled-btn">实效的按钮</h3>
+            <p lang="zh">
+                通过为 <code>{% filter escape %}<button></button>{% endfilter %}</code> 标签添加 <code>disabled</code> 属性，为 <code>{% filter escape %}<a></a>{% endfilter %}</code> 添加 <code>.disabled</code> 类来将按钮设置为实效的按钮样式。
+                其中 <code>{% filter escape %}<a></a>{% endfilter %}</code> 最好添加上属性 <code>aria-disabled="true"</code> 及 <code>tabindex="-1"</code>。
+            </p>
+            <div class="td-example">
+                <button type="button" class="btn btn-primary" disabled>Primary button</button>
+                <a href="#disabled-btn" class="btn btn-secondary btn disabled" role="button" aria-disabled="true" tabindex="-1">Link</a>
+            </div>
+        </section>
+    </section>
+{% endblock %}

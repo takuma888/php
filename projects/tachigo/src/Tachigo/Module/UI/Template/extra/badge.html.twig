@@ -1,0 +1,218 @@
+{% extends '@TachigoUIModule/layout.html.twig' %}
+
+{% block html_title %}徽章 -- Badge{{ parent() }}{% endblock%}
+
+{% block page_lead %}
+    TUI 的徽章类命名规范和 Bootstrap 相同， 如果只需要使用TUI的徽章， 可以只引用 tui-badge.css (tui-badge.min.css) 样式文件。TUI 默认的徽章与 Bootstrap 有区别，默认的徽章是直角的，通过添加类 <code>.badge-rounded</code> 来设置圆角。
+{% endblock %}
+
+
+{% block main %}
+    <section>
+        <h2 id="badge-heading">用于标题标签 <code>{% filter escape %}<h1></h1>{% endfilter %}</code> - <code>{% filter escape %}<h6></h6>{% endfilter %}</code> 中。</h2>
+        <div class="td-example">
+            <h1>Example heading <span class="badge badge-secondary">New</span></h1>
+            <h2>Example heading <span class="badge badge-secondary">New</span></h2>
+            <h3>Example heading <span class="badge badge-secondary">New</span></h3>
+            <h4>Example heading <span class="badge badge-secondary">New</span></h4>
+            <h5>Example heading <span class="badge badge-secondary">New</span></h5>
+            <h6>Example heading <span class="badge badge-secondary">New</span></h6>
+
+            <h1>Example heading <span class="badge badge-rounded badge-primary">New</span></h1>
+            <h2>Example heading <span class="badge badge-rounded badge-primary">New</span></h2>
+            <h3>Example heading <span class="badge badge-rounded badge-primary">New</span></h3>
+            <h4>Example heading <span class="badge badge-rounded badge-primary">New</span></h4>
+            <h5>Example heading <span class="badge badge-rounded badge-primary">New</span></h5>
+            <h6>Example heading <span class="badge badge-rounded badge-primary">New</span></h6>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<h1>Example heading <span class="badge badge-secondary">New</span></h1>
+<h2>Example heading <span class="badge badge-secondary">New</span></h2>
+<h3>Example heading <span class="badge badge-secondary">New</span></h3>
+<h4>Example heading <span class="badge badge-secondary">New</span></h4>
+<h5>Example heading <span class="badge badge-secondary">New</span></h5>
+<h6>Example heading <span class="badge badge-secondary">New</span></h6>
+
+<h1>Example heading <span class="badge badge-rounded badge-primary">New</span></h1>
+<h2>Example heading <span class="badge badge-rounded badge-primary">New</span></h2>
+<h3>Example heading <span class="badge badge-rounded badge-primary">New</span></h3>
+<h4>Example heading <span class="badge badge-rounded badge-primary">New</span></h4>
+<h5>Example heading <span class="badge badge-rounded badge-primary">New</span></h5>
+<h6>Example heading <span class="badge badge-rounded badge-primary">New</span></h6>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="badge-button">用于按钮中</h2>
+        <div class="td-example">
+            <button type="button" class="btn btn-primary">
+                Profile <span class="badge badge-light">9</span>
+                <span class="sr-only">unread messages</span>
+            </button>
+            <button type="button" class="btn btn-primary">
+                Profile <span class="badge badge-rounded badge-light">9</span>
+                <span class="sr-only">unread messages</span>
+            </button>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<button type="button" class="btn btn-primary">
+    Profile <span class="badge badge-light">9</span>
+    <span class="sr-only">unread messages</span>
+</button>
+<button type="button" class="btn btn-primary">
+    Profile <span class="badge badge-rounded badge-light">9</span>
+    <span class="sr-only">unread messages</span>
+</button>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="badge-color">颜色</h2>
+        <p lang="zh">
+            通过给徽章元素添加类 <code>.badge-{primary|secondary|success|danger|warning|info|light|dark}</code> 来设置颜色。
+        </p>
+        <div class="td-example">
+            <span class="badge badge-primary">Primary</span>
+            <span class="badge badge-secondary">Secondary</span>
+            <span class="badge badge-success">Success</span>
+            <span class="badge badge-danger">Danger</span>
+            <span class="badge badge-warning">Warning</span>
+            <span class="badge badge-info">Info</span>
+            <span class="badge badge-light">Light</span>
+            <span class="badge badge-dark">Dark</span>
+            <br>
+            <span class="badge badge-rounded badge-primary">Primary</span>
+            <span class="badge badge-rounded badge-secondary">Secondary</span>
+            <span class="badge badge-rounded badge-success">Success</span>
+            <span class="badge badge-rounded badge-danger">Danger</span>
+            <span class="badge badge-rounded badge-warning">Warning</span>
+            <span class="badge badge-rounded badge-info">Info</span>
+            <span class="badge badge-rounded badge-light">Light</span>
+            <span class="badge badge-rounded badge-dark">Dark</span>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<span class="badge badge-primary">Primary</span>
+<span class="badge badge-secondary">Secondary</span>
+<span class="badge badge-success">Success</span>
+<span class="badge badge-danger">Danger</span>
+<span class="badge badge-warning">Warning</span>
+<span class="badge badge-info">Info</span>
+<span class="badge badge-light">Light</span>
+<span class="badge badge-dark">Dark</span>
+
+<span class="badge badge-rounded badge-primary">Primary</span>
+<span class="badge badge-rounded badge-secondary">Secondary</span>
+<span class="badge badge-rounded badge-success">Success</span>
+<span class="badge badge-rounded badge-danger">Danger</span>
+<span class="badge badge-rounded badge-warning">Warning</span>
+<span class="badge badge-rounded badge-info">Info</span>
+<span class="badge badge-rounded badge-light">Light</span>
+<span class="badge badge-rounded badge-dark">Dark</span>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+        <p lang="zh">
+            徽章同样可用标签 <code>{% filter escape %}<a></a>{% endfilter %}</code> 中。
+        </p>
+        <div class="td-example">
+            <a class="badge badge-primary">Primary</a>
+            <a class="badge badge-secondary">Secondary</a>
+            <a class="badge badge-success">Success</a>
+            <a class="badge badge-danger">Danger</a>
+            <a class="badge badge-warning">Warning</a>
+            <a class="badge badge-info">Info</a>
+            <a class="badge badge-light">Light</a>
+            <a class="badge badge-dark">Dark</a>
+            <br>
+            <a class="badge badge-rounded badge-primary">Primary</a>
+            <a class="badge badge-rounded badge-secondary">Secondary</a>
+            <a class="badge badge-rounded badge-success">Success</a>
+            <a class="badge badge-rounded badge-danger">Danger</a>
+            <a class="badge badge-rounded badge-warning">Warning</a>
+            <a class="badge badge-rounded badge-info">Info</a>
+            <a class="badge badge-rounded badge-light">Light</a>
+            <a class="badge badge-rounded badge-dark">Dark</a>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<a class="badge badge-primary">Primary</a>
+<a class="badge badge-secondary">Secondary</a>
+<a class="badge badge-success">Success</a>
+<a class="badge badge-danger">Danger</a>
+<a class="badge badge-warning">Warning</a>
+<a class="badge badge-info">Info</a>
+<a class="badge badge-light">Light</a>
+<a class="badge badge-dark">Dark</a>
+
+<a class="badge badge-rounded badge-primary">Primary</a>
+<a class="badge badge-rounded badge-secondary">Secondary</a>
+<a class="badge badge-rounded badge-success">Success</a>
+<a class="badge badge-rounded badge-danger">Danger</a>
+<a class="badge badge-rounded badge-warning">Warning</a>
+<a class="badge badge-rounded badge-info">Info</a>
+<a class="badge badge-rounded badge-light">Light</a>
+<a class="badge badge-rounded badge-dark">Dark</a>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="badge-pill">胶囊样式的徽章</h2>
+        <p lang="zh">
+            通过添加类 <code>.badge-pill</code> 来将徽章样式设置为更大的边框圆角的胶囊样式。
+        </p>
+        <div class="td-example">
+            <span class="badge badge-pill badge-primary">Primary</span>
+            <span class="badge badge-pill badge-secondary">Secondary</span>
+            <span class="badge badge-pill badge-success">Success</span>
+            <span class="badge badge-pill badge-danger">Danger</span>
+            <span class="badge badge-pill badge-warning">Warning</span>
+            <span class="badge badge-pill badge-info">Info</span>
+            <span class="badge badge-pill badge-light">Light</span>
+            <span class="badge badge-pill badge-dark">Dark</span>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<span class="badge badge-pill badge-primary">Primary</span>
+<span class="badge badge-pill badge-secondary">Secondary</span>
+<span class="badge badge-pill badge-success">Success</span>
+<span class="badge badge-pill badge-danger">Danger</span>
+<span class="badge badge-pill badge-warning">Warning</span>
+<span class="badge badge-pill badge-info">Info</span>
+<span class="badge badge-pill badge-light">Light</span>
+<span class="badge badge-pill badge-dark">Dark</span>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+{% endblock %}

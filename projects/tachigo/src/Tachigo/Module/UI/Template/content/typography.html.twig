@@ -1,0 +1,531 @@
+{% extends '@TachigoUIModule/layout.html.twig' %}
+
+{% block html_title %}格式排版 -- Typography{{ parent() }}{% endblock%}
+
+{% block page_lead %}
+    TUI 格式排版，包含了 HTML 中所有的格式排版标签。 如果只需要使用TUI的格式排版， 可以只引用 tui-typography.css (tui-typography.min.css) 样式文件。
+{% endblock %}
+
+{% block main %}
+    <section>
+        <h2 id="heading">标题</h2>
+        <p lang="zh"><code>{% filter escape %}<h1></h1>{% endfilter %}</code> - <code>{% filter escape %}<h6></h6>{% endfilter %}</code> 标签。</p>
+        <div class="td-example">
+            <h1>h1. Heading</h1>
+            <h2>h2. Heading</h2>
+            <h3>h3. Heading</h3>
+            <h4>h4. Heading</h4>
+            <h5>h5. Heading</h5>
+            <h6>h6. Heading</h6>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="html css javascript xml">
+                        {%- filter escape -%}
+<h1>h1. Heading</h1>
+<h2>h2. Heading</h2>
+<h3>h3. Heading</h3>
+<h4>h4. Heading</h4>
+<h5>h5. Heading</h5>
+<h6>h6. Heading</h6>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="display">更大的标题</h2>
+        <p lang="zh">这些标题比 <code>{% filter escape %}<h1></h1>{% endfilter %}</code> 还要更大一些， 为了语义化标签的需要， <code>.display-*</code> 都最好使用 <code>{% filter escape %}<h1></h1>{% endfilter %}</code> 标签。</p>
+        <div class="td-example">
+            <h1 class="display-1">Display 1</h1>
+            <h1 class="display-2">Display 2</h1>
+            <h1 class="display-3">Display 3</h1>
+            <h1 class="display-4">Display 4</h1>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<h1 class="display-1">Display 1</h1>
+<h1 class="display-2">Display 2</h1>
+<h1 class="display-3">Display 3</h1>
+<h1 class="display-4">Display 4</h1>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="paragraph">段落文本</h2>
+        <p lang="zh">通过在段落标签 <code>{% filter escape %}<p></p>{% endfilter %}</code> 上增加属性 <code>lang="zh"</code> 来指定段落的语言为中文，然后段落首行会左缩进2个字符宽度。</p>
+        <section>
+            <h3 id="lead">需要突出显示的段落文本</h3>
+            <p lang="zh">通过在段落标签 <code>{% filter escape %}<p></p>{% endfilter %}</code> 增加类 <code>.lead</code> 来将该段落文本突出显示。</p>
+            <div class="td-example">
+                <p class="lead">
+                    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.
+                </p>
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<p class="lead">
+    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.
+</p>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+    </section>
+    <section>
+        <h2 id="inline">行内特殊文本</h2>
+        <p lang="zh">
+            <code>{% filter escape %}<mark></mark>{% endfilter %}</code>, <code>{% filter escape %}<del></del>{% endfilter %}</code>,
+            <code>{% filter escape %}<s></s>{% endfilter %}</code>, <code>{% filter escape %}<ins></ins>{% endfilter %}</code>,
+            <code>{% filter escape %}<u></u>{% endfilter %}</code>, <code>{% filter escape %}<small></small>{% endfilter %}</code>,
+            <code>{% filter escape %}<strong></strong>{% endfilter %}</code>, <code>{% filter escape %}<em></em>{% endfilter %}</code>
+            <code>{% filter escape %}<b></b>{% endfilter %}</code>, <code>{% filter escape %}<i></i>{% endfilter %}</code>
+            等等
+        </p>
+        <div class="td-example">
+            <p>You can use the mark tag to <mark>highlight</mark> text.</p>
+            <p><del>This line of text is meant to be treated as deleted text.</del></p>
+            <p><s>This line of text is meant to be treated as no longer accurate.</s></p>
+            <p><ins>This line of text is meant to be treated as an addition to the document.</ins></p>
+            <p><u>This line of text will render as underlined</u></p>
+            <p><small>This line of text is meant to be treated as fine print.</small></p>
+            <p><strong>This line rendered as bold text.</strong></p>
+            <p><em>This line rendered as italicized text.</em></p>
+            <p><b>This line rendered as bold text.</b></p>
+            <p><i>This line rendered as italicized text.</i></p>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<p>You can use the mark tag to <mark>highlight</mark> text.</p>
+<p><del>This line of text is meant to be treated as deleted text.</del></p>
+<p><s>This line of text is meant to be treated as no longer accurate.</s></p>
+<p><ins>This line of text is meant to be treated as an addition to the document.</ins></p>
+<p><u>This line of text will render as underlined</u></p>
+<p><small>This line of text is meant to be treated as fine print.</small></p>
+<p><strong>This line rendered as bold text.</strong></p>
+<p><em>This line rendered as italicized text.</em></p>
+<p><b>This line rendered as bold text.</b></p>
+<p><i>This line rendered as italicized text.</i></p>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="blockquote">引用</h2>
+        <p lang="zh">从某处引用来的一段话</p>
+        <div class="td-example">
+            <blockquote class="blockquote">
+                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+            </blockquote>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<blockquote class="blockquote">
+    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+</blockquote>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="list">列表</h2>
+        <p lang="zh">有序列表， 无需列表， 定义列表。 通过增加类 <code>.list-unstyled</code> 来取消每个列表项前的符号显示。</p>
+        <div class="td-example">
+            <ul>
+                <li>ul</li>
+                <li>Consectetur adipiscing elit</li>
+                <li>Integer molestie lorem at massa</li>
+                <li>Facilisis in pretium nisl aliquet</li>
+                <li>Nulla volutpat aliquam velit
+                    <ul class="list-unstyled">
+                        <li>ul.list-unstyled</li>
+                        <li>Purus sodales ultricies</li>
+                        <li>Vestibulum laoreet porttitor sem</li>
+                        <li>Ac tristique libero volutpat at
+                            <ol>
+                                <li>ol</li>
+                                <li>Consectetur adipiscing elit</li>
+                                <li>Integer molestie lorem at massa</li>
+                                <li>Facilisis in pretium nisl aliquet
+                                    <ol class="list-unstyled">
+                                        <li>ol.list-unstyled</li>
+                                        <li>Consectetur adipiscing elit</li>
+                                        <li>Integer molestie lorem at massa</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                        </li>
+                    </ul>
+                </li>
+                <li>Faucibus porta lacus fringilla vel</li>
+                <li>Aenean sit amet erat nunc</li>
+                <li>Eget porttitor lorem</li>
+            </ul>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<ul>
+    <li>ul</li>
+    <li>Consectetur adipiscing elit</li>
+    <li>Integer molestie lorem at massa</li>
+    <li>Facilisis in pretium nisl aliquet</li>
+    <li>Nulla volutpat aliquam velit
+        <ul class="list-unstyled">
+            <li>ul.list-unstyled</li>
+            <li>Purus sodales ultricies</li>
+            <li>Vestibulum laoreet porttitor sem</li>
+            <li>Ac tristique libero volutpat at
+                <ol>
+                    <li>ol</li>
+                    <li>Consectetur adipiscing elit</li>
+                    <li>Integer molestie lorem at massa</li>
+                    <li>Facilisis in pretium nisl aliquet
+                        <ol class="list-unstyled">
+                            <li>ol.list-unstyled</li>
+                            <li>Consectetur adipiscing elit</li>
+                            <li>Integer molestie lorem at massa</li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+        </ul>
+    </li>
+    <li>Faucibus porta lacus fringilla vel</li>
+    <li>Aenean sit amet erat nunc</li>
+    <li>Eget porttitor lorem</li>
+</ul>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+        <section>
+            <h3 id="inline-list">行内列表</h3>
+            <p lang="zh">
+                通过在 <code>{% filter escape %}<ul></ul>{% endfilter %}</code>, <code>{% filter escape %}<li></li>{% endfilter %}</code> 上增加类 <code>.list-inline</code> 来表示为行内列表。
+                然后在 <code>{% filter escape %}<li></li>{% endfilter %}</code> 上增加类 <code>.list-inline-item</code> 来标记每个列表项， 其实也也可以不加~
+            </p>
+            <div class="td-example">
+                <ol class="list-inline">
+                    <li class="list-inline-item">Lorem ipsum</li>
+                    <li class="list-inline-item">Phasellus iaculis</li>
+                    <li class="list-inline-item">Nulla volutpat</li>
+                    <li>Nulla volutpat 1</li>
+                    <li>Nulla volutpat 2</li>
+                    <li>Nulla volutpat 3</li>
+                </ol>
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<ol class="list-inline">
+    <li class="list-inline-item">Lorem ipsum</li>
+    <li class="list-inline-item">Phasellus iaculis</li>
+    <li class="list-inline-item">Nulla volutpat</li>
+    <li>Nulla volutpat 1</li>
+    <li>Nulla volutpat 2</li>
+    <li>Nulla volutpat 3</li>
+</ol>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+        <section>
+            <h3 id="define-list">定义列表</h3>
+            <p lang="zh">默认的定义列表显示效果如下</p>
+            <div class="td-example">
+                <dl>
+                    <dt>Coffee</dt>
+                    <dd>Black hot drink</dd>
+                    <dt>Milk</dt>
+                    <dd>White cold drink</dd>
+                </dl>
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<dl>
+    <dt>Coffee</dt>
+    <dd>Black hot drink</dd>
+    <dt>Milk</dt>
+    <dd>White cold drink</dd>
+</dl>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+                {% endspaceless %}
+            </div>
+            <p lang="zh">可以使用栅格系统来修改具体的排版布局</p>
+            <div class="td-example">
+                <dl class="row">
+                    <dt class="col-sm-3">Description lists</dt>
+                    <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+
+                    <dt class="col-sm-3">Euismod</dt>
+                    <dd class="col-sm-9">
+                        <p>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</p>
+                        <p>Donec id elit non mi porta gravida at eget metus.</p>
+                    </dd>
+
+                    <dt class="col-sm-3">Malesuada porta</dt>
+                    <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
+
+                    <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
+                    <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+
+                    <dt class="col-sm-3">Nesting</dt>
+                    <dd class="col-sm-9">
+                        <dl class="row">
+                            <dt class="col-sm-4">Nested definition list</dt>
+                            <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.</dd>
+                        </dl>
+                    </dd>
+                </dl>
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<dl class="row">
+    <dt class="col-sm-3">Description lists</dt>
+    <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+
+    <dt class="col-sm-3">Euismod</dt>
+    <dd class="col-sm-9">
+        <p>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</p>
+        <p>Donec id elit non mi porta gravida at eget metus.</p>
+    </dd>
+
+    <dt class="col-sm-3">Malesuada porta</dt>
+    <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
+
+    <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
+    <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+
+    <dt class="col-sm-3">Nesting</dt>
+    <dd class="col-sm-9">
+        <dl class="row">
+            <dt class="col-sm-4">Nested definition list</dt>
+            <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.</dd>
+        </dl>
+    </dd>
+</dl>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+    </section>
+    <section>
+        <h2 id="code">代码</h2>
+        <p lang="zh">单行和多行代码， 变量表示， 用户（ 键盘 ）输入， 输出示例。</p>
+        <section>
+            <h3 id="inline-code">单行代码</h3>
+            <p lang="zh"><code>{% filter escape %}<code></code>{% endfilter %}</code>标签。</p>
+            <div class="td-example">
+                For example, <code>&lt;section&gt;</code> should be wrapped as inline.
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                        <code class="html xml css javascript">
+                            {%- filter escape -%}
+For example, <code>&lt;section&gt;</code> should be wrapped as inline.
+                            {%- endfilter -%}
+                        </code>
+                    </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+        <section>
+            <h3 id="multiline-code">多行代码</h3>
+            <p lang="zh"><code>{% filter escape %}<pre></pre>{% endfilter %}</code>标签。</p>
+            <div class="td-example">
+                <pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;
+&lt;p&gt;And another line of sample text here...&lt;/p&gt;
+</code></pre>
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                        <code class="xml html css javascript">
+                            {%- filter escape -%}
+<pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;
+&lt;p&gt;And another line of sample text here...&lt;/p&gt;
+</code></pre>
+                            {%- endfilter -%}
+                        </code>
+                    </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+        <section>
+            <h3 id="var-code">变量表示</h3>
+            <p lang="zh"><code>{% filter escape %}<var></var>{% endfilter %}</code>标签。</p>
+            <div class="td-example">
+                <var>y</var> = <var>m</var><var>x</var> + <var>b</var>
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                        <code class="xml html css javascript">
+                            {%- filter escape -%}
+<var>y</var> = <var>m</var><var>x</var> + <var>b</var>
+                            {%- endfilter -%}
+                        </code>
+                    </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+        <section>
+            <h3 id="keyboard-code">用户（ 键盘 ）输入</h3>
+            <p lang="zh"><code>{% filter escape %}<kbd></kbd>{% endfilter %}</code>标签。</p>
+            <div class="td-example">
+                To switch directories, type <kbd>cd</kbd> followed by the name of the directory.<br>
+                To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                        <code class="xml html css javascript">
+                            {%- filter escape -%}
+To switch directories, type <kbd>cd</kbd> followed by the name of the directory.<br>
+To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
+                            {%- endfilter -%}
+                        </code>
+                    </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+        <section>
+            <h3 id="sample-output-code">输出示例</h3>
+            <p lang="zh"><code>{% filter escape %}<samp></samp>{% endfilter %}</code>标签。</p>
+            <div class="td-example">
+                <samp>This text is meant to be treated as sample output from a computer program.</samp>
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                        <code class="xml html css javascript">
+                            {%- filter escape -%}
+<samp>This text is meant to be treated as sample output from a computer program.</samp>
+                            {%- endfilter -%}
+                        </code>
+                    </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+    </section>
+    <section>
+        <h2 id="images">图片资源</h2>
+        <p lang="zh">
+            图片资源相关。
+        </p>
+        <section>
+            <h3 id="responsive-image">响应式的图片</h3>
+            <p lang="zh">通过对图片标签 <code>{% filter escape %}<img>{% endfilter %}</code> 添加类 <code>.img-fluid</code> 或者 <code>.img-responsive</code> 即可设置图片为响应式的。</p>
+            <div class="td-example">
+                <div class="container">
+                    <img src="{{ asset('img/width.jpg') }}" class="img-responsive">
+                </div>
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                        <code class="xml html css javascript">
+                            {%- filter escape -%}
+<img src="{{ asset('img/width.jpg') }}" class="img-responsive">
+                            {%- endfilter -%}
+                        </code>
+                    </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+        <section>
+            <h3 id="variant-image">缩略图，圆形图，圆角图</h3>
+            <p lang="zh">
+                通过对图片标签 <code>{% filter escape %}<img>{% endfilter %}</code> 添加类 <code>.img-thumbnail</code> 即可设置图片为缩略图样式。
+                添加类 <code>.img-circle</code> 即可设置图片为圆形图样式。
+                添加类 <code>.img-rounded</code> 即可设置图片为圆角图样式。
+            </p>
+            <div class="td-example">
+                <img src="{{ asset('img/avatar.png') }}" class="img-thumbnail">
+                <img src="{{ asset('img/avatar.png') }}" class="img-circle">
+                <img src="{{ asset('img/avatar.png') }}" class="img-rounded">
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                        <code class="xml html css javascript">
+                            {%- filter escape -%}
+<img src="{{ asset('img/avatar.png') }}" class="img-thumbnail">
+<img src="{{ asset('img/avatar.png') }}" class="img-circle">
+<img src="{{ asset('img/avatar.png') }}" class="img-rounded">
+                            {%- endfilter -%}
+                        </code>
+                    </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+        <section>
+            <h3 id="figure"><code>{% filter escape %}<figure></figure>{% endfilter %}</code> 标签</h3>
+            <p class="lang">当需要为图片关联一段文本的时候，就可以使用 <code>{% filter escape %}<figure></figure>{% endfilter %}</code> 标签。</p>
+            <div class="td-example">
+                <figure class="figure">
+                    <img src="{{ asset('img/middle.jpg') }}" class="figure-img img-fluid img-rounded" alt="吉尔伽美什">
+                    <figcaption class="figure-caption text-right">"嘁！杂修！" -- 金闪闪</figcaption>
+                </figure>
+            </div>
+            <div class="td-code">
+                {% spaceless %}
+                    <pre class="highlight">
+                        <code class="xml html css javascript">
+                            {%- filter escape -%}
+<figure class="figure">
+    <img src="{{ asset('img/middle.jpg') }}" class="figure-img img-fluid img-rounded" alt="吉尔伽美什">
+    <figcaption class="figure-caption text-right">"嘁！杂修！" -- 金闪闪</figcaption>
+</figure>
+                            {%- endfilter -%}
+                        </code>
+                    </pre>
+                {% endspaceless %}
+            </div>
+        </section>
+    </section>
+{% endblock %}

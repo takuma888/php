@@ -1,0 +1,55 @@
+routing:
+    homepage:
+        path: /
+        defaults: { _controller: @TachigoUIModule:DefaultController:ActionIndex }
+    test_normalize:
+        path: /test/normalize
+        defaults: { _controller: @TachigoUIModule:TestController:ActionNormalize }
+    test_ui_normalize:
+        path: /test/ui-normalize
+        defaults: { _controller: @TachigoUIModule:TestController:ActionUINormalize }
+
+
+    ui_layout_container:
+        path: /layout/container
+        defaults: { _controller: @TachigoUIModule:LayoutController:ActionContainer }
+    ui_layout_grid:
+        path: /layout/grid
+        defaults: { _controller: @TachigoUIModule:LayoutController:ActionGrid }
+    ui_layout_responsive:
+        path: /layout/responsive
+        defaults: { _controller: @TachigoUIModule:LayoutController:ActionResponsive }
+    ui_layout_utils:
+        path: /layout/utils
+        defaults: { _controller: @TachigoUIModule:LayoutController:ActionUtils }
+
+    ui_content_typography:
+        path: /content/typography
+        defaults: { _controller: @TachigoUIModule:ContentController:ActionTypography }
+    ui_content_table:
+        path: /content/table
+        defaults: { _controller: @TachigoUIModule:ContentController:ActionTable }
+    ui_content_button:
+        path: /content/button
+        defaults: { _controller: @TachigoUIModule:ContentController:ActionButton }
+    ui_content_form:
+        path: /content/form
+        defaults: { _controller: @TachigoUIModule:ContentController:ActionForm }
+
+
+    ui_extra_badge:
+        path: /extra/badge
+        defaults: { _controller: @TachigoUIModule:ExtraController:ActionBadge }
+    ui_extra_breadcrumb:
+        path: /extra/breadcrumb
+        defaults: { _controller: @TachigoUIModule:ExtraController:ActionBreadcrumb }
+    ui_extra_card:
+        path: /extra/card
+        defaults: { _controller: @TachigoUIModule:ExtraController:ActionCard }
+    ui_extra_jumbotron:
+        path: /extra/jumbotron
+        defaults: { _controller: @TachigoUIModule:ExtraController:ActionJumbotron }
+
+    ui_component_alert:
+        path: /component/alert
+        defaults: { _controller: @TachigoUIModule:ComponentController:ActionAlert }

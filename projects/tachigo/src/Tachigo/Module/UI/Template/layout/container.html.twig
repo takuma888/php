@@ -1,0 +1,62 @@
+{% extends '@TachigoUIModule/layout.html.twig' %}
+
+{% block html_title %}容器 -- Grid system{{ parent() }}{% endblock%}
+
+{% block page_lead %}
+    TUI采用了经典的12列栅格布局， 类命名规范和 Bootstrap 相同， 同时支持使用Flex盒子模型进行布局。 如果只需要使用TUI的布局框架， 可以只引用 tui-grid.css (tui-grid.min.css) 样式文件。
+{% endblock %}
+
+
+{% block main %}
+    <section>
+        <h2 id="containers">容器 ( Container )</h2>
+        <p lang="zh">
+            同 Bootstrap 以及很多其他 UI 框架一样， 容器是最基础的布局元素， 当需要使用我们默认的栅格系统来进行布局设计时， 必须先使用我们容器元素， 如果不将栅格元素包含在容器元素内的话， 会出现显示上的一些问题。
+            <code>.container</code>为响应式的容器， 面对不同的屏幕宽度时， <code>max-width</code>为变化为合适的值。 而 <code>.container-fluid</code> 则在任何时候宽度都是 <code>100%</code>。
+        </p>
+        <p lang="zh">Bootstrap 建议很多布局不需要嵌套的容器。</p>
+        <div class="td-example">
+            <div class="td-example-container">
+                <div class="td-example-container-header"></div>
+                <div class="td-example-container-sidebar"></div>
+                <div class="td-example-container-body"></div>
+            </div>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+            <pre class="highlight">
+                <code class="xml css javascript">
+                    {%- filter escape -%}
+<div class="/* tui */ container">
+    <!-- Content here -->
+</div>
+                {%- endfilter -%}
+                </code>
+            </pre>
+            {% endspaceless %}
+        </div>
+        <p lang="zh">
+            使用 <code>.container-fluid</code> 作为占满视窗真个宽度的容器
+        </p>
+        <div class="td-example">
+            <div class="td-example-container td-example-container-fluid">
+                <div class="td-example-container-header"></div>
+                <div class="td-example-container-sidebar"></div>
+                <div class="td-example-container-body"></div>
+            </div>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml css javascript">
+                        {%- filter escape -%}
+<div class="/* tui */ container-fuild">
+    <!-- Content here -->
+</div>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+{% endblock %}

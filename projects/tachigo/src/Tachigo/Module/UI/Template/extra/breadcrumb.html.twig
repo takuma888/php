@@ -1,0 +1,70 @@
+{% extends '@TachigoUIModule/layout.html.twig' %}
+
+{% block html_title %}面包屑导航 -- Breadcrumb{{ parent() }}{% endblock%}
+
+{% block page_lead %}
+    TUI 的面包屑导航相关类命名规范和 Bootstrap 相同， 如果只需要使用TUI的徽章， 可以只引用 tui-breadcrumb.css (tui-breadcrumb.min.css) 样式文件。
+{% endblock %}
+
+
+{% block main %}
+    <section>
+        <h2 id="breadcrumb-overview">示例</h2>
+        <p lang="zh">
+            因为面包屑导航属于导航的一种，所以最好将面包屑导航放到标签 <code>{% filter escape %}<nav></nav>{% endfilter %}</code> 中，并添加属性 <code>aria-label="breadcrumb"</code>。
+            默认的面包屑导航是直角的，这个与 Bootstrap 有所不同，如果要使用圆角的，需要在 <code>.breadcrumb</code> 添加类 <code>.breadcrumb-rounded</code>。
+        </p>
+        <div class="td-example">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Home</li>
+                </ol>
+            </nav>
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                </ol>
+            </nav>
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-rounded">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Library</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Data</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home</li>
+    </ol>
+</nav>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Library</li>
+    </ol>
+</nav>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-rounded">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Library</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Data</li>
+    </ol>
+</nav>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+{% endblock %}
