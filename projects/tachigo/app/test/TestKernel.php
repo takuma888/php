@@ -24,6 +24,7 @@ namespace
                 'log_root' => LOG_ROOT,
                 'src_root' => SRC_ROOT,
                 'cache_root' => CACHE_ROOT,
+                'vendor_root' => VENDOR_ROOT,
             ], 'Test');
             parent::setCurrentKernelNamespace($this->getNamespace());
 
