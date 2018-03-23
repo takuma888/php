@@ -342,7 +342,7 @@ class Database
     /**
      * Get a clone of this database with different options.
      *
-     * @see Database::__construct() for supported options
+     * @see Client::__construct() for supported options
      * @param array $options Database constructor options
      * @return Database
      * @throws InvalidArgumentException for parameter/option parsing errors

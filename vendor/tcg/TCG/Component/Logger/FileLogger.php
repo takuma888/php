@@ -11,7 +11,7 @@ class FileLogger extends AbstractLogger
 
     protected $channel = '';
 
-    protected $realpath = '';
+    protected $realPath = '';
 
 
     public function __construct($path, $channel)
@@ -34,14 +34,14 @@ class FileLogger extends AbstractLogger
         if (!is_writable($path)) {
             throw new \InvalidArgumentException("日志根目录{$path}需要有写入的权限");
         }
-        $this->realpath = $path;
+        $this->realPath = $path;
     }
 
 
 
     public function log($level, $message, array $context = array())
     {
-        $dir = $this->realpath . DIRECTORY_SEPARATOR . $this->channel . DIRECTORY_SEPARATOR . $level;
+        $dir = $this->realPath . DIRECTORY_SEPARATOR . $this->channel . DIRECTORY_SEPARATOR . $level;
         if (!file_exists($dir)) {
             $mkdir = @mkdir($dir, 0775, true);
             if (!$mkdir) {

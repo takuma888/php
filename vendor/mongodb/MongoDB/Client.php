@@ -202,7 +202,7 @@ class Client
     /**
      * Select a database.
      *
-     * @see Database::__construct() for supported options
+     * @see Client::__construct() for supported options
      * @param string $databaseName Name of the database to select
      * @param array  $options      Database constructor options
      * @return Database
