@@ -18,6 +18,18 @@ class Connection extends \PDO
     protected static $connection = [];
 
     /**
+     * @var Client
+     */
+    protected $client;
+
+
+    public function setClient(Client $client)
+    {
+        $this->client = $client;
+    }
+
+
+    /**
      * 解析dsn字符串
      * @param $dsn
      * @return array
@@ -46,12 +58,14 @@ class Connection extends \PDO
 
     /**
      * 链接数据库
-     * @param array $config
+     * @param string $dsn
+     * @param Client $client
      * @return Connection
      */
-    public static function connect(array $config)
+    public static function connect($dsn, Client $client)
     {
-        $key = md5(json_encode($config));
+        $config = self::parseDsn($dsn);
+        $key = md5($dsn);
         if (isset(self::$connection[$key])) {
             try {
                 self::$connection[$key]->ping();
@@ -70,6 +84,7 @@ class Connection extends \PDO
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
             );
             $pdo = new Connection($dsn, $user, $pass, $connectionOptions);
+            $pdo->setClient($client);
             $pdo->setAttribute(\PDO::ATTR_STATEMENT_CLASS, 'TCG\Component\Database\MySQL\Statement');
             $pdo->exec("set @@sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'");
             if (!empty($config['collation'])) {
@@ -160,10 +175,24 @@ class Connection extends \PDO
      */
     public function statement($sql, array $params = [])
     {
+        $start = microtime(true);
+        $logger = $this->client->getLogger();
+        if ($logger) {
+            $logger->debug('MySQL Query: ' . $sql . ' [start]' . $start);
+        }
         try {
             /** @var Statement $statement */
             $statement = $this->prepare($sql);
             $statement->execute($params);
+            $end = microtime(true);
+            $cost = ($end - $start) * 1000;
+            if ($logger) {
+                $logger->debug('MySQL Query: ' . $sql . ' [end]' . $end . ' [cost]' . $cost . ' ms');
+            }
+            if ($cost > 10) {
+                // larger than 10ms
+                $logger->critical('MySQL Slow Query: ' . $sql . ' [cost]' . $cost . ' ms');
+            }
             return $statement;
         } catch (\PDOException $e) {
             throw $e;

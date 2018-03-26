@@ -3,6 +3,8 @@
 namespace TCG\Component\Database\MySQL;
 
 
+use Psr\Log\LoggerInterface;
+
 class Client
 {
 
@@ -40,6 +42,11 @@ class Client
      */
     protected $collate = '';
 
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
     public function __construct(array $config)
     {
         $this->masterConfiguration = $config['master'];
@@ -51,6 +58,22 @@ class Client
         $this->prefix = isset($config['table_prefix']) ? $config['table_prefix'] : '';
         $this->charset = isset($config['charset']) ? $config['charset'] : 'utf8mb4';
         $this->collate = isset($config['collate']) ? $config['collate'] : 'utf8mb4_general_ci';
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
+     * @return LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this->logger;
     }
 
     /**
@@ -118,8 +141,7 @@ class Client
      */
     public function getMasterConnection()
     {
-        $dsnConfig = Connection::parseDsn($this->masterConfiguration);
-        $connection = Connection::connect($dsnConfig);
+        $connection = Connection::connect($this->masterConfiguration, $this);
         return $connection;
     }
 
@@ -148,8 +170,7 @@ class Client
         if (!empty($this->slavesConfiguration)) {
             $index = mt_rand(0, count($this->slavesConfiguration) - 1);
             $slaveDsn = $this->slavesConfiguration[$index];
-            $dsnConfig = Connection::parseDsn($slaveDsn);
-            $connection = Connection::connect($dsnConfig);
+            $connection = Connection::connect($slaveDsn, $this);
             return $connection;
         } else {
             return $this->getMasterConnection();
@@ -179,13 +200,17 @@ class Client
         return $this->getConnection($master);
     }
 
-
+    /**
+     * @return Query\QueryBuilder
+     */
     public function createQueryBuilder()
     {
         return new Query\QueryBuilder($this);
     }
 
-
+    /**
+     * @return Query\Expression\ExpressionBuilder
+     */
     public function createExpressionBuilder()
     {
         return new Query\Expression\ExpressionBuilder();

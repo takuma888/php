@@ -70,22 +70,115 @@ abstract class Table
         }
     }
 
-
+    /**
+     * @param array $multiFields
+     * @return string
+     * @throws \Exception
+     */
     public function multiInsert(array $multiFields)
     {
+        $client = $this->getClient();
+        $tableName = $this->getName();
+        $queryBuilder = $client->createQueryBuilder()->insert($tableName);
+        $row_count = 0;
+        $multiValues = [];
+        foreach ($multiFields as $fields) {
+            $row_count += 1;
+            $values = [];
+            foreach ($fields as $field => $value) {
+                $values['`' . $field . '`'] = ':' . $field . '_' . $row_count;
+                $queryBuilder->setParameter(':' . $field . '_' . $row_count, $value);
+            }
+            $multiValues[] = $values;
+        }
+        $queryBuilder->values($multiValues);
 
+        $sql = $queryBuilder->getSQL();
+        $params = $queryBuilder->getParameters();
+        try {
+            $stmt = $client->master()->statement($sql, $params);
+            return $stmt->getLastInsertId();
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
-
-    public function merge(array $fields)
+    /**
+     * @param array $fields
+     * @param array $updates
+     * @return string
+     * @throws \Exception
+     */
+    public function merge(array $fields, array $updates = [])
     {
-
+        $client = $this->getClient();
+        $tableName = $this->getName();
+        $queryBuilder = $client->createQueryBuilder()->insert($tableName);
+        foreach ($fields as $field => $value) {
+            if ($value !== null) {
+                $queryBuilder->setValue('`' . $field . '`', ':' . $field)->setParameter(':' . $field, $value);
+            }
+        }
+        $sql = $queryBuilder->getSQL();
+        $duplicateUpdates = [];
+        foreach ($fields as $field) {
+            $duplicateUpdates[$field] = "`{$field}` = VALUES(`{$field}`)";
+        }
+        foreach ($updates as $field => $expr) {
+            $duplicateUpdates[$field] = $expr;
+        }
+        $sql .= "ON DUPLICATE KEY UPDATE " . implode(', ', $duplicateUpdates);
+        $params = $queryBuilder->getParameters();
+        try {
+            $stmt = $client->master()->statement($sql, $params);
+            return $stmt->getLastInsertId();
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
-
-    public function multiMerge(array $multiFields)
+    /**
+     * @param array $multiFields
+     * @param array $updates
+     * @return string
+     * @throws \Exception
+     */
+    public function multiMerge(array $multiFields, array $updates = [])
     {
+        $client = $this->getClient();
+        $tableName = $this->getName();
+        $queryBuilder = $client->createQueryBuilder()->insert($tableName);
+        $row_count = 0;
+        $multiValues = [];
+        $all_fields = [];
+        foreach ($multiFields as $fields) {
+            $row_count += 1;
+            $values = [];
+            foreach ($fields as $field => $value) {
+                $all_fields[$field] = $field;
+                $values['`' . $field . '`'] = ':' . $field . '_' . $row_count;
+                $queryBuilder->setParameter(':' . $field . '_' . $row_count, $value);
+            }
+            $multiValues[] = $values;
+        }
+        $queryBuilder->values($multiValues);
 
+        $sql = $queryBuilder->getSQL();
+        $duplicateUpdates = [];
+        foreach ($all_fields as $field) {
+            $duplicateUpdates[$field] = "`{$field}` = VALUES(`{$field}`)";
+        }
+        foreach ($updates as $field => $expr) {
+            $duplicateUpdates[$field] = $expr;
+        }
+        $sql .= "ON DUPLICATE KEY UPDATE " . implode(', ', $duplicateUpdates);
+        $params = $queryBuilder->getParameters();
+        try {
+            $stmt = $client->master()->statement($sql, $params);
+            return $stmt->getLastInsertId();
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
 
