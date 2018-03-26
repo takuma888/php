@@ -7,10 +7,30 @@ use Psr\Log\LoggerInterface;
 class Client
 {
 
+    /**
+     * @var string
+     */
     protected $host;
+
+    /**
+     * @var number
+     */
     protected $port;
+
+    /**
+     * @var string
+     */
     protected $pass;
+
+    /**
+     * @var number
+     */
     protected $db;
+
+    /**
+     * @var string
+     */
+    protected $prefix;
 
     /**
      * @var Connection[]
@@ -29,6 +49,7 @@ class Client
         $this->port = $config['port'];
         $this->pass = $config['pass'];
         $this->db = $config['db'];
+        $this->prefix = $config['prefix'];
     }
 
     /**
@@ -45,6 +66,14 @@ class Client
     public function getLogger()
     {
         return $this->logger;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
     }
 
 
