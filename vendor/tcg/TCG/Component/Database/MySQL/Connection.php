@@ -142,7 +142,7 @@ class Connection extends \PDO
                 call_user_func($fallback);
                 $this->commit();
             } catch (\Exception $e) {
-                $this->rollback();
+                $this->rollBack();
             }
         }
     }
@@ -160,7 +160,7 @@ class Connection extends \PDO
     /**
      * 回滚事务
      */
-    public function rollback()
+    public function rollBack()
     {
         if ($this->inTransaction()) {
             parent::rollBack();
