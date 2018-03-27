@@ -113,10 +113,12 @@ abstract class Kernel
                 throw new \Exception("{$bundleName} require {$parentBundle}");
             }
         }
-        $this->bundles[$bundleName] = $bundle;
-        // config
-        $bundleConfigFiles = $bundle->getConfigFiles();
-        $this->addConfigFiles($bundleConfigFiles);
+        if (!isset($this->bundles[$bundleName])) {
+            $this->bundles[$bundleName] = $bundle;
+            // config
+            $bundleConfigFiles = $bundle->getConfigFiles();
+            $this->addConfigFiles($bundleConfigFiles);
+        }
         return $this;
     }
 

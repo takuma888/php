@@ -203,9 +203,10 @@ class QueryBuilder
      *     echo $qb->getSQL(); // SELECT u FROM User u
      * </code>
      *
+     * @param string $append
      * @return string The SQL query string.
      */
-    public function getSQL()
+    public function getSQL($append = '')
     {
         if ($this->sql !== null && $this->state === self::STATE_CLEAN) {
             return $this->sql;
@@ -230,7 +231,7 @@ class QueryBuilder
         }
 
         $this->state = self::STATE_CLEAN;
-        $this->sql = $sql;
+        $this->sql = $sql . $append;
 
         return $sql;
     }

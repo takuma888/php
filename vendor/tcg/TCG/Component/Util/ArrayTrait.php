@@ -87,14 +87,14 @@ trait ArrayTrait
 
     public function __get($key)
     {
-        $key = $this->underscore($key);
+        $key = StringUtil::underscore($key);
         return $this->get($key);
     }
 
 
     public function __set($key, $value)
     {
-        $key = $this->underscore($key);
+        $key = StringUtil::underscore($key);
         $this->set($key, $value);
     }
 
@@ -135,14 +135,14 @@ trait ArrayTrait
         return array_keys($this->data);
     }
 
-    protected function camelize($string)
+    protected function camelcase($string)
     {
-        return strtr(ucwords(strtolower(strtr($string, array('_' => ' ',)))), array(' ' => ''));
+        return StringUtil::camelcase($string);
     }
 
 
     protected function underscore($string)
     {
-        return strtolower(preg_replace(array('/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'), array('\\1_\\2', '\\1_\\2'), strtr($string, '_', '.')));
+        return StringUtil::underscore($string);
     }
 }

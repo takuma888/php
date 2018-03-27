@@ -3,6 +3,8 @@
 namespace TCG\Component\Database\MySQL;
 
 
+use TCG\Component\Database\MySQL\Query\QueryBuilder;
+
 abstract class Table
 {
     /**
@@ -53,13 +55,7 @@ abstract class Table
     public function insert(array $fields)
     {
         $client = $this->getClient();
-        $tableName = $this->getName();
-        $queryBuilder = $client->createQueryBuilder()->insert($tableName);
-        foreach ($fields as $field => $value) {
-            if ($value !== null) {
-                $queryBuilder->setValue('`' . $field . '`', ':' . $field)->setParameter(':' . $field, $value);
-            }
-        }
+        $queryBuilder = $this->getInsertQuery($fields);
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -71,11 +67,49 @@ abstract class Table
     }
 
     /**
+     * @param array $fields
+     * @return Query\QueryBuilder
+     */
+    public function getInsertQuery(array $fields)
+    {
+        $client = $this->getClient();
+        $tableName = $this->getName();
+        $queryBuilder = $client->createQueryBuilder()->insert($tableName);
+        foreach ($fields as $field => $value) {
+            if ($value !== null) {
+                $queryBuilder->setValue('`' . $field . '`', ':' . $field)->setParameter(':' . $field, $value);
+            }
+        }
+        return $queryBuilder;
+    }
+
+
+
+    /**
      * @param array $multiFields
      * @return string
      * @throws \Exception
      */
     public function multiInsert(array $multiFields)
+    {
+        $client = $this->getClient();
+        $queryBuilder = $this->getMultiInsertQuery($multiFields);
+        $sql = $queryBuilder->getSQL();
+        $params = $queryBuilder->getParameters();
+        try {
+            $stmt = $client->master()->statement($sql, $params);
+            return $stmt->getLastInsertId();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+
+    /**
+     * @param array $multiFields
+     * @return Query\QueryBuilder
+     */
+    public function getMultiInsertQuery(array $multiFields)
     {
         $client = $this->getClient();
         $tableName = $this->getName();
@@ -92,7 +126,19 @@ abstract class Table
             $multiValues[] = $values;
         }
         $queryBuilder->values($multiValues);
+        return $queryBuilder;
+    }
 
+    /**
+     * @param array $fields
+     * @param array $updates
+     * @return string
+     * @throws \Exception
+     */
+    public function merge(array $fields, array $updates = [])
+    {
+        $client = $this->getClient();
+        $queryBuilder = $this->getMergeQuery($fields, $updates);
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -106,10 +152,9 @@ abstract class Table
     /**
      * @param array $fields
      * @param array $updates
-     * @return string
-     * @throws \Exception
+     * @return Query\QueryBuilder
      */
-    public function merge(array $fields, array $updates = [])
+    public function getMergeQuery(array $fields, array $updates = [])
     {
         $client = $this->getClient();
         $tableName = $this->getName();
@@ -119,7 +164,6 @@ abstract class Table
                 $queryBuilder->setValue('`' . $field . '`', ':' . $field)->setParameter(':' . $field, $value);
             }
         }
-        $sql = $queryBuilder->getSQL();
         $duplicateUpdates = [];
         foreach ($fields as $field) {
             $duplicateUpdates[$field] = "`{$field}` = VALUES(`{$field}`)";
@@ -127,14 +171,9 @@ abstract class Table
         foreach ($updates as $field => $expr) {
             $duplicateUpdates[$field] = $expr;
         }
-        $sql .= "ON DUPLICATE KEY UPDATE " . implode(', ', $duplicateUpdates);
-        $params = $queryBuilder->getParameters();
-        try {
-            $stmt = $client->master()->statement($sql, $params);
-            return $stmt->getLastInsertId();
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        $append = " ON DUPLICATE KEY UPDATE " . implode(', ', $duplicateUpdates);
+        $queryBuilder->getSQL($append);
+        return $queryBuilder;
     }
 
     /**
@@ -144,6 +183,26 @@ abstract class Table
      * @throws \Exception
      */
     public function multiMerge(array $multiFields, array $updates = [])
+    {
+        $client = $this->getClient();
+        $queryBuilder = $this->getMultiMergeQuery($multiFields, $updates);
+        $sql = $queryBuilder->getSQL();
+        $params = $queryBuilder->getParameters();
+        try {
+            $stmt = $client->master()->statement($sql, $params);
+            return $stmt->getLastInsertId();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+
+    /**
+     * @param array $multiFields
+     * @param array $updates
+     * @return Query\QueryBuilder
+     */
+    public function getMultiMergeQuery(array $multiFields, array $updates = [])
     {
         $client = $this->getClient();
         $tableName = $this->getName();
@@ -163,7 +222,6 @@ abstract class Table
         }
         $queryBuilder->values($multiValues);
 
-        $sql = $queryBuilder->getSQL();
         $duplicateUpdates = [];
         foreach ($all_fields as $field) {
             $duplicateUpdates[$field] = "`{$field}` = VALUES(`{$field}`)";
@@ -171,14 +229,10 @@ abstract class Table
         foreach ($updates as $field => $expr) {
             $duplicateUpdates[$field] = $expr;
         }
-        $sql .= "ON DUPLICATE KEY UPDATE " . implode(', ', $duplicateUpdates);
-        $params = $queryBuilder->getParameters();
-        try {
-            $stmt = $client->master()->statement($sql, $params);
-            return $stmt->getLastInsertId();
-        } catch (\Exception $e) {
-            throw $e;
-        }
+
+        $append = " ON DUPLICATE KEY UPDATE " . implode(', ', $duplicateUpdates);
+        $queryBuilder->getSQL($append);
+        return $queryBuilder;
     }
 
 
@@ -191,11 +245,44 @@ abstract class Table
     public function delete(\Closure $condition = null, array $partition = [])
     {
         $client = $this->getClient();
+        $queryBuilder = $this->getDeleteQuery($condition, $partition);
+        $sql = $queryBuilder->getSQL();
+        $params = $queryBuilder->getParameters();
+        try {
+            $stmt = $client->master()->statement($sql, $params);
+            return $stmt->getAffectedRowCount();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+
+    /**
+     * @param \Closure|null $condition
+     * @param array $partition
+     * @return Query\QueryBuilder
+     */
+    public function getDeleteQuery(\Closure $condition = null, array $partition = [])
+    {
+        $client = $this->getClient();
         $tableName = $this->getName($partition);
         $queryBuilder = $client->createQueryBuilder()->delete($tableName);
         if ($condition) {
             call_user_func_array($condition, [$queryBuilder, $client]);
         }
+        return $queryBuilder;
+    }
+
+    /**
+     * @param array $fields
+     * @param \Closure|null $condition
+     * @return int
+     * @throws \Exception
+     */
+    public function update(array $fields, \Closure $condition = null)
+    {
+        $client = $this->getClient();
+        $queryBuilder = $this->getUpdateQuery($fields, $condition);
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -209,10 +296,9 @@ abstract class Table
     /**
      * @param array $fields
      * @param \Closure|null $condition
-     * @return int
-     * @throws \Exception
+     * @return Query\QueryBuilder
      */
-    public function update(array $fields, \Closure $condition = null)
+    public function getUpdateQuery(array $fields, \Closure $condition = null)
     {
         $client = $this->getClient();
         $tableName = $this->getName($fields);
@@ -225,24 +311,16 @@ abstract class Table
         if ($condition) {
             call_user_func_array($condition, [$queryBuilder, $client]);
         }
-        $sql = $queryBuilder->getSQL();
-        $params = $queryBuilder->getParameters();
-        try {
-            $stmt = $client->master()->statement($sql, $params);
-            return $stmt->getAffectedRowCount();
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        return $queryBuilder;
     }
 
 
     /**
      * @param \Closure|null $condition
      * @param array $partition
-     * @return mixed|null
-     * @throws \Exception
+     * @return QueryBuilder
      */
-    public function one(\Closure $condition = null, array $partition = [])
+    public function getSelectQuery(\Closure $condition = null, array $partition = [])
     {
         $client = $this->getClient();
         $tableName = $this->getName($partition);
@@ -262,6 +340,20 @@ abstract class Table
         if (empty($from)) {
             $queryBuilder->from($tableName);
         }
+        return $queryBuilder;
+    }
+
+
+    /**
+     * @param \Closure|null $condition
+     * @param array $partition
+     * @return mixed|null
+     * @throws \Exception
+     */
+    public function one(\Closure $condition = null, array $partition = [])
+    {
+        $client = $this->getClient();
+        $queryBuilder = $this->getSelectQuery($condition, $partition);
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -276,6 +368,19 @@ abstract class Table
         }
     }
 
+    /**
+     * @param $id
+     * @param array $partition
+     * @return array|null
+     * @throws \Exception
+     */
+    public function oneById($id, array $partition = [])
+    {
+        return $this->one(function (QueryBuilder $queryBuilder, Client $client) use ($id) {
+            $queryBuilder->andWhere($queryBuilder->expr()->eq('id', ':id'))->setParameter(':id', $id);
+        }, $partition);
+    }
+
 
     /**
      * @param \Closure|null $condition
@@ -286,23 +391,7 @@ abstract class Table
     public function all(\Closure $condition = null, array $partition = [])
     {
         $client = $this->getClient();
-        $tableName = $this->getName($partition);
-        $queryBuilder = $client->createQueryBuilder();
-        if ($condition) {
-            call_user_func_array($condition, [$queryBuilder, $client]);
-        }
-        $select = $queryBuilder->getQueryPart('select');
-        if (empty($select)) {
-            $fields = [];
-            foreach ($this->getFields() as $field => $default) {
-                $fields[] = '`' . $field . '`';
-            }
-            $queryBuilder->select(implode(', ', $fields));
-        }
-        $from = $queryBuilder->getQueryPart('from');
-        if (empty($from)) {
-            $queryBuilder->from($tableName);
-        }
+        $queryBuilder = $this->getSelectQuery($condition, $partition);
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -324,16 +413,7 @@ abstract class Table
     public function size(\Closure $condition = null, array $partition = [])
     {
         $client = $this->getClient();
-        $tableName = $this->getName($partition);
-        $queryBuilder = $client->createQueryBuilder();
-        if ($condition) {
-            call_user_func_array($condition, [$queryBuilder, $client]);
-        }
-        $queryBuilder->select('COUNT(*) as `num`');
-        $from = $queryBuilder->getQueryPart('from');
-        if (empty($from)) {
-            $queryBuilder->from($tableName);
-        }
+        $queryBuilder = $this->getSizeQuery($condition, $partition);
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -349,6 +429,27 @@ abstract class Table
     }
 
     /**
+     * @param \Closure|null $condition
+     * @param array $partition
+     * @return QueryBuilder
+     */
+    public function getSizeQuery(\Closure $condition = null, array $partition = [])
+    {
+        $client = $this->getClient();
+        $tableName = $this->getName($partition);
+        $queryBuilder = $client->createQueryBuilder();
+        if ($condition) {
+            call_user_func_array($condition, [$queryBuilder, $client]);
+        }
+        $queryBuilder->select('COUNT(*) as `num`');
+        $from = $queryBuilder->getQueryPart('from');
+        if (empty($from)) {
+            $queryBuilder->from($tableName);
+        }
+        return $queryBuilder;
+    }
+
+    /**
      * @param $page
      * @param $size
      * @param \Closure|null $condition
@@ -357,6 +458,28 @@ abstract class Table
      * @throws \Exception
      */
     public function paginate($page, $size, \Closure $condition = null, array $partition = [])
+    {
+        $count = $this->size($condition, $partition);
+        $client = $this->getClient();
+        $queryBuilder = $this->getPaginateQuery($page, $size, $condition, $partition);
+        $sql = $queryBuilder->getSQL();
+        $params = $queryBuilder->getParameters();
+        try {
+            $stmt = $client->slave()->statement($sql, $params);
+            return new Paginate($stmt, $count, $page, $size);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param $page
+     * @param $size
+     * @param \Closure|null $condition
+     * @param array $partition
+     * @return QueryBuilder
+     */
+    public function getPaginateQuery($page, $size, \Closure $condition = null, array $partition = [])
     {
         $size = max(1, $size);
         $client = $this->getClient();
@@ -369,17 +492,9 @@ abstract class Table
         if (empty($from)) {
             $queryBuilder->from($tableName);
         }
-        $count = $this->size($condition, $partition);
         $queryBuilder->setFirstResult(max(0, ($page - 1) * $size));
         $queryBuilder->setMaxResults($size);
-        $sql = $queryBuilder->getSQL();
-        $params = $queryBuilder->getParameters();
-        try {
-            $stmt = $client->slave()->statement($sql, $params);
-            return new Paginate($stmt, $count, $page, $size);
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        return $queryBuilder;
     }
 
 
@@ -422,6 +537,16 @@ abstract class Table
             $client->master()->statement($sql);
         }
         return $sql;
+    }
+
+    /**
+     * @param array $fields
+     * @return Model
+     */
+    public function model(array $fields = [])
+    {
+        $tableModelClass = $this->client->getModelClass($this->name);
+        return new $tableModelClass($this, $fields);
     }
 
     /**

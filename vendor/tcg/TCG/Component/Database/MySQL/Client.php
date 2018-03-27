@@ -450,15 +450,41 @@ class Client
 
     /**
      * @param $tableName
-     * @return Table
+     * @return string
      * @throws \Exception
      */
-    public function table($tableName)
+    public function getTableClass($tableName)
     {
         if (empty($this->shards) || !isset($this->shards[$tableName]) || !isset($this->shards[$tableName]['class'])) {
             throw new \Exception("表 $tableName 配置不正确");
         }
         $tableClass = $this->shards[$tableName]['class'];
+        return $tableClass;
+    }
+
+    /**
+     * @param $tableName
+     * @return string
+     * @throws \Exception
+     */
+    public function getModelClass($tableName)
+    {
+        if (empty($this->shards) || !isset($this->shards[$tableName]) || !isset($this->shards[$tableName]['model'])) {
+            throw new \Exception("表 $tableName 配置不正确");
+        }
+        $tableModelClass = $this->shards[$tableName]['model'];
+        return $tableModelClass;
+    }
+
+
+    /**
+     * @param $tableName
+     * @return Table
+     * @throws \Exception
+     */
+    public function table($tableName)
+    {
+        $tableClass = $this->getTableClass($tableName);
         /** @var Table $table */
         $table = new $tableClass($this, $tableName);
         return $table;
