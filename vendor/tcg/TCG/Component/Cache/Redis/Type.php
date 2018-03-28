@@ -38,8 +38,8 @@ abstract class Type
     }
 
 
-    public function getKey()
+    public function getKey($key = null)
     {
-        return $this->client->getPrefix() . $this->name;
+        return trim($this->client->getPrefix(), ':') . ':' . $this->name . ($key ? ':' . $key : '');
     }
 }

@@ -1,0 +1,24 @@
+services:
+    # data provider
+    # tcg cmf user data provider
+    tcg_bundle.cmf.data_provider.user:
+        class: TCG\Bundle\CMF\DataProvider\UserProvider
+        calls:
+            - [setMySQL, [@tcg_bundle.cmf.mysql.main.client]]
+            - [setRedis, [@tcg_bundle.cmf.redis.client]]
+    # tcg cmf role data provider
+    tcg_bundle.cmf.data_provider.role:
+        class: TCG\Bundle\CMF\DataProvider\RoleProvider
+        calls:
+            - [setMySQL, [@tcg_bundle.cmf.mysql.main.client]]
+            - [setRedis, [@tcg_bundle.cmf.redis.client]]
+    # tcg cmf log data provider
+    tcg_bundle.cmf.data_provider.log:
+        class: TCG\Bundle\CMF\DataProvider\LogProvider
+        calls:
+            - [setMySQL, [@tcg_bundle.cmf.mysql.main.client]]
+
+
+    # aware tcg_bundle.cmf
+    tcg_bundle.cmf.bundle_aware:
+        class: TCG\Bundle\CMF\BundleAware

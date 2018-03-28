@@ -1,0 +1,17 @@
+parameters:
+    tcg_bundle.cmf.redis.client:
+        host: %tcg_bundle.cmf.redis.host%
+        port: %tcg_bundle.cmf.redis.port%
+        pass: %tcg_bundle.cmf.redis.pass%
+        db: %tcg_bundle.cmf.redis.db%
+        prefix: %tcg_bundle.cmf.redis.prefix%
+
+services:
+    # tcg cmf redis client
+    tcg_bundle.cmf.redis.client:
+        class: TCG\Bundle\CMF\Cache\Redis\Client
+        arguments: [%tcg_bundle.cmf.redis.client%]
+    # types ...
+    tcg_bundle.cmf.redis.type.user:
+        class: TCG\Component\Cache\Redis\ScalarType
+        arguments: [@tcg_bundle.cmf.redis.client, user]

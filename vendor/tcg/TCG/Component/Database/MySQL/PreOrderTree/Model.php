@@ -35,7 +35,7 @@ abstract class Model extends BaseModel
     public function getSubTree()
     {
         /** @var Table $table */
-        $table = $this->table;
+        $table = $this->getTable();
         $results = $table->getSubTree($this->id);
         $return = [];
         foreach ($results as $row) {
@@ -50,7 +50,7 @@ abstract class Model extends BaseModel
     public function getTree()
     {
         /** @var Table $table */
-        $table = $this->table;
+        $table = $this->getTable();
         $results = $table->getTree();
         $return = [];
         foreach ($results as $row) {
@@ -66,7 +66,7 @@ abstract class Model extends BaseModel
     public function getDirectParent()
     {
         /** @var Table $table */
-        $table = $this->table;
+        $table = $this->getTable();
         $row = $table->getDirectParentNode($this->id);
         $return = null;
         if ($row) {
@@ -82,7 +82,7 @@ abstract class Model extends BaseModel
     public function getDirectChildren()
     {
         /** @var Table $table */
-        $table = $this->table;
+        $table = $this->getTable();
         $results = $table->getDirectChildNodes($this->id);
         $return = [];
         foreach ($results as $row) {
@@ -97,7 +97,7 @@ abstract class Model extends BaseModel
     public function getPath()
     {
         /** @var Table $table */
-        $table = $this->table;
+        $table = $this->getTable();
         $path = $table->getPath($this->id);
         $return = [];
         foreach ($path as $row) {
@@ -114,7 +114,7 @@ abstract class Model extends BaseModel
     public function insertChild(array $fields, $returnNewModel = false)
     {
         /** @var Table $table */
-        $table = $this->table;
+        $table = $this->getTable();
         /** @var Model $childId */ // 只是为了编辑器好看增加的注释
         $childId = $table->insertChildNode($fields, $this->rightValue);
         if ($returnNewModel) {
@@ -132,7 +132,7 @@ abstract class Model extends BaseModel
     public function remove()
     {
         /** @var Table $table */
-        $table = $this->table;
+        $table = $this->getTable();
         $table->removeNode($this->leftValue, $this->rightValue);
     }
 
@@ -142,7 +142,7 @@ abstract class Model extends BaseModel
     public function removeRecursive()
     {
         /** @var Table $table */
-        $table = $this->table;
+        $table = $this->getTable();
         $table->removeRecursiveNodes($this->leftValue, $this->rightValue);
     }
 

@@ -17,6 +17,7 @@ abstract class Table
      */
     private $name;
 
+
     /**
      * Table constructor.
      * @param Client $client
@@ -49,11 +50,12 @@ abstract class Table
 
     /**
      * @param array $fields
+     * @param array $partition
      * @return string
      */
-    public function insert(array $fields)
+    public function insert(array $fields, array $partition = [])
     {
-        $queryBuilder = $this->getInsertQuery($fields);
+        $queryBuilder = $this->getInsertQuery($fields, $partition);
         return $this->execInsertQuery($queryBuilder);
     }
 
@@ -77,12 +79,13 @@ abstract class Table
 
     /**
      * @param array $fields
+     * @param array $partition
      * @return Query\QueryBuilder
      */
-    public function getInsertQuery(array $fields)
+    public function getInsertQuery(array $fields, array $partition = [])
     {
         $client = $this->getClient();
-        $tableName = $this->getName();
+        $tableName = $this->getName($partition);
         $queryBuilder = $client->createQueryBuilder()->insert($tableName);
         foreach ($fields as $field => $value) {
             if ($value !== null) {
@@ -94,11 +97,12 @@ abstract class Table
 
     /**
      * @param array $multiFields
+     * @param array $partition
      * @return string
      */
-    public function multiInsert(array $multiFields)
+    public function multiInsert(array $multiFields, array $partition = [])
     {
-        $queryBuilder = $this->getMultiInsertQuery($multiFields);
+        $queryBuilder = $this->getMultiInsertQuery($multiFields, $partition);
         return $this->execMultiInsertQuery($queryBuilder);
     }
 
@@ -123,12 +127,13 @@ abstract class Table
 
     /**
      * @param array $multiFields
+     * @param array $partition
      * @return Query\QueryBuilder
      */
-    public function getMultiInsertQuery(array $multiFields)
+    public function getMultiInsertQuery(array $multiFields, array $partition = [])
     {
         $client = $this->getClient();
-        $tableName = $this->getName();
+        $tableName = $this->getName($partition);
         $queryBuilder = $client->createQueryBuilder()->insert($tableName);
         $row_count = 0;
         $multiValues = [];
@@ -148,11 +153,12 @@ abstract class Table
     /**
      * @param array $fields
      * @param array $updates
+     * @param array $partition
      * @return string
      */
-    public function merge(array $fields, array $updates = [])
+    public function merge(array $fields, array $updates = [], array $partition = [])
     {
-        $queryBuilder = $this->getMergeQuery($fields, $updates);
+        $queryBuilder = $this->getMergeQuery($fields, $updates, $partition);
         return $this->execMergeQuery($queryBuilder);
     }
 
@@ -177,12 +183,13 @@ abstract class Table
     /**
      * @param array $fields
      * @param array $updates
+     * @param array $partition
      * @return Query\QueryBuilder
      */
-    public function getMergeQuery(array $fields, array $updates = [])
+    public function getMergeQuery(array $fields, array $updates = [], array $partition = [])
     {
         $client = $this->getClient();
-        $tableName = $this->getName();
+        $tableName = $this->getName($partition);
         $queryBuilder = $client->createQueryBuilder()->insert($tableName);
         foreach ($fields as $field => $value) {
             if ($value !== null) {
@@ -204,11 +211,12 @@ abstract class Table
     /**
      * @param array $multiFields
      * @param array $updates
+     * @param array $partition
      * @return string
      */
-    public function multiMerge(array $multiFields, array $updates = [])
+    public function multiMerge(array $multiFields, array $updates = [], array $partition = [])
     {
-        $queryBuilder = $this->getMultiMergeQuery($multiFields, $updates);
+        $queryBuilder = $this->getMultiMergeQuery($multiFields, $updates, $partition);
         return $this->execMultiMergeQuery($queryBuilder);
     }
 
@@ -234,12 +242,13 @@ abstract class Table
     /**
      * @param array $multiFields
      * @param array $updates
+     * @param array $partition
      * @return Query\QueryBuilder
      */
-    public function getMultiMergeQuery(array $multiFields, array $updates = [])
+    public function getMultiMergeQuery(array $multiFields, array $updates = [], array $partition = [])
     {
         $client = $this->getClient();
-        $tableName = $this->getName();
+        $tableName = $this->getName($partition);
         $queryBuilder = $client->createQueryBuilder()->insert($tableName);
         $row_count = 0;
         $multiValues = [];
@@ -319,11 +328,12 @@ abstract class Table
     /**
      * @param array $fields
      * @param \Closure|null $condition
+     * @param array $partition
      * @return int
      */
-    public function update(array $fields, \Closure $condition = null)
+    public function update(array $fields, \Closure $condition = null, array $partition = [])
     {
-        $queryBuilder = $this->getUpdateQuery($fields, $condition);
+        $queryBuilder = $this->getUpdateQuery($fields, $condition, $partition);
         return $this->execUpdateQuery($queryBuilder);
     }
 
@@ -348,12 +358,13 @@ abstract class Table
     /**
      * @param array $fields
      * @param \Closure|null $condition
+     * @param array $partition
      * @return Query\QueryBuilder
      */
-    public function getUpdateQuery(array $fields, \Closure $condition = null)
+    public function getUpdateQuery(array $fields, \Closure $condition = null, array $partition = [])
     {
         $client = $this->getClient();
-        $tableName = $this->getName($fields);
+        $tableName = $this->getName($partition);
         $queryBuilder = $client->createQueryBuilder()->update($tableName);
         foreach ($fields as $field => $value) {
             if ($value !== null) {
@@ -394,6 +405,24 @@ abstract class Table
         }
         return $queryBuilder;
     }
+
+    /**
+     * @param \Closure|null $condition
+     * @param array $partition
+     * @return Statement
+     */
+    public function select(\Closure $condition = null, array $partition = [])
+    {
+        $client = $this->getClient();
+        $queryBuilder = $this->getSelectQuery($condition, $partition);
+        $sql = $queryBuilder->getSQL();
+        $params = $queryBuilder->getParameters();
+        $stmt = $client->slave()->statement($sql, $params);
+        $size = $this->size($condition, $params);
+        $stmt->setCount($size);
+        return $stmt;
+    }
+
 
 
     /**

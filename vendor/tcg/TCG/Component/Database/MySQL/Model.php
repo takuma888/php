@@ -26,7 +26,12 @@ abstract class Model implements \ArrayAccess
     /**
      * @var Table
      */
-    protected $table;
+    private $_table;
+
+    /**
+     * @var array
+     */
+    private $_modified = [];
 
     /**
      * Model constructor.
@@ -36,7 +41,7 @@ abstract class Model implements \ArrayAccess
     public function __construct(Table $table, array $fields = [])
     {
         $this->_fields = $table->getFields();
-        $this->table = $table;
+        $this->_table = $table;
         if (!isset($this->_fields['id'])) {
             $this->_fields['id'] = 0;
         }
@@ -45,6 +50,14 @@ abstract class Model implements \ArrayAccess
                 $this->{$property} = $fields[$field];
             }
         }
+    }
+
+    /**
+     * @return Table
+     */
+    public function getTable()
+    {
+        return $this->_table;
     }
 
     /**
@@ -103,17 +116,32 @@ abstract class Model implements \ArrayAccess
 
 
     /**
-     * @return $this
+     * @return $this|int
      */
     public function insert()
     {
-        $table = $this->table;
+        $table = $this->_table;
         if ($this->id > 0) {
-            return $this->mergeTo($table);
+            /** @var Model $update */ // 为了编辑器好看才加的一个错误的注释
+            $update = $this->update();
+            return $update;
         }
         $lastInsertId = $table->insert($this->toRawArray());
         $this->id = $lastInsertId;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function update()
+    {
+        $table = $this->_table;
+        $data = $this->toRawArray();
+        $id = $data['id'];
+        return $table->update($this->_modified, function (QueryBuilder $queryBuilder) use ($id) {
+            $queryBuilder->andWhere($queryBuilder->expr()->eq('id', ':id'))->setParameter(':id', $id);
+        }, $data);
     }
 
 
@@ -122,8 +150,10 @@ abstract class Model implements \ArrayAccess
      */
     public function merge()
     {
-        $table = $this->table;
-        $table->merge($this->toRawArray());
+        $table = $this->_table;
+        $data = $this->toRawArray();
+        unset($data['id']);
+        $table->merge($data);
         return $this;
     }
 
@@ -132,7 +162,7 @@ abstract class Model implements \ArrayAccess
      */
     public function remove()
     {
-        $table = $this->table;
+        $table = $this->_table;
         $id = $this->id;
         $table->delete(function (QueryBuilder $queryBuilder, Client $client) use ($id) {
             $queryBuilder->andWhere($queryBuilder->expr()->eq('id', ':id'))->setParameter(':id', $id);
@@ -146,13 +176,19 @@ abstract class Model implements \ArrayAccess
      */
     public function set($key, $value)
     {
+        $old_value = $this->get($key);
         $setter = 'set' . StringUtil::camelcase($key);
         if (method_exists($this, $setter)) {
             $this->$setter($value);
+
         } else {
             if (($property = $this->hasProperty($key)) != false) {
                 $this->{$property} = $value;
             }
+        }
+        // 检查数据变化情况
+        if ($old_value != $value) {
+            $this->_modified[$key] = $value;
         }
     }
 

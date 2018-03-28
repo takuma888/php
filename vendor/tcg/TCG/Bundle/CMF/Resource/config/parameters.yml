@@ -1,0 +1,19 @@
+parameters:
+
+    tcg_bundle.cmf.session_domain: # tcg cmf session 生效域名
+
+    tcg_bundle.cmf.mysql.main.master: # tcg cmf mysql 主连接
+    tcg_bundle.cmf.mysql.main.slaves: [] # tcg cmf mysql 从连接
+    tcg_bundle.cmf.mysql.main.table_prefix: # tcg cmf mysql 表前缀
+    tcg_bundle.cmf.mysql.main.db: # tcg cmf mysql 主库
+
+    tcg_bundle.cmf.mysql.log.master: # tcg cmf mysql 日志主连接
+    tcg_bundle.cmf.mysql.log.slaves: [] # tcg cmf mysql 日志从连接
+    tcg_bundle.cmf.mysql.log.table_prefix: # tcg cmf mysql 日志表前缀
+    tcg_bundle.cmf.mysql.log.db: # tcg cmf mysql 日志库
+
+    tcg_bundle.cmf.redis.host: # tcg cmf redis 地址
+    tcg_bundle.cmf.redis.port: # tcg cmf redis 端口
+    tcg_bundle.cmf.redis.pass: ~ # tcg cmf redis 验证密码
+    tcg_bundle.cmf.redis.db: # tcg cmf redis 库编号
+    tcg_bundle.cmf.redis.prefix: tcg_cmf: # tcg cmf redis KEY前缀

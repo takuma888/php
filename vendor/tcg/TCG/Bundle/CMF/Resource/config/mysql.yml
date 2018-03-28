@@ -1,0 +1,60 @@
+parameters:
+    tcg_bundle.cmf.mysql.main.client:
+        master: %tcg_bundle.cmf.mysql.main.master%
+        slaves: %tcg_bundle.cmf.mysql.main.slaves%
+        table_prefix: cmf_
+        shards:
+            - table_name: sessions
+              db_name: %tcg_bundle.cmf.mysql.main.db%
+              deploy: [0]
+            - table_name: users
+              db_name: %tcg_bundle.cmf.mysql.main.db%
+              deploy: [0]
+            - table_name: roles
+              db_name: %tcg_bundle.cmf.mysql.main.db%
+              deploy: [0]
+            - table_name: user2role
+              db_name: %tcg_bundle.cmf.mysql.main.db%
+              deploy: [0]
+            - table_name: role2permission
+              db_name: %tcg_bundle.cmf.mysql.main.db%
+              deploy: [0]
+    tcg_bundle.cmf.mysql.log.client:
+        master: %tcg_bundle.cmf.mysql.log.master%
+        slaves: %tcg_bundle.cmf.mysql.log.slaves%
+        shards:
+            - table_name: log
+              db_name: %tcg_bundle.cmf.mysql.log.db%
+              deploy: [4] # 按天分表
+
+
+services:
+    # tcg cmf mysql main client
+    tcg_bundle.cmf.mysql.main.client:
+        class: TCG\Bundle\CMF\Database\MySQL\MainClient
+        arguments: [%tcg_bundle.cmf.mysql.main.client%]
+    # tables ...
+    tcg_bundle.cmf.mysql.main.table.sessions:
+        class: TCG\Bundle\CMF\Database\MySQL\Table\Sessions
+        arguments: [@tcg_bundle.cmf.mysql.main.client, sessions]
+    tcg_bundle.cmf.mysql.main.table.users:
+        class: TCG\Bundle\CMF\Database\MySQL\Table\Users
+        arguments: [@tcg_bundle.cmf.mysql.main.client, users]
+    tcg_bundle.cmf.mysql.main.table.roles:
+        class: TCG\Bundle\CMF\Database\MySQL\Table\Roles
+        arguments: [@tcg_bundle.cmf.mysql.main.client, roles]
+    tcg_bundle.cmf.mysql.main.table.user2role:
+        class: TCG\Bundle\CMF\Database\MySQL\Table\User2Role
+        arguments: [@tcg_bundle.cmf.mysql.main.client, user2role]
+    tcg_bundle.cmf.mysql.main.table.role2permission:
+        class: TCG\Bundle\CMF\Database\MySQL\Table\Role2Permission
+        arguments: [@tcg_bundle.cmf.mysql.main.client, role2permission]
+
+    # tcg cmf mysql log client
+    tcg_bundle.cmf.mysql.log.client:
+        class: TCG\Bundle\CMF\Database\MySQL\LogClient
+        arguments: [%tcg_bundle.cmf.mysql.log.client%]
+    # tables ...
+    tcg_bundle.cmf.mysql.log.table.log:
+        class: TCG\Bundle\CMF\Database\MySQL\Table\Logs
+        arguments: [@tcg_bundle.cmf.mysql.log.client, log]
