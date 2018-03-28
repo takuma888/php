@@ -11,11 +11,14 @@ class Paginate implements \IteratorAggregate
     protected $first = 1;
     protected $last = 1;
     protected $count = 0;
-    protected $stmt;
+    /**
+     * @var array
+     */
+    protected $data = [];
 
-    public function __construct(Statement $stmt, $count, $page, $size)
+    public function __construct(array $data, $count, $page, $size)
     {
-        $this->stmt = $stmt;
+        $this->data = $data;
         $this->size = $size;
         $this->page = $page;
         $this->count = $count;
@@ -69,11 +72,8 @@ class Paginate implements \IteratorAggregate
         $this->first = $first;
     }
 
-    /**
-     * @return Statement
-     */
     public function getIterator()
     {
-        return $this->stmt;
+        return new \ArrayIterator($this->data);
     }
 }

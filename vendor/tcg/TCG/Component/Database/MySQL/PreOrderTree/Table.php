@@ -255,7 +255,7 @@ SQL;
      * @param $nodeLeftValue
      * @param $nodeRightValue
      */
-    public function remove($nodeLeftValue, $nodeRightValue)
+    public function removeNode($nodeLeftValue, $nodeRightValue)
     {
         $tableName = $this->getName();
         $sql = <<<SQL
@@ -280,7 +280,7 @@ SQL;
      * @param $nodeLeftValue
      * @param $nodeRightValue
      */
-    public function removeRecursive($nodeLeftValue, $nodeRightValue)
+    public function removeRecursiveNodes($nodeLeftValue, $nodeRightValue)
     {
         $tableName = $this->getName();
         $nodeWidth = $nodeRightValue - $nodeLeftValue + 1;

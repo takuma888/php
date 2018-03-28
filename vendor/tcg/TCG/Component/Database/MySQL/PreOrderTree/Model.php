@@ -44,6 +44,21 @@ abstract class Model extends BaseModel
         return $return;
     }
 
+    /**
+     * @return $this[]
+     */
+    public function getTree()
+    {
+        /** @var Table $table */
+        $table = $this->table;
+        $results = $table->getTree();
+        $return = [];
+        foreach ($results as $row) {
+            $return[] = $table->model($row);
+        }
+        return $return;
+    }
+
 
     /**
      * @return null|$this
@@ -118,7 +133,7 @@ abstract class Model extends BaseModel
     {
         /** @var Table $table */
         $table = $this->table;
-        $table->remove($this->leftValue, $this->rightValue);
+        $table->removeNode($this->leftValue, $this->rightValue);
     }
 
     /**
@@ -128,7 +143,7 @@ abstract class Model extends BaseModel
     {
         /** @var Table $table */
         $table = $this->table;
-        $table->removeRecursive($this->leftValue, $this->rightValue);
+        $table->removeRecursiveNodes($this->leftValue, $this->rightValue);
     }
 
 }

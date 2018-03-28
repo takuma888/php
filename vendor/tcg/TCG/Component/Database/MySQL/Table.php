@@ -50,12 +50,21 @@ abstract class Table
     /**
      * @param array $fields
      * @return string
-     * @throws \Exception
      */
     public function insert(array $fields)
     {
-        $client = $this->getClient();
         $queryBuilder = $this->getInsertQuery($fields);
+        return $this->execInsertQuery($queryBuilder);
+    }
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     * @return string
+     * @throws \Exception
+     */
+    public function execInsertQuery(QueryBuilder $queryBuilder)
+    {
+        $client = $this->getClient();
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -83,17 +92,24 @@ abstract class Table
         return $queryBuilder;
     }
 
-
-
     /**
      * @param array $multiFields
      * @return string
-     * @throws \Exception
      */
     public function multiInsert(array $multiFields)
     {
-        $client = $this->getClient();
         $queryBuilder = $this->getMultiInsertQuery($multiFields);
+        return $this->execMultiInsertQuery($queryBuilder);
+    }
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     * @return string
+     * @throws \Exception
+     */
+    public function execMultiInsertQuery(QueryBuilder $queryBuilder)
+    {
+        $client = $this->getClient();
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -133,12 +149,21 @@ abstract class Table
      * @param array $fields
      * @param array $updates
      * @return string
-     * @throws \Exception
      */
     public function merge(array $fields, array $updates = [])
     {
-        $client = $this->getClient();
         $queryBuilder = $this->getMergeQuery($fields, $updates);
+        return $this->execMergeQuery($queryBuilder);
+    }
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     * @return string
+     * @throws \Exception
+     */
+    public function execMergeQuery(QueryBuilder $queryBuilder)
+    {
+        $client = $this->getClient();
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -180,12 +205,21 @@ abstract class Table
      * @param array $multiFields
      * @param array $updates
      * @return string
-     * @throws \Exception
      */
     public function multiMerge(array $multiFields, array $updates = [])
     {
-        $client = $this->getClient();
         $queryBuilder = $this->getMultiMergeQuery($multiFields, $updates);
+        return $this->execMultiMergeQuery($queryBuilder);
+    }
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     * @return string
+     * @throws \Exception
+     */
+    public function execMultiMergeQuery(QueryBuilder $queryBuilder)
+    {
+        $client = $this->getClient();
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -240,12 +274,21 @@ abstract class Table
      * @param \Closure|null $condition
      * @param array $partition
      * @return int
-     * @throws \Exception
      */
     public function delete(\Closure $condition = null, array $partition = [])
     {
-        $client = $this->getClient();
         $queryBuilder = $this->getDeleteQuery($condition, $partition);
+        return $this->execDeleteQuery($queryBuilder);
+    }
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     * @return int
+     * @throws \Exception
+     */
+    public function execDeleteQuery(QueryBuilder $queryBuilder)
+    {
+        $client = $this->getClient();
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -277,12 +320,21 @@ abstract class Table
      * @param array $fields
      * @param \Closure|null $condition
      * @return int
-     * @throws \Exception
      */
     public function update(array $fields, \Closure $condition = null)
     {
-        $client = $this->getClient();
         $queryBuilder = $this->getUpdateQuery($fields, $condition);
+        return $this->execUpdateQuery($queryBuilder);
+    }
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     * @return int
+     * @throws \Exception
+     */
+    public function execUpdateQuery(QueryBuilder $queryBuilder)
+    {
+        $client = $this->getClient();
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -408,12 +460,22 @@ abstract class Table
      * @param \Closure|null $condition
      * @param array $partition
      * @return int
-     * @throws \Exception
      */
     public function size(\Closure $condition = null, array $partition = [])
     {
-        $client = $this->getClient();
         $queryBuilder = $this->getSizeQuery($condition, $partition);
+        return $this->execSizeQuery($queryBuilder);
+    }
+
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     * @return int
+     * @throws \Exception
+     */
+    public function execSizeQuery(QueryBuilder $queryBuilder)
+    {
+        $client = $this->getClient();
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
@@ -455,18 +517,30 @@ abstract class Table
      * @param \Closure|null $condition
      * @param array $partition
      * @return Paginate
-     * @throws \Exception
      */
     public function paginate($page, $size, \Closure $condition = null, array $partition = [])
     {
         $count = $this->size($condition, $partition);
-        $client = $this->getClient();
         $queryBuilder = $this->getPaginateQuery($page, $size, $condition, $partition);
+        return $this->execPaginateQuery($queryBuilder, $count, $page, $size);
+    }
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     * @param $count
+     * @param $page
+     * @param $size
+     * @return Paginate
+     * @throws \Exception
+     */
+    public function execPaginateQuery(QueryBuilder $queryBuilder, $count, $page, $size)
+    {
+        $client = $this->getClient();
         $sql = $queryBuilder->getSQL();
         $params = $queryBuilder->getParameters();
         try {
             $stmt = $client->slave()->statement($sql, $params);
-            return new Paginate($stmt, $count, $page, $size);
+            return new Paginate($stmt->all(), $count, $page, $size);
         } catch (\Exception $e) {
             throw $e;
         }
