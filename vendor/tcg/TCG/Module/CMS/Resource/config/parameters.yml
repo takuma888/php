@@ -1,4 +1,11 @@
 parameters:
+    site.name:
+    site.icon:
+    site.logo:
+    site.url_scheme: http
+    site.url_domain:
+    site.url_port: ~ # default 80 in http, 443 in https
+
     tcg_module.cms.mysql.main.master: # tcg cms mysql 主连接
     tcg_module.cms.mysql.main.slaves: [] # tcg cms mysql 从连接
     tcg_module.cms.mysql.main.table_prefix: # tcg cms mysql 表前缀

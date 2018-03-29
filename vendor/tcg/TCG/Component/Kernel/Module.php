@@ -89,11 +89,6 @@ abstract class Module extends Bundle
      */
     public function getExecRoot()
     {
-        if ($this->execRoot) {
-            $dir = $this->getRoot() . '/' . $this->execRoot;
-        } else {
-            $dir = $this->getRoot();
-        }
-        return $dir;
+        return $this->execRoot;
     }
 }

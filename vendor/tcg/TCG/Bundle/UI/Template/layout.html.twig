@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block html_title %}{% endblock %}</title>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    {% block stylesheets_global_mandatory %}
+        {% if parameters['tcg_bundle.ui.vendor.font_awesome.path'] %}
+            <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.ui.vendor.font_awesome.path'] }}">
+        {% endif %}
+        {% if parameters['tcg_bundle.ui.core.css.path'] %}
+            <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.ui.core.css.path'] }}">
+        {% endif %}
+        {% if parameters['tcg_bundle.ui.vendor.code.css.path'] %}
+            <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.ui.vendor.code.css.path'] }}">
+        {% endif %}
+        {% if parameters['tcg_bundle.ui.vendor.jquery.path'] %}
+            <script type="text/javascript" src="{{ parameters['tcg_bundle.ui.vendor.jquery.path'] }}"></script>
+        {% endif %}
+    {% endblock %}
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
+    {% block stylesheets_page_level_plugin %}{% endblock %}
+    <!-- END PAGE LEVEL PLUGIN STYLES -->
+    <!-- BEGIN PAGE STYLES -->
+    {% block stylesheets_page_styles %}
+    {% endblock %}
+    <!-- END PAGE STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    {% block stylesheets_theme_styles %}
+    {% endblock %}
+    <!-- END THEME STYLES -->
+    {% block styles_text %}
+        {% if parameters['tcg_bundle.ui.vendor.code.css.path'] %}
+            <style type="text/css">
+                .hljs {
+                    padding: 0;
+                }
+            </style>
+        {% endif %}
+    {% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+{% block body %}{% endblock %}
+<!-- BEGIN CORE PLUGINS -->
+{% block scripts_core_plugins %}
+    {% if parameters['tcg_bundle.ui.vendor.popper.path'] %}
+        <script type="text/javascript" src="{{ parameters['tcg_bundle.ui.vendor.popper.path'] }}"></script>
+    {% endif %}
+    {% if parameters['tcg_bundle.ui.core.js.path'] %}
+        <script type="text/javascript" src="{{ parameters['tcg_bundle.ui.core.js.path'] }}"></script>
+    {% endif %}
+    {% if parameters['tcg_bundle.ui.vendor.code.js.path'] %}
+        <script type="text/javascript" src="{{ parameters['tcg_bundle.ui.vendor.code.js.path'] }}"></script>
+    {% endif %}
+{% endblock %}
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+{% block scripts_page_level_plugins %}
+{% endblock %}
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+{% block scripts_page_level_scripts %}
+{% endblock %}
+<!-- END PAGE LEVEL SCRIPTS -->
+{% block scripts_text %}
+    {% if parameters['tcg_bundle.ui.vendor.code.js.path'] and parameters['tcg_bundle.ui.vendor.jquery.path'] %}
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                $('pre.highlight code').each(function (i, block) {
+                    hljs.highlightBlock(block);
+                })
+            });
+        </script>
+    {% endif %}
+{% endblock %}
+<!-- END JAVASCRIPTS -->
+</body>
+</html>

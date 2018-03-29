@@ -1,63 +1,51 @@
 parameters:
-    twig.engine_configuration:
+    tcg_bundle.twig.engine_configuration:
         cache: false
         debug: true
+    tcg_bundle.twig.cdn_url: ~
+    tcg_bundle.twig.cdn_version_suffix: ~
 
 services:
-    twig.filesystem_loader:
+    tcg_bundle.twig.filesystem_loader:
         class: Twig_Loader_Filesystem
-#        calls:
-#            - [addPath, [%zero_root%/Zero/Module/Zero/Twig/Template, ZeroTwigModule]]
-    twig.extension.string_loader:
+    tcg_bundle.twig.extension.string_loader:
         class: Twig_Extension_StringLoader
-    twig.engine:
+    tcg_bundle.twig.engine:
         class: Twig_Environment
-        arguments: [@twig.filesystem_loader, %twig.engine_configuration%]
+        arguments: [@tcg_bundle.twig.filesystem_loader, %tcg_bundle.twig.engine_configuration%]
         calls:
-            - [addExtension, [@twig.extension.string_loader]]
+            - [addExtension, [@tcg_bundle.twig.extension.string_loader]]
             - [addGlobal, [session, $?session]]
             - [addGlobal, [parameters, $parameters]]
             - [addGlobal, [request, $request]]
-            - [addFunction, [@tcg.twig_bundle.function.path]]
-            - [addFunction, [@tcg.twig_bundle.function.url]]
-            - [addFunction, [@tcg.twig_bundle.function.asset]]
-            - [addFunction, [@tcg.twig_bundle.function.cdn]]
-            - [addFunction, [@tcg.twig_bundle.function.dump]]
-            - [addFunction, [@tcg.twig_bundle.function.render]]
-            - [addFunction, [@tcg.twig_bundle.function.service_tag]]
-#            - [addFilter, [@tcg.twig_bundle.filter.to_array]]
-#            - [addFilter, [@tcg.twig_bundle.filter.add_array_element]]
-#            - [addFilter, [@tcg.twig_bundle.filter.json_decode]]
+            - [addFunction, [@tcg_bundle.twig.function.path]]
+            - [addFunction, [@tcg_bundle.twig.function.url]]
+            - [addFunction, [@tcg_bundle.twig.function.asset]]
+            - [addFunction, [@tcg_bundle.twig.function.cdn]]
+            - [addFunction, [@tcg_bundle.twig.function.dump]]
+            - [addFunction, [@tcg_bundle.twig.function.render]]
+            - [addFunction, [@tcg_bundle.twig.function.service_tag]]
 
     # twig functions
-    tcg.twig_bundle.function.path:
+    tcg_bundle.twig.function.path:
         class: Twig_SimpleFunction
         factory: [TCG\Bundle\Twig\Functions\PathFunction, getTwigFunction, [@service_container]]
-    tcg.twig_bundle.function.url:
+    tcg_bundle.twig.function.url:
         class: Twig_SimpleFunction
         factory: [TCG\Bundle\Twig\Functions\UrlFunction, getTwigFunction, [@service_container]]
-    tcg.twig_bundle.function.asset:
+    tcg_bundle.twig.function.asset:
         class: Twig_SimpleFunction
         factory: [TCG\Bundle\Twig\Functions\AssetFunction, getTwigFunction, [@service_container]]
-    tcg.twig_bundle.function.cdn:
+    tcg_bundle.twig.function.cdn:
         class: Twig_SimpleFunction
         factory: [TCG\Bundle\Twig\Functions\CdnFunction, getTwigFunction, [@service_container]]
-    tcg.twig_bundle.function.dump:
+    tcg_bundle.twig.function.dump:
         class: Twig_SimpleFunction
         factory: [TCG\Bundle\Twig\Functions\DumpFunction, getTwigFunction, [@service_container]]
-    tcg.twig_bundle.function.render:
+    tcg_bundle.twig.function.render:
         class: Twig_SimpleFunction
         factory: [TCG\Bundle\Twig\Functions\RenderFunction, getTwigFunction, [@service_container]]
-    tcg.twig_bundle.function.service_tag:
+    tcg_bundle.twig.function.service_tag:
         class: Twig_SimpleFunction
         factory: [TCG\Bundle\Twig\Functions\ServiceTagFunction, getTwigFunction, [@service_container]]
-    # twig filters
-#    tcg.twig_bundle.filter.to_array:
-#        class: Twig_SimpleFilter
-#        factory: [TCG\Bundle\Twig\Filters\ToArrayFilter, getTwigFilter, [@service_container]]
-#    tcg.twig_bundle.filter.json_decode:
-#        class: Twig_SimpleFilter
-#        factory: [TCG\Bundle\Twig\Filters\JsonDecodeFilter, getTwigFilter, [@service_container]]
-#    tcg.twig_bundle.filter.add_array_element:
-#        class: Twig_SimpleFilter
-#        factory: [TCG\Bundle\Twig\Filters\AddArrayElementFilter, getTwigFilter, [@service_container]]
+

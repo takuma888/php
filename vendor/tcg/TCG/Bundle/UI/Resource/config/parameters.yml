@@ -1,0 +1,8 @@
+parameters:
+    tcg_bundle.ui.core.css.path:
+    tcg_bundle.ui.core.js.path:
+    tcg_bundle.ui.vendor.jquery.path:
+    tcg_bundle.ui.vendor.popper.path:
+    tcg_bundle.ui.vendor.code.css.path:
+    tcg_bundle.ui.vendor.code.js.path:
+    tcg_bundle.ui.vendor.font_awesome.path:

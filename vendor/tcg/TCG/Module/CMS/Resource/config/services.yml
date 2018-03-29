@@ -1,5 +1,15 @@
+parameters:
+    tcg_module.cms.template_root.global: %vendor_root%/tcg/TCG/Module/CMS/Template
+    tcg_module.cms.template_root.admin: %vendor_root%/tcg/TCG/Module/CMS/Admin/Template
+
+
 services:
     symfony.component.session_handler.pdo_handler:
         class: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
         arguments: [@tcg_module.cms.mysql.main.pdo.session, %tcg_module.cms.session.option%]
         tags: [session_handler]
+
+    tcg_bundle.twig.filesystem_loader:
+        calls:
+            - [addPath, [%tcg_module.cms.template_root.global%, TCGCMSModule]]
+            - [addPath, [%tcg_module.cms.template_root.admin%, TCGCMSModule:Admin]]
