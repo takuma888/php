@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS {@table} (
   `key` VARCHAR(32) NOT NULL DEFAULT '' COMMENT 'ID',
   `name` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '名称',
   `description` VARCHAR(256) NOT NULL DEFAULT '' COMMENT '描述',
+  `create_at` INT(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_at` INT(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   `left_value` INT(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '预排续树左值',
   `right_value` INT(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '预排续树右值',
   PRIMARY KEY (`id`),
@@ -33,6 +35,8 @@ SQL;
             'key' => '',
             'name' => '',
             'description' => '',
+            'create_at' => 0,
+            'update_at' => 0,
             'left_value' => 0,
             'right_value' => 0,
         ];

@@ -68,21 +68,30 @@ class UserService
     {
         $this->providerUser()
             ->remove($user);
-
     }
 
     /**
      * @param User $user
-     * @return Administrator
+     * @return Account
      */
-    public function administrator(User $user)
+    public function account(User $user)
     {
-        $administrator = new Administrator();
-        $administrator->setUser($user);
+        $account = new Account();
+        $account->setUser($user);
 
         // 查询出角色
+        $roles = $this->providerRole()
+            ->allByUser($user);
+        foreach ($roles as $role) {
+            $account->addRole($role);
+            // 权限
+            $permissions = $this->providerRole()
+                ->permissionsByRole($role);
+            foreach ($permissions as $permissionId) {
+                $account->addPermission($permissionId);
+            }
+        }
 
-
-        return $administrator;
+        return $account;
     }
 }

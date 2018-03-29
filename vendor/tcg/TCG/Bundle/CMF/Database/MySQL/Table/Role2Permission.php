@@ -11,7 +11,7 @@ class Role2Permission extends Table
         $sql = <<<SQL
 CREATE TABLE IF NOT EXISTS {@table} (
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `role_id` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '角色ID',
+  `role_id` INT(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '角色ID',
   `permission_id` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '权限ID',
   `create_at` INT(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
   PRIMARY KEY (`id`),
@@ -24,7 +24,7 @@ SQL;
     public function getFields()
     {
         return [
-            'role_id' => '',
+            'role_id' => 0,
             'permission_id' => '',
             'create_at' => 0,
         ];

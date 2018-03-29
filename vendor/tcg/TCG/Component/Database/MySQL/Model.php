@@ -72,7 +72,7 @@ abstract class Model implements \ArrayAccess
      * @param $key
      * @return string
      */
-    private function key2Property($key)
+    public function key2Property($key)
     {
         $property = lcfirst(StringUtil::camelcase($key));
         return $property;

@@ -88,6 +88,7 @@ abstract class Table
         $tableName = $this->getName($partition);
         $queryBuilder = $client->createQueryBuilder()->insert($tableName);
         foreach ($fields as $field => $value) {
+            $field = trim($field, '`');
             if ($value !== null) {
                 $queryBuilder->setValue('`' . $field . '`', ':' . $field)->setParameter(':' . $field, $value);
             }
@@ -141,6 +142,7 @@ abstract class Table
             $row_count += 1;
             $values = [];
             foreach ($fields as $field => $value) {
+                $field = trim($field, '`');
                 $values['`' . $field . '`'] = ':' . $field . '_' . $row_count;
                 $queryBuilder->setParameter(':' . $field . '_' . $row_count, $value);
             }
@@ -192,15 +194,18 @@ abstract class Table
         $tableName = $this->getName($partition);
         $queryBuilder = $client->createQueryBuilder()->insert($tableName);
         foreach ($fields as $field => $value) {
+            $field = trim($field, '`');
             if ($value !== null) {
                 $queryBuilder->setValue('`' . $field . '`', ':' . $field)->setParameter(':' . $field, $value);
             }
         }
         $duplicateUpdates = [];
         foreach ($fields as $field) {
+            $field = trim($field, '`');
             $duplicateUpdates[$field] = "`{$field}` = VALUES(`{$field}`)";
         }
         foreach ($updates as $field => $expr) {
+            $field = trim($field, '`');
             $duplicateUpdates[$field] = $expr;
         }
         $append = " ON DUPLICATE KEY UPDATE " . implode(', ', $duplicateUpdates);
@@ -257,6 +262,7 @@ abstract class Table
             $row_count += 1;
             $values = [];
             foreach ($fields as $field => $value) {
+                $field = trim($field, '`');
                 $all_fields[$field] = $field;
                 $values['`' . $field . '`'] = ':' . $field . '_' . $row_count;
                 $queryBuilder->setParameter(':' . $field . '_' . $row_count, $value);
@@ -267,6 +273,7 @@ abstract class Table
 
         $duplicateUpdates = [];
         foreach ($all_fields as $field) {
+            $field = trim($field, '`');
             $duplicateUpdates[$field] = "`{$field}` = VALUES(`{$field}`)";
         }
         foreach ($updates as $field => $expr) {
@@ -367,8 +374,9 @@ abstract class Table
         $tableName = $this->getName($partition);
         $queryBuilder = $client->createQueryBuilder()->update($tableName);
         foreach ($fields as $field => $value) {
+            $field = trim($field, '`');
             if ($value !== null) {
-                $queryBuilder->set($field, ':' . $field)->setParameter(':' . $field, $value);
+                $queryBuilder->set('`' . $field . '`', ':' . $field)->setParameter(':' . $field, $value);
             }
         }
         if ($condition) {
@@ -395,6 +403,7 @@ abstract class Table
         if (empty($select)) {
             $fields = [];
             foreach ($this->getFields() as $field => $default) {
+                $field = trim($field, '`');
                 $fields[] = '`' . $field . '`';
             }
             $queryBuilder->select(implode(', ', $fields));

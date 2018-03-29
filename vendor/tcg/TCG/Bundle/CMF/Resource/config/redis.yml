@@ -15,3 +15,6 @@ services:
     tcg_bundle.cmf.redis.type.user:
         class: TCG\Component\Cache\Redis\ScalarType
         arguments: [@tcg_bundle.cmf.redis.client, user]
+    tcg_bundle.cmf.redis.type.role:
+        class: TCG\Component\Cache\Redis\ScalarType
+        arguments: [@tcg_bundle.cmf.redis.client, role]

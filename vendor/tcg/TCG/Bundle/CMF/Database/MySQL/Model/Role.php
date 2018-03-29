@@ -10,10 +10,14 @@ use TCG\Component\Database\MySQL\PreOrderTree\Model;
  * @property $key
  * @property $name
  * @property $description
+ * @property $createAt
+ * @property $updateAt
  */
 class Role extends Model
 {
     protected $key;
     protected $name;
     protected $description;
+    protected $createAt;
+    protected $updateAt;
 }

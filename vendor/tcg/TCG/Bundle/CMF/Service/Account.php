@@ -5,7 +5,7 @@ namespace TCG\Bundle\CMF\Service;
 use TCG\Bundle\CMF\Database\MySQL\Model\Role;
 use TCG\Bundle\CMF\Database\MySQL\Model\User;
 
-class Administrator
+class Account
 {
     /**
      * @var User

@@ -2,7 +2,7 @@ parameters:
     tcg_bundle.cmf.mysql.main.client:
         master: %tcg_bundle.cmf.mysql.main.master%
         slaves: %tcg_bundle.cmf.mysql.main.slaves%
-        table_prefix: cmf_
+        table_prefix: %tcg_bundle.cmf.mysql.main.table_prefix%
         shards:
             - table_name: sessions
               db_name: %tcg_bundle.cmf.mysql.main.db%
@@ -22,6 +22,7 @@ parameters:
     tcg_bundle.cmf.mysql.log.client:
         master: %tcg_bundle.cmf.mysql.log.master%
         slaves: %tcg_bundle.cmf.mysql.log.slaves%
+        table_prefix: %tcg_bundle.cmf.mysql.log.table_prefix%
         shards:
             - table_name: log
               db_name: %tcg_bundle.cmf.mysql.log.db%

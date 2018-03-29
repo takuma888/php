@@ -112,13 +112,14 @@ class UserProvider extends AbstractProvider
         $user->insert();
         $data = $user->toRawArray();
         $this->cacheUpdate($data);
+        return $user;
     }
-
 
 
     /**
      * @param User $user
      * @param array $fields
+     * @return User
      */
     public function update(User $user, array $fields)
     {
@@ -129,10 +130,12 @@ class UserProvider extends AbstractProvider
         $user->update();
         $data = $user->toRawArray();
         $this->cacheUpdate($data);
+        return $user;
     }
 
     /**
      * @param User $user
+     * @return User
      */
     public function merge(User $user)
     {
@@ -140,6 +143,7 @@ class UserProvider extends AbstractProvider
         $user->merge();
         $data = $user->toRawArray();
         $this->cacheUpdate($data);
+        return $user;
     }
 
     /**
@@ -147,8 +151,15 @@ class UserProvider extends AbstractProvider
      */
     public function remove(User $user)
     {
+        // 删除用户
         $user->remove();
         $data = $user->toRawArray();
         $this->cacheClear($data);
+        // 删除与用户关联的角色关系
+        $this->dbMain()
+            ->tblUser2Role()
+            ->delete(function (QueryBuilder $queryBuilder) use ($data) {
+                $queryBuilder->andWhere($queryBuilder->expr()->eq('user_id', ':user_id'))->setParameter(':user_id', $data['id']);
+            });
     }
 }
