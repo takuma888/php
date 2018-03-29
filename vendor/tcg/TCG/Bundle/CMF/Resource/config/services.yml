@@ -40,6 +40,6 @@ services:
         class: Twig_SimpleFilter
         factory: [TCG\Bundle\CMF\Twig\Filters\PermissionFilter, getTwigFilter]
 
-    twig.engine:
+    tcg_bundle.twig.engine:
         calls:
           - [addFilter, [@tcg_bundle.cmf.twig_filter.permission]]

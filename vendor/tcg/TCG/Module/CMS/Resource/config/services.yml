@@ -1,7 +1,5 @@
 parameters:
     tcg_module.cms.template_root.global: %vendor_root%/tcg/TCG/Module/CMS/Template
-    tcg_module.cms.template_root.admin: %vendor_root%/tcg/TCG/Module/CMS/Admin/Template
-
 
 services:
     symfony.component.session_handler.pdo_handler:
@@ -12,4 +10,3 @@ services:
     tcg_bundle.twig.filesystem_loader:
         calls:
             - [addPath, [%tcg_module.cms.template_root.global%, TCGCMSModule]]
-            - [addPath, [%tcg_module.cms.template_root.admin%, TCGCMSModule:Admin]]

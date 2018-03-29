@@ -1,0 +1,8 @@
+parameters:
+    tcg_module.cms.template_root.admin: %vendor_root%/tcg/TCG/Module/CMS/Admin/Template
+
+
+services:
+    tcg_bundle.twig.filesystem_loader:
+        calls:
+            - [addPath, [%tcg_module.cms.template_root.admin%, TCGCMSModule:Admin]]

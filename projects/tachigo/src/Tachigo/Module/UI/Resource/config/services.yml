@@ -2,6 +2,6 @@ parameters:
     tachigo_ui_module.template_root: %src_root%/Tachigo/Module/UI/Template
 
 services:
-    twig.filesystem_loader:
+    tcg_bundle.twig.filesystem_loader:
         calls:
             - [addPath, [%tachigo_ui_module.template_root%, TachigoUIModule]]

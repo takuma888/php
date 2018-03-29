@@ -32,6 +32,9 @@ routing:
     ui_content_button:
         path: /content/button
         defaults: { _controller: @TachigoUIModule:ContentController:ActionButton }
+    ui_content_bootstrap_form:
+        path: /content/bootstrap-form
+        defaults: { _controller: @TachigoUIModule:ContentController:ActionBootstrapForm }
     ui_content_form:
         path: /content/form
         defaults: { _controller: @TachigoUIModule:ContentController:ActionForm }

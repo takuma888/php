@@ -39,7 +39,7 @@ abstract class TwigHttpExec extends HttpExec
         $global_template_path = null;
         $namespace_template_path = null;
         /** @var \Twig_Environment $engine */
-        $engine = getContainer()->get('twig.engine');
+        $engine = getContainer()->get('tcg_bundle.twig.engine');
         try {
             $template = $engine->loadTemplate($template_path);
             $response = $template->render($context);
