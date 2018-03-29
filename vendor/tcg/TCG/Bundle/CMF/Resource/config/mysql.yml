@@ -24,7 +24,7 @@ parameters:
         slaves: %tcg_bundle.cmf.mysql.log.slaves%
         table_prefix: %tcg_bundle.cmf.mysql.log.table_prefix%
         shards:
-            - table_name: log
+            - table_name: logs
               db_name: %tcg_bundle.cmf.mysql.log.db%
               deploy: [4] # 按天分表
 
@@ -35,9 +35,6 @@ services:
         class: TCG\Bundle\CMF\Database\MySQL\MainClient
         arguments: [%tcg_bundle.cmf.mysql.main.client%]
     # tables ...
-    tcg_bundle.cmf.mysql.main.table.sessions:
-        class: TCG\Bundle\CMF\Database\MySQL\Table\Sessions
-        arguments: [@tcg_bundle.cmf.mysql.main.client, sessions]
     tcg_bundle.cmf.mysql.main.table.users:
         class: TCG\Bundle\CMF\Database\MySQL\Table\Users
         arguments: [@tcg_bundle.cmf.mysql.main.client, users]
@@ -58,4 +55,4 @@ services:
     # tables ...
     tcg_bundle.cmf.mysql.log.table.log:
         class: TCG\Bundle\CMF\Database\MySQL\Table\Logs
-        arguments: [@tcg_bundle.cmf.mysql.log.client, log]
+        arguments: [@tcg_bundle.cmf.mysql.log.client, logs]

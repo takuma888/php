@@ -17,8 +17,29 @@ services:
         class: TCG\Bundle\CMF\DataProvider\LogProvider
         calls:
             - [setMySQL, [@tcg_bundle.cmf.mysql.main.client]]
+    # tcg cmf session data provider
+    tcg_bundle.cmf.data_provider.session:
+        class: TCG\Bundle\CMF\DataProvider\SessionProvider
+        calls:
+            - [setMySQL, [@tcg_bundle.cmf.mysql.main.client]]
+            - [setRedis, [@tcg_bundle.cmf.redis.client]]
+
+    # services ...
+    tcg_bundle.cmf.service.user:
+        class: TCG\Bundle\CMF\Service\UserService
+    tcg_bundle.cmf.service.role:
+        class: TCG\Bundle\CMF\Service\RoleService
 
 
     # aware tcg_bundle.cmf
     tcg_bundle.cmf.bundle_aware:
         class: TCG\Bundle\CMF\BundleAware
+
+    # twig filters ...
+    tcg_bundle.cmf.twig_filter.permission:
+        class: Twig_SimpleFilter
+        factory: [TCG\Bundle\CMF\Twig\Filters\PermissionFilter, getTwigFilter]
+
+    twig.engine:
+        calls:
+          - [addFilter, [@tcg_bundle.cmf.twig_filter.permission]]

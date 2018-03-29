@@ -12,7 +12,7 @@ services:
         tags: [session_proxy]
     symfony.component.session_storage:
         class: Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage
-        arguments: [[], $session_proxy]
+        arguments: [%symfony.component.session_storage.options%, $session_proxy]
         tags: [session_storage]
     symfony.component.session:
         class: Symfony\Component\HttpFoundation\Session\Session

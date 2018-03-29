@@ -1,7 +1,4 @@
 parameters:
-
-    tcg_bundle.cmf.session_domain: # tcg cmf session 生效域名
-
     tcg_bundle.cmf.mysql.main.master: # tcg cmf mysql 主连接
     tcg_bundle.cmf.mysql.main.slaves: [] # tcg cmf mysql 从连接
     tcg_bundle.cmf.mysql.main.table_prefix: # tcg cmf mysql 表前缀

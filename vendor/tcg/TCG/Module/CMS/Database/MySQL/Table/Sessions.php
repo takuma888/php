@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Bundle\CMF\Database\MySQL\Table;
+namespace TCG\Module\CMS\Database\MySQL\Table;
 
 use TCG\Component\Database\MySQL\Table;
 

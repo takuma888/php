@@ -1,0 +1,19 @@
+parameters:
+    tcg_module.cms.mysql.main.master: # tcg cms mysql 主连接
+    tcg_module.cms.mysql.main.slaves: [] # tcg cms mysql 从连接
+    tcg_module.cms.mysql.main.table_prefix: # tcg cms mysql 表前缀
+    tcg_module.cms.mysql.main.db: # tcg cms mysql 主库
+
+    tcg_module.cms.session.option:
+        db_table: `%tcg_module.cms.mysql.main.db%`.`sessions`
+        db_id_col: `session_id`
+        db_data_col: `data`
+        db_lifetime_col: `lifetime`
+        db_time_col: `timestamp`
+
+    tcg_module.cms.session.cookie_domain: ~
+
+    symfony.component.session_storage.options:
+        cookie_lifetime: 0
+        gc_maxlifetime: 86400
+        cookie_domain: %tcg_module.cms.session.cookie_domain%

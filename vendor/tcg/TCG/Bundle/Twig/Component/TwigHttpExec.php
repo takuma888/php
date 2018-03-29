@@ -45,9 +45,11 @@ abstract class TwigHttpExec extends HttpExec
         } catch (\Exception $e) {
             if ($namespace_template_path) {
                 $namespace = substr($template_path, 1, strpos($template_path, '/') - 1);
-                $custom_template_dir = $this->addTemplateRoot();
-                if ($custom_template_dir) {
-                    $environment->addPath($custom_template_dir, $namespace);
+                $custom_template_dirs = $this->addTemplateRoots();
+                if ($custom_template_dirs) {
+                    foreach ($custom_template_dirs as $custom_template_dir) {
+                        $environment->addPath($custom_template_dir, $namespace);
+                    }
                 }
                 $template = $engine->loadTemplate($namespace_template_path);
                 $response = $template->render($context);
@@ -59,11 +61,18 @@ abstract class TwigHttpExec extends HttpExec
     }
 
 
-    public function addTemplateRoot()
+    public function addTemplateRoots()
     {
+        $return = [];
         $module = $this->getModule();
-        $moduleRoot = $module->getRoot();
-        $templateRoot = $moduleRoot . '/Template';
-        return realpath($templateRoot);
+        $path = realpath($module->getRoot() . '/Template');
+        if ($path) {
+            $return[] = $path;
+        }
+        $path = realpath($module->getExecRoot() . '/Template');
+        if ($path && !in_array($path, $return)) {
+            $return[] = $path;
+        }
+        return $return;
     }
 }

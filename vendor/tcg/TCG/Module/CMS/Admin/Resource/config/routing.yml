@@ -1,0 +1,7 @@
+routing:
+    homepage:
+        path: /
+        defaults: { _controller: @TCGCMSModule:DefaultController:ActionIndex }
+    admin_login:
+        path: /login
+        defaults: { _controller: @TCGCMSModule:DefaultController:ActionLogin }

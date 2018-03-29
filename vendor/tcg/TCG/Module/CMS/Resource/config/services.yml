@@ -1,0 +1,5 @@
+services:
+    symfony.component.session_handler.pdo_handler:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+        arguments: [@tcg_module.cms.mysql.main.pdo.session, %tcg_module.cms.session.option%]
+        tags: [session_handler]

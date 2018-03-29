@@ -83,4 +83,17 @@ abstract class Module extends Bundle
         $exec = new $execClass($this);
         return $exec;
     }
+
+    /**
+     * @return string
+     */
+    public function getExecRoot()
+    {
+        if ($this->execRoot) {
+            $dir = $this->getRoot() . '/' . $this->execRoot;
+        } else {
+            $dir = $this->getRoot();
+        }
+        return $dir;
+    }
 }

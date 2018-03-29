@@ -9,6 +9,8 @@ use TCG\Bundle\CMF\DataProvider\LogProvider;
 use TCG\Bundle\CMF\DataProvider\RoleProvider;
 use TCG\Bundle\CMF\DataProvider\UserProvider;
 use TCG\Bundle\CMF\Cache\Redis\Client as CacheClient;
+use TCG\Bundle\CMF\Service\RoleService;
+use TCG\Bundle\CMF\Service\UserService;
 
 trait PrivateTrait
 {
@@ -51,6 +53,22 @@ trait PrivateTrait
     public function providerLog()
     {
         return getContainer()->get('tcg_bundle.cmf.data_provider.log');
+    }
+
+    /**
+     * @return UserService
+     */
+    public function serviceUser()
+    {
+        return getContainer()->get('tcg_bundle.cmf.service.user');
+    }
+
+    /**
+     * @return RoleService
+     */
+    public function serviceRole()
+    {
+        return getContainer()->get('tcg_bundle.cmf.service.role');
     }
 
     /**

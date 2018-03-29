@@ -15,4 +15,6 @@ class CMFException extends \Exception
     const CODE_CREATE_ROLE_BUT_ROOT_EXISTS = 100006; // 创建角色时 根已存在
     const CODE_CREATE_ROLE_BUT_KEY_EXISTS = 100007; // 创建角色时 key 已存在
     const CODE_CREATE_ROLE_BUT_KEY_EMPTY = 100008; // 创建角色时 key 为空
+
+    const CODE_ACCOUNT_PERMISSION_DENY = 100009; // 账号权限不足
 }

@@ -1,0 +1,22 @@
+parameters:
+    tcg_module.cms.mysql.main.client:
+        master: %tcg_module.cms.mysql.main.master%
+        slaves: %tcg_module.cms.mysql.main.slaves%
+        table_prefix: %tcg_module.cms.mysql.main.table_prefix%
+        shards:
+            - table_name: sessions
+              db_name: %tcg_module.cms.mysql.main.db%
+              deploy: [0]
+
+services:
+    # tcg cms mysql main client
+    tcg_module.cms.mysql.main.client:
+        class: TCG\Module\CMS\Database\MySQL\MainClient
+        arguments: [%tcg_module.cms.mysql.main.client%]
+    tcg_module.cms.mysql.main.pdo.session:
+        class: TCG\Component\Database\MySQL\Connection
+        factory: [@tcg_module.cms.mysql.main.client, master]
+    # tables ...
+    tcg_module.cms.mysql.main.table.sessions:
+        class: TCG\Module\CMS\Database\MySQL\Table\Sessions
+        arguments: [@tcg_module.cms.mysql.main.client, sessions]
