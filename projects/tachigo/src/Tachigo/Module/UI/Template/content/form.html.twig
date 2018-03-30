@@ -9,29 +9,367 @@
 
 {% block main %}
     <section>
-        <h2 id="example">实例</h2>
+        <h2 id="example">示例</h2>
+        <div class="td-example">
+            <div class="tui-control">
+                <input type="text" class="tui-input" placeholder="提示文字">
+            </div>
+            <br>
+            <div class="tui-control">
+                <textarea class="tui-textarea">多行文本...</textarea>
+            </div>
+            <div class="tui-control-checkbox">
+                <input type="checkbox" class="tui-checkbox" id="customCheck">
+                <label class="tui-label" for="customCheck">label</label>
+            </div>
+            <div class="tui-control-radio">
+                <input type="radio" class="tui-radio" id="customRadio">
+                <label class="tui-label" for="customRadio">label</label>
+            </div>
+            <div class="tui-control-select">
+                <select class="tui-select">
+                    <option value="">请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                        <code class="xml html css javascript">
+                            {%- filter escape -%}
+<div class="tui-control">
+    <input type="text" class="tui-input" placeholder="提示文字">
+</div>
+
+<div class="tui-control">
+    <textarea class="tui-textarea">多行文本...</textarea>
+</div>
+
+<div class="tui-control-checkbox">
+    <input type="checkbox" class="tui-checkbox" id="customCheck">
+    <label class="tui-label" for="customCheck">label</label>
+</div>
+
+<div class="tui-control-radio">
+    <input type="radio" class="tui-radio" id="customRadio">
+    <label class="tui-label" for="customRadio">label</label>
+</div>
+
+<div class="tui-control-select">
+    <select class="tui-select">
+        <option value="">请选择</option>
+    </select>
+</div>
+                            {% endfilter %}
+                        </code>
+                    </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="layout">排版</h2>
+        <p lang="zh">
+            TUI 新提供了针对不同的表单控件的显示类：
+        </p>
+        <ol>
+            <li><code>.tui-input</code> 代表单行文本框。</li>
+            <li><code>.tui-checkbox</code> 代表复选框。需要在 <code>.tui-control-checkbox</code> 中使用才会生效。</li>
+            <li><code>.tui-radio</code> 代表单选框。需要在 <code>.tui-control-radio</code> 中使用才会生效。</li>
+            <li>
+                <code>.tui-select</code> 代表选择下拉框。需要在 <code>.tui-control-select</code> 元素内部使用才会生效。
+                如果想使用更高级的类似 <code>select2</code> 的功能的话需要加载 TUI 的 Javascript Form 组件并且在 <code>.tui-select</code> 元素上添加属性 <code>data-toggle="tui-select"</code> 才能生效。
+            </li>
+        </ol>
+        <p lang="zh">
+            通过组合类 <code>.tui-form-item{-inline}</code>, <code>.tui-control{-inline}</code>, <code>.tui-label</code> 来进行布局排版。
+        </p>
         <div class="td-example">
             <form class="tui-form">
                 <div class="form-row">
                     <div class="col-md-12">
-                        <input type="text" class="tui-input" placeholder="提示文字">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-12">
-                        <div class="tui-control">
-                            <label class="tui-label">block级label</label>
-                            <input type="text" class="tui-input" placeholder="提示文字">
+                        <div class="tui-form-item">
+                            <label class="tui-label">label</label>
+                            <div class="tui-control">
+                                <input type="text" class="tui-input" placeholder="提示文字">
+                                <small class="form-text text-muted">描述信息</small>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="tui-control-inline">
-                            <label class="tui-label">inline-block级label</label>
-                            <input type="text" class="tui-input" placeholder="提示文字">
+                        <div class="tui-form-item-inline">
+                            <label class="tui-label">label</label>
+                            <div class="tui-control">
+                                <input type="text" class="tui-input" placeholder="提示文字">
+                                <small class="form-text text-muted">描述信息</small>
+                            </div>
                         </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="tui-form-item-inline">
+                            <label class="tui-label">label</label>
+                            <div class="tui-control-inline">
+                                <input type="text" class="tui-input" placeholder="提示文字">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="tui-form-item-inline">
+                            <label class="tui-label">label</label>
+                            <div class="tui-control">
+                                <div class="tui-control-select">
+                                    <select class="tui-select">
+                                        <option value="">请选择</option>
+                                        <option value="1">北京</option>
+                                        <option value="2">上海</option>
+                                        <option value="3">香港</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="tui-form-item-inline">
+                            <label class="tui-label">label</label>
+                            <div class="tui-control">
+                                <div class="tui-control-select">
+                                    <select class="tui-select" multiple>
+                                        <option value="">请选择</option>
+                                        <option value="1">北京</option>
+                                        <option value="2">上海</option>
+                                        <option value="3">香港</option>
+                                        <option value="4">东京</option>
+                                        <option value="5">纽约</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <fieldset class="tui-form-item-inline">
+                            <legend class="tui-label pt-0">legend</legend>
+                            <div class="tui-control">
+                                <div class="tui-control-checkbox">
+                                    <input type="checkbox" class="tui-checkbox" id="customCheck1">
+                                    <label class="tui-label" for="customCheck1">label</label>
+                                </div>
+                                <div class="tui-control-checkbox">
+                                    <input type="checkbox" class="tui-checkbox" id="customCheck2">
+                                    <label class="tui-label" for="customCheck2">label</label>
+                                </div>
+                                <div class="tui-control-checkbox">
+                                    <input type="checkbox" class="tui-checkbox" id="customCheck3">
+                                    <label class="tui-label" for="customCheck3">label</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-12">
+                        <fieldset class="tui-form-item-inline">
+                            <legend class="tui-label pt-0">legend</legend>
+                            <div class="tui-control-inline">
+                                <div class="tui-control-checkbox">
+                                    <input type="checkbox" class="tui-checkbox" id="customCheck4">
+                                    <label class="tui-label" for="customCheck4">label</label>
+                                </div>
+                                <div class="tui-control-checkbox">
+                                    <input type="checkbox" class="tui-checkbox" id="customCheck5">
+                                    <label class="tui-label" for="customCheck5">label</label>
+                                </div>
+                                <div class="tui-control-checkbox">
+                                    <input type="checkbox" class="tui-checkbox" id="customCheck6">
+                                    <label class="tui-label" for="customCheck6">label</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-12">
+                        <fieldset class="tui-form-item-inline">
+                            <legend class="tui-label pt-0">legend</legend>
+                            <div class="tui-control">
+                                <div class="tui-control-radio">
+                                    <input type="radio" class="tui-radio" id="customRadio1" name="radio1">
+                                    <label class="tui-label" for="customRadio1">label</label>
+                                </div>
+                                <div class="tui-control-radio">
+                                    <input type="radio" class="tui-radio" id="customRadio2" name="radio1">
+                                    <label class="tui-label" for="customRadio2">label</label>
+                                </div>
+                                <div class="tui-control-radio">
+                                    <input type="radio" class="tui-radio" id="customRadio3" name="radio1">
+                                    <label class="tui-label" for="customRadio3">label</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-12">
+                        <fieldset class="tui-form-item-inline">
+                            <legend class="tui-label pt-0">legend</legend>
+                            <div class="tui-control-inline">
+                                <div class="tui-control-radio">
+                                    <input type="radio" class="tui-radio" id="customRadio4" name="radio2">
+                                    <label class="tui-label" for="customRadio4">label</label>
+                                </div>
+                                <div class="tui-control-radio">
+                                    <input type="radio" class="tui-radio" id="customRadio5" name="radio2">
+                                    <label class="tui-label" for="customRadio5">label</label>
+                                </div>
+                                <div class="tui-control-radio">
+                                    <input type="radio" class="tui-radio" id="customRadio6" name="radio2">
+                                    <label class="tui-label" for="customRadio6">label</label>
+                                </div>
+                            </div>
+                        </fieldset>
                     </div>
                 </div>
             </form>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                        <code class="xml html css javascript">
+                            {%- filter escape -%}
+<form class="tui-form">
+    <div class="form-row">
+        <div class="col-md-12">
+            <div class="tui-form-item">
+                <label class="tui-label">label</label>
+                <div class="tui-control">
+                    <input type="text" class="tui-input" placeholder="提示文字">
+                    <small class="form-text text-muted">描述信息</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="tui-form-item-inline">
+                <label class="tui-label">label</label>
+                <div class="tui-control">
+                    <input type="text" class="tui-input" placeholder="提示文字">
+                    <small class="form-text text-muted">描述信息</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="tui-form-item-inline">
+                <label class="tui-label">label</label>
+                <div class="tui-control-inline">
+                    <input type="text" class="tui-input" placeholder="提示文字">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="tui-form-item-inline">
+                <label class="tui-label">label</label>
+                <div class="tui-control">
+                    <div class="tui-control-select">
+                        <select class="tui-select">
+                            <option value="">请选择</option>
+                            <option value="1">北京</option>
+                            <option value="2">上海</option>
+                            <option value="3">香港</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="tui-form-item-inline">
+                <label class="tui-label">label</label>
+                <div class="tui-control">
+                    <div class="tui-control-select">
+                        <select class="tui-select" multiple>
+                            <option value="">请选择</option>
+                            <option value="1">北京</option>
+                            <option value="2">上海</option>
+                            <option value="3">香港</option>
+                            <option value="4">东京</option>
+                            <option value="5">纽约</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <fieldset class="tui-form-item-inline">
+                <legend class="tui-label pt-0">legend</legend>
+                <div class="tui-control">
+                    <div class="tui-control-checkbox">
+                        <input type="checkbox" class="tui-checkbox" id="customCheck1">
+                        <label class="tui-label" for="customCheck1">label</label>
+                    </div>
+                    <div class="tui-control-checkbox">
+                        <input type="checkbox" class="tui-checkbox" id="customCheck2">
+                        <label class="tui-label" for="customCheck2">label</label>
+                    </div>
+                    <div class="tui-control-checkbox">
+                        <input type="checkbox" class="tui-checkbox" id="customCheck3">
+                        <label class="tui-label" for="customCheck3">label</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12">
+            <fieldset class="tui-form-item-inline">
+                <legend class="tui-label pt-0">legend</legend>
+                <div class="tui-control-inline">
+                    <div class="tui-control-checkbox">
+                        <input type="checkbox" class="tui-checkbox" id="customCheck4">
+                        <label class="tui-label" for="customCheck4">label</label>
+                    </div>
+                    <div class="tui-control-checkbox">
+                        <input type="checkbox" class="tui-checkbox" id="customCheck5">
+                        <label class="tui-label" for="customCheck5">label</label>
+                    </div>
+                    <div class="tui-control-checkbox">
+                        <input type="checkbox" class="tui-checkbox" id="customCheck6">
+                        <label class="tui-label" for="customCheck6">label</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12">
+            <fieldset class="tui-form-item-inline">
+                <legend class="tui-label pt-0">legend</legend>
+                <div class="tui-control">
+                    <div class="tui-control-radio">
+                        <input type="radio" class="tui-radio" id="customRadio1" name="radio1">
+                        <label class="tui-label" for="customRadio1">label</label>
+                    </div>
+                    <div class="tui-control-radio">
+                        <input type="radio" class="tui-radio" id="customRadio2" name="radio1">
+                        <label class="tui-label" for="customRadio2">label</label>
+                    </div>
+                    <div class="tui-control-radio">
+                        <input type="radio" class="tui-radio" id="customRadio3" name="radio1">
+                        <label class="tui-label" for="customRadio3">label</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12">
+            <fieldset class="tui-form-item-inline">
+                <legend class="tui-label pt-0">legend</legend>
+                <div class="tui-control-inline">
+                    <div class="tui-control-radio">
+                        <input type="radio" class="tui-radio" id="customRadio4" name="radio2">
+                        <label class="tui-label" for="customRadio4">label</label>
+                    </div>
+                    <div class="tui-control-radio">
+                        <input type="radio" class="tui-radio" id="customRadio5" name="radio2">
+                        <label class="tui-label" for="customRadio5">label</label>
+                    </div>
+                    <div class="tui-control-radio">
+                        <input type="radio" class="tui-radio" id="customRadio6" name="radio2">
+                        <label class="tui-label" for="customRadio6">label</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</form>
+                            {% endfilter %}
+                        </code>
+                    </pre>
+            {% endspaceless %}
         </div>
     </section>
 {% endblock %}

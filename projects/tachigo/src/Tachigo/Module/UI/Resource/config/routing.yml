@@ -52,7 +52,16 @@ routing:
     ui_extra_jumbotron:
         path: /extra/jumbotron
         defaults: { _controller: @TachigoUIModule:ExtraController:ActionJumbotron }
+    ui_extra_pagination:
+        path: /extra/pagination
+        defaults: { _controller: @TachigoUIModule:ExtraController:ActionPagination }
+    ui_extra_listgroup:
+        path: /extra/list-group
+        defaults: { _controller: @TachigoUIModule:ExtraController:ActionListGroup }
 
     ui_component_alert:
         path: /component/alert
         defaults: { _controller: @TachigoUIModule:ComponentController:ActionAlert }
+    ui_component_popout:
+        path: /component/popout
+        defaults: { _controller: @TachigoUIModule:ComponentController:ActionPopout }

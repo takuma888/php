@@ -1,0 +1,45 @@
+{% extends '@TachigoUIModule/layout.html.twig' %}
+
+{% block html_title %}弹出组件 -- Popout{{ parent() }}{% endblock%}
+
+{% block page_lead %}
+    TUI 的 Popout Javascript 组件。该组件基于 <a href="http://popper.js.org">Popper.js</a>。
+{% endblock %}
+
+{% block main %}
+    <section>
+        <h2 id="overview">示例</h2>
+        <div class="td-example">
+            <div class="popout">
+                <button class="btn btn-secondary popout-toggle" type="button" id="popoutMenuButton" data-toggle="popout" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="popout-menu" aria-labelledby="popoutMenuButton">
+                    <a class="popout-item" href="javascript:void(0);">Action</a>
+                    <a class="popout-item" href="javascript:void(0);">Another action</a>
+                    <a class="popout-item" href="javascript:void(0);">Something else here</a>
+                </div>
+            </div>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<div class="popout">
+    <button class="btn btn-secondary popout-toggle" type="button" id="popoutMenuButton" data-toggle="popout" aria-haspopup="true" aria-expanded="false">
+        Dropdown button
+    </button>
+    <div class="popout-menu" aria-labelledby="popoutMenuButton">
+        <a class="popout-item" href="javascript:void(0);">Action</a>
+        <a class="popout-item" href="javascript:void(0);">Another action</a>
+        <a class="popout-item" href="javascript:void(0);">Something else here</a>
+    </div>
+</div>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+{% endblock %}
