@@ -9,12 +9,58 @@
 {% block main %}
     <section>
         <h2 id="overview">示例</h2>
+        <p lang="zh">与 Bootstrap 的 Dropdown 组件类似。将外层的容器修改为默认的 <code>inline-block</code> 模式。
+            向下展开为 <code>.popdown</code> 也可以使用默认的 <code>.popout</code>。
+            向上展开为 <code>.popup</code>。
+            向左展开为 <code>.popleft</code>。
+            向右展开为 <code>.popright</code>。
+        </p>
         <div class="td-example">
             <div class="popout">
-                <button class="btn btn-secondary popout-toggle" type="button" id="popoutMenuButton" data-toggle="popout" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-secondary popout-toggle" type="button" id="popoutMenuButton1" data-toggle="popout" aria-haspopup="true" aria-expanded="false">
                     Dropdown button
                 </button>
-                <div class="popout-menu" aria-labelledby="popoutMenuButton">
+                <div class="popout-menu" aria-labelledby="popoutMenuButton1">
+                    <a class="popout-item" href="javascript:void(0);">Action</a>
+                    <a class="popout-item" href="javascript:void(0);">Another action</a>
+                    <a class="popout-item" href="javascript:void(0);">Something else here</a>
+                </div>
+            </div>
+            <div class="popdown ml-2">
+                <button class="btn btn-secondary popout-toggle" type="button" id="popoutMenuButton2" data-toggle="popout" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="popout-menu" aria-labelledby="popoutMenuButton2">
+                    <a class="popout-item" href="javascript:void(0);">Action</a>
+                    <a class="popout-item" href="javascript:void(0);">Another action</a>
+                    <a class="popout-item" href="javascript:void(0);">Something else here</a>
+                </div>
+            </div>
+            <div class="popleft ml-2">
+                <button class="btn btn-secondary popout-toggle" type="button" id="popoutMenuButton3" data-toggle="popout" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="popout-menu" aria-labelledby="popoutMenuButton3">
+                    <a class="popout-item" href="javascript:void(0);">Action</a>
+                    <a class="popout-item" href="javascript:void(0);">Another action</a>
+                    <a class="popout-item" href="javascript:void(0);">Something else here</a>
+                </div>
+            </div>
+            <div class="popup ml-2">
+                <button class="btn btn-secondary popout-toggle" type="button" id="popoutMenuButton4" data-toggle="popout" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="popout-menu" aria-labelledby="popoutMenuButton4">
+                    <a class="popout-item" href="javascript:void(0);">Action</a>
+                    <a class="popout-item" href="javascript:void(0);">Another action</a>
+                    <a class="popout-item" href="javascript:void(0);">Something else here</a>
+                </div>
+            </div>
+            <div class="popright ml-2">
+                <button class="btn btn-secondary popout-toggle" type="button" id="popoutMenuButton5" data-toggle="popout" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="popout-menu" aria-labelledby="popoutMenuButton5">
                     <a class="popout-item" href="javascript:void(0);">Action</a>
                     <a class="popout-item" href="javascript:void(0);">Another action</a>
                     <a class="popout-item" href="javascript:void(0);">Something else here</a>
@@ -26,7 +72,7 @@
                 <pre class="highlight">
                     <code class="xml html css javascript">
                         {%- filter escape -%}
-<div class="popout">
+<div class="popout /* popdown|popleft|popup|popright */">
     <button class="btn btn-secondary popout-toggle" type="button" id="popoutMenuButton" data-toggle="popout" aria-haspopup="true" aria-expanded="false">
         Dropdown button
     </button>

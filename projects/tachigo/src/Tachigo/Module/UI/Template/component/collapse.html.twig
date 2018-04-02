@@ -1,0 +1,107 @@
+{% extends '@TachigoUIModule/layout.html.twig' %}
+
+{% block html_title %}展开/收起 -- Collapse{{ parent() }}{% endblock%}
+
+{% block page_lead %}
+    TUI 的 Collapse Javascript 组件。
+{% endblock %}
+
+{% block main %}
+    <section>
+        <h2 id="overview">示例</h2>
+        <p lang="zh">
+            通过使用 <code>{% filter escape %}<a></a>{% endfilter %}</code> 标签的 <code>href</code> 属性，
+            或者 <code>{% filter escape %}<button></button>{% endfilter %}</code> 的 <code>data-target</code> 属性来指定要展开或者收起的目标。
+            使用属性 <code>data-toggle="collapse"</code> 来触发展开/收起的功能。
+        </p>
+        <div class="td-example">
+            <p>
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Link with href
+                </a>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Button with data-target
+                </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+            </div>
+        </div>
+        <div class="td-code">
+            {% spaceless %}
+                <pre class="highlight">
+                    <code class="xml html css javascript">
+                        {%- filter escape -%}
+<p>
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Link with href
+    </a>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Button with data-target
+    </button>
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+    </div>
+</div>
+                        {%- endfilter -%}
+                    </code>
+                </pre>
+            {% endspaceless %}
+        </div>
+    </section>
+    <section>
+        <h2 id="accordion-collapse">手风琴示例</h2>
+        <p lang="zh">以 <code>card</code> 组件为例。</p>
+        <div class="td-example">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Collapsible Group Item #1
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Collapsible Group Item #2
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Collapsible Group Item #3
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

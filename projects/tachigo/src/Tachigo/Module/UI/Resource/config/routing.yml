@@ -58,6 +58,9 @@ routing:
     ui_extra_listgroup:
         path: /extra/list-group
         defaults: { _controller: @TachigoUIModule:ExtraController:ActionListGroup }
+    ui_extra_nav:
+        path: /extra/nav
+        defaults: { _controller: @TachigoUIModule:ExtraController:ActionNav }
 
     ui_component_alert:
         path: /component/alert
@@ -65,3 +68,6 @@ routing:
     ui_component_popout:
         path: /component/popout
         defaults: { _controller: @TachigoUIModule:ComponentController:ActionPopout }
+    ui_component_collapse:
+        path: /component/collapse
+        defaults: { _controller: @TachigoUIModule:ComponentController:ActionCollapse }
