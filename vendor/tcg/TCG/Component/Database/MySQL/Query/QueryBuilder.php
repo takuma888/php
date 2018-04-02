@@ -72,6 +72,7 @@ class QueryBuilder
         'groupBy' => array(),
         'having'  => null,
         'orderBy' => array(),
+        'fields'  => array(),
         'values'  => array(),
     );
 
@@ -912,6 +913,12 @@ class QueryBuilder
         return $this;
     }
 
+
+    public function fields(array $fields)
+    {
+        return $this->add('fields', $fields);
+    }
+
     /**
      * Specifies values for an insert query indexed by column names.
      * Replaces any previous values, if any.
@@ -1173,9 +1180,16 @@ class QueryBuilder
      */
     private function getSQLForInsert()
     {
-        return 'INSERT INTO ' . $this->sqlParts['from']['table'] .
-        ' (' . implode(', ', array_keys($this->sqlParts['values'])) . ')' .
-        ' VALUES(' . implode(', ', $this->sqlParts['values']) . ')';
+        $sql = 'INSERT INTO ' . $this->sqlParts['from']['table'] .
+            ' (' . implode(', ', array_keys($this->sqlParts['fields'])) . ') VALUES ';
+        if (is_array($this->sqlParts['values'][key($this->sqlParts['values'])])) {
+            foreach ($this->sqlParts['values'] as $values) {
+                $sql .= ' (' . implode(', ', $values) . '),';
+            }
+        } else {
+            $sql .= ' (' . implode(', ', $this->sqlParts['values']) . '),';
+        }
+        return rtrim($sql, ',');
     }
 
     /**

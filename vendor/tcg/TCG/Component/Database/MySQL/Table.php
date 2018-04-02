@@ -136,18 +136,23 @@ abstract class Table
         $client = $this->getClient();
         $tableName = $this->getName($partition);
         $queryBuilder = $client->createQueryBuilder()->insert($tableName);
-        $row_count = 0;
+        $rowCount = 0;
+        $fieldsList = [];
         $multiValues = [];
         foreach ($multiFields as $fields) {
-            $row_count += 1;
+            $rowCount += 1;
             $values = [];
             foreach ($fields as $field => $value) {
                 $field = trim($field, '`');
-                $values['`' . $field . '`'] = ':' . $field . '_' . $row_count;
-                $queryBuilder->setParameter(':' . $field . '_' . $row_count, $value);
+                if (!isset($fieldsList['`' . $field . '`'])) {
+                    $fieldsList['`' . $field . '`'] = '`' . $field . '`';
+                }
+                $values['`' . $field . '`'] = ':' . $field . '_' . $rowCount;
+                $queryBuilder->setParameter(':' . $field . '_' . $rowCount, $value);
             }
             $multiValues[] = $values;
         }
+        $queryBuilder->fields($fieldsList);
         $queryBuilder->values($multiValues);
         return $queryBuilder;
     }
@@ -255,24 +260,25 @@ abstract class Table
         $client = $this->getClient();
         $tableName = $this->getName($partition);
         $queryBuilder = $client->createQueryBuilder()->insert($tableName);
-        $row_count = 0;
+        $rowCount = 0;
         $multiValues = [];
-        $all_fields = [];
+        $fieldsList = [];
         foreach ($multiFields as $fields) {
-            $row_count += 1;
+            $rowCount += 1;
             $values = [];
             foreach ($fields as $field => $value) {
                 $field = trim($field, '`');
-                $all_fields[$field] = $field;
-                $values['`' . $field . '`'] = ':' . $field . '_' . $row_count;
-                $queryBuilder->setParameter(':' . $field . '_' . $row_count, $value);
+                $fieldsList['`' . $field . '`'] = '`' . $field . '`';
+                $values['`' . $field . '`'] = ':' . $field . '_' . $rowCount;
+                $queryBuilder->setParameter(':' . $field . '_' . $rowCount, $value);
             }
             $multiValues[] = $values;
         }
+        $queryBuilder->fields($fieldsList);
         $queryBuilder->values($multiValues);
 
         $duplicateUpdates = [];
-        foreach ($all_fields as $field) {
+        foreach ($fieldsList as $field) {
             $field = trim($field, '`');
             $duplicateUpdates[$field] = "`{$field}` = VALUES(`{$field}`)";
         }
@@ -627,7 +633,8 @@ abstract class Table
         foreach ($client->getDbNameRange($this->name) as $dbName) {
             $statement = strtr($sqlTpl, [
                 '{@database}' => $dbName,
-
+                '{@charset}' => $client->getCharset(),
+                '{@collate}' => $client->getCollate(),
             ]);
             $sql[] = $statement;
         }

@@ -1,0 +1,4 @@
+services:
+    tcg_module.console.application:
+        class: TCG\Module\Console\Component\Application
+        arguments: [%tcg_module.console.app_name%]

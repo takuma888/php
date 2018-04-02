@@ -274,9 +274,6 @@ class Client
         $dbNames = $this->getDbNameRange($tableName);
         foreach ($dbNames as $dbName) {
             foreach ($tableNames as $tableName) {
-                if ($this->prefix) {
-                    $tableName = $this->prefix . $tableName;
-                }
                 $return[] = '`' . $dbName . '`.`' . $tableName . '`';
             }
         }

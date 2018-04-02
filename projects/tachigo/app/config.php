@@ -19,7 +19,7 @@ if (!function_exists('pre')) {
         }
 
         if (PHP_SAPI == 'cli') {
-            echo $output;
+            echo $output . "\n";
         } else {
             echo '<pre>', $output, '</pre>';
         }

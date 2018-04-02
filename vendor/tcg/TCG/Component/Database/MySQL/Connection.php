@@ -189,7 +189,7 @@ class Connection extends \PDO
             if ($logger) {
                 $logger->debug('MySQL Query: ' . $sql . ' [end]' . $end . ' [cost]' . $cost . ' ms');
             }
-            if ($cost > 10) {
+            if ($logger && $cost > 10) {
                 // larger than 10ms
                 $logger->critical('MySQL Slow Query: ' . $sql . ' [cost]' . $cost . ' ms');
             }
