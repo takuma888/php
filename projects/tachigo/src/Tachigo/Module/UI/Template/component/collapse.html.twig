@@ -13,17 +13,26 @@
             通过使用 <code>{% filter escape %}<a></a>{% endfilter %}</code> 标签的 <code>href</code> 属性，
             或者 <code>{% filter escape %}<button></button>{% endfilter %}</code> 的 <code>data-target</code> 属性来指定要展开或者收起的目标。
             使用属性 <code>data-toggle="collapse"</code> 来触发展开/收起的功能。
+            通过在要使用 collapse 的元素上使用类 <code>.collapsing</code> 来添加缓动效果。添加类 <code>.collapse-{width|height}</code> 来设置展开收起的方向。
         </p>
         <div class="td-example">
             <p>
-                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
                     Link with href
                 </a>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
                     Button with data-target
                 </button>
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+                    Link with href & collapsing height
+                </a>
             </p>
-            <div class="collapse" id="collapseExample">
+            <div class="collapse" id="collapseExample1">
+                <div class="card card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+            </div>
+            <div class="collapse collapsing collapse-height" id="collapseExample2">
                 <div class="card card-body">
                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                 </div>
@@ -35,14 +44,22 @@
                     <code class="xml html css javascript">
                         {%- filter escape -%}
 <p>
-    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
         Link with href
     </a>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
         Button with data-target
     </button>
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+        Link with href & collapsing height
+    </a>
 </p>
-<div class="collapse" id="collapseExample">
+<div class="collapse" id="collapseExample1">
+    <div class="card card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+    </div>
+</div>
+<div class="collapse collapsing collapse-height" id="collapseExample2">
     <div class="card card-body">
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
     </div>

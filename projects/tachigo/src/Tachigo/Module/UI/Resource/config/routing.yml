@@ -71,3 +71,10 @@ routing:
     ui_component_collapse:
         path: /component/collapse
         defaults: { _controller: @TachigoUIModule:ComponentController:ActionCollapse }
+    ui_component_carousel:
+        path: /component/carousel
+        defaults: { _controller: @TachigoUIModule:ComponentController:ActionCarousel }
+
+    ui_vendor_layer:
+        path: /vendor/layer
+        defaults: { _controller: @TachigoUIModule:VendorController:ActionLayer }

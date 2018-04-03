@@ -214,7 +214,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse animation" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse collapsing collapse-height" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item active"><a class="nav-link" href="javascript:void(0);">Home <span class="sr-only">(current)</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="javascript:void(0);">Link</a></li>
@@ -231,7 +231,7 @@
                     </ul>
                     <form class="ml-auto">
                         <div class="form-row flexible no-gutters">
-                            <div class="col mr-lg-2 mb-sm-2 mb-lg-0">
+                            <div class="col mr-lg-2 mb-lg-0 mb-xs-2">
                                 <div class="tui-form-item mb-0">
                                     <div class="tui-control">
                                         <input class="tui-input" type="search" placeholder="Search" aria-label="Search">
@@ -275,82 +275,7 @@
         </ul>
         <form class="ml-auto">
             <div class="form-row flexible no-gutters">
-                <div class="col mr-lg-2 mb-sm-2 mb-lg-0">
-                    <div class="tui-form-item mb-0">
-                        <div class="tui-control">
-                            <input class="tui-input" type="search" placeholder="Search" aria-label="Search">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-auto">
-                    <div class="tui-form-item mb-0">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</nav>
-                        {%- endfilter -%}
-                    </code>
-                </pre>
-            {% endspaceless %}
-        </div>
-    </section>
-    <section>
-        <h2 id="navbar-offcanvas">Offcanvas 导航条</h2>
-        <div class="td-example">
-            <nav class="navbar navbar-offcanvas navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="javascript:void(0);">Navbar</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-offcanvas-container" aria-controls="navbar-offcanvas-container" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse animation-left2right" id="navbar-offcanvas-container">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active"><a class="nav-link" href="javascript:void(0);">Home <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="javascript:void(0);">Link</a></li>
-                        <li class="nav-item popout">
-                            <a class="nav-link popout-toggle" href="javascript:void(0);" id="navbarPopout" role="button" data-toggle="popout" aria-haspopup="true" aria-expanded="false">Pop out</a>
-                            <div class="popout-menu" aria-labelledby="navbarPopout">
-                                <a class="popout-item" href="javascript:void(0);">Action</a>
-                                <a class="popout-item" href="javascript:void(0);">Another action</a>
-                                <div class="popout-divider"></div>
-                                <a class="popout-item" href="javascript:void(0);">Something else here</a>
-                            </div>
-                        </li>
-                        <li class="nav-item"><a class="nav-link disabled" href="javascript:void(0);">Disabled</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <div class="td-code">
-            {% spaceless %}
-                <pre class="highlight">
-                    <code class="xml html css javascript">
-                        {%- filter escape -%}
-                            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="javascript:void(0);">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-            <li class="nav-item active"><a class="nav-link" href="javascript:void(0);">Home <span class="sr-only">(current)</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="javascript:void(0);">Link</a></li>
-            <li class="nav-item popout">
-                <a class="nav-link popout-toggle" href="javascript:void(0);" id="navbarPopout" role="button" data-toggle="popout" aria-haspopup="true" aria-expanded="false">Pop out</a>
-                <div class="popout-menu" aria-labelledby="navbarPopout">
-                    <a class="popout-item" href="javascript:void(0);">Action</a>
-                    <a class="popout-item" href="javascript:void(0);">Another action</a>
-                    <div class="popout-divider"></div>
-                    <a class="popout-item" href="javascript:void(0);">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item"><a class="nav-link disabled" href="javascript:void(0);">Disabled</a></li>
-        </ul>
-        <form class="ml-auto">
-            <div class="form-row flexible no-gutters">
-                <div class="col mr-lg-2 mb-sm-2 mb-lg-0">
+                <div class="col mr-lg-2 mb-lg-0 mb-xs-2">
                     <div class="tui-form-item mb-0">
                         <div class="tui-control">
                             <input class="tui-input" type="search" placeholder="Search" aria-label="Search">
