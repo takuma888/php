@@ -19,13 +19,20 @@ abstract class Bundle
      */
     protected $name;
 
-    public function __construct()
+    /**
+     * @var string
+     */
+    protected $execRoot;
+
+    public function __construct($execRoot = '')
     {
         $rc = new \ReflectionClass($this);
         $this->ns = $rc->getNamespaceName();
         $this->root = dirname($rc->getFileName());
         $className = get_class($this);
         $this->name = str_replace($this->getNamespace() . '\\', '', $className);
+
+        $this->execRoot = trim($execRoot, '/');
     }
 
 
@@ -53,6 +60,14 @@ abstract class Bundle
     }
 
     /**
+     * @return string
+     */
+    public function getExecRoot()
+    {
+        return $this->execRoot;
+    }
+
+    /**
      * @return string[]
      */
     public function getConfigFiles()
@@ -63,6 +78,15 @@ abstract class Bundle
         if (file_exists($dir) && is_dir($dir)) {
             foreach (glob($dir . '/*') as $configFile) {
                 $return[] = realpath($configFile);
+            }
+        }
+        // exec
+        if ($this->execRoot) {
+            $dir = $this->getRoot() . '/' . $this->execRoot . '/Resource/config';
+            if (file_exists($dir) && is_dir($dir)) {
+                foreach (glob($dir . '/*') as $configFile) {
+                    $return[] = realpath($configFile);
+                }
             }
         }
         return $return;

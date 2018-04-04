@@ -8,5 +8,10 @@ services:
         tags: [session_handler]
 
     tcg_bundle.twig.filesystem_loader:
+        class: Twig_Loader_Filesystem
         calls:
             - [addPath, [%tcg_module.cms.template_root.global%, TCGCMSModule]]
+
+    # aware tcg_module.cms
+    tcg_module.cms.module_aware:
+        class: TCG\Module\CMS\ModuleAware

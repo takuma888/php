@@ -41,5 +41,6 @@ services:
         factory: [TCG\Bundle\CMF\Twig\Filters\PermissionFilter, getTwigFilter]
 
     tcg_bundle.twig.engine:
+        class: Twig_Environment
         calls:
           - [addFilter, [@tcg_bundle.cmf.twig_filter.permission]]

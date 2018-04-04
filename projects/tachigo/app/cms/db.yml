@@ -1,0 +1,23 @@
+parameters:
+    # cmf
+    tcg_bundle.cmf.mysql.main.master: mysql://root:123456789@mysql/?charset=utf8mb4 # tcg cmf mysql 主连接
+    tcg_bundle.cmf.mysql.main.slaves: [] # tcg cmf mysql 从连接
+    tcg_bundle.cmf.mysql.main.table_prefix: cms_ # tcg cmf mysql 表前缀
+    tcg_bundle.cmf.mysql.main.db: cms # tcg cmf mysql 主库
+
+    tcg_bundle.cmf.mysql.log.master: mysql://root:123456789@mysql/?charset=utf8mb4 # tcg cmf mysql 日志主连接
+    tcg_bundle.cmf.mysql.log.slaves: [] # tcg cmf mysql 日志从连接
+    tcg_bundle.cmf.mysql.log.table_prefix: cms_ # tcg cmf mysql 日志表前缀
+    tcg_bundle.cmf.mysql.log.db: cms # tcg cmf mysql 日志库
+
+    tcg_bundle.cmf.redis.host: redis # tcg cmf redis 地址
+    tcg_bundle.cmf.redis.port: 6379 # tcg cmf redis 端口
+    tcg_bundle.cmf.redis.pass: ~ # tcg cmf redis 验证密码
+    tcg_bundle.cmf.redis.db: 2 # tcg cmf redis 库编号
+    tcg_bundle.cmf.redis.prefix: cms:tcg_cmf: # tcg cmf redis KEY前缀
+
+    # cms
+    tcg_module.cms.mysql.main.master: mysql://root:123456789@mysql/?charset=utf8mb4 # tcg cms mysql 主连接
+    tcg_module.cms.mysql.main.slaves: [] # tcg cms mysql 从连接
+    tcg_module.cms.mysql.main.table_prefix: cms_ # tcg cms mysql 表前缀
+    tcg_module.cms.mysql.main.db: cms # tcg cms mysql 主库

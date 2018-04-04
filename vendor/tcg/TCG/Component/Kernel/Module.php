@@ -10,18 +10,12 @@ abstract class Module extends Bundle
     protected $execNS;
 
     /**
-     * @var string
-     */
-    protected $execRoot;
-
-    /**
      * Module constructor.
      * @param string $execRoot
      */
     public function __construct($execRoot = '')
     {
-        parent::__construct();
-        $this->execRoot = trim($execRoot, '/');
+        parent::__construct($execRoot);
         if ($this->execRoot) {
             $execNS = str_replace('/', '\\', $this->execRoot);
             $this->execNS = $this->getNamespace() . '\\' . $execNS;
@@ -46,32 +40,6 @@ abstract class Module extends Bundle
         return $this->execNS;
     }
 
-
-    /**
-     * @return string[]
-     */
-    public function getConfigFiles()
-    {
-        $return = [];
-        // globals
-        $dir = $this->getRoot() . '/Resource/config';
-        if (file_exists($dir) && is_dir($dir)) {
-            foreach (glob($dir . '/*') as $configFile) {
-                $return[] = realpath($configFile);
-            }
-        }
-        // exec
-        if ($this->execRoot) {
-            $dir = $this->getRoot() . '/' . $this->execRoot . '/Resource/config';
-            if (file_exists($dir) && is_dir($dir)) {
-                foreach (glob($dir . '/*') as $configFile) {
-                    $return[] = realpath($configFile);
-                }
-            }
-        }
-        return $return;
-    }
-
     /**
      * @param $controller
      * @param $action
@@ -84,11 +52,5 @@ abstract class Module extends Bundle
         return $exec;
     }
 
-    /**
-     * @return string
-     */
-    public function getExecRoot()
-    {
-        return $this->execRoot;
-    }
+
 }

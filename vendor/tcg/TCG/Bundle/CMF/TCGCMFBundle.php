@@ -6,10 +6,18 @@ use TCG\Component\Kernel\Bundle;
 
 class TCGCMFBundle extends Bundle
 {
+
+    const EXEC_CMD = 'Cmd';
+
+
     public function getParent()
     {
-        return [
-            'TCGTwigBundle'
-        ];
+        if ($this->execRoot != self::EXEC_CMD) {
+            return [
+                'TCGTwigBundle'
+            ];
+        } else {
+            return [];
+        }
     }
 }

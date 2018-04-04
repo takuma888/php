@@ -1,0 +1,12 @@
+parameters:
+    # cms session
+    tcg_module.cms.session.cookie_domain: .local.tachigo.com
+
+    # cms site
+    site.name: 总控制台
+    site.icon:
+    site.logo:
+    site.url_scheme: http
+    site.url_domain: local.tachigo.com
+    site.url_path: /cms/dashboard
+    site.url_port: ~

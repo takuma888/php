@@ -14,20 +14,30 @@ class TCGCMSModule extends Module
     const EXEC_ADMIN = 'Admin';
     const EXEC_DASHBOARD = 'Dashboard';
     const EXEC_USER = 'User';
+    const EXEC_CMD = 'Cmd';
 
     public function getBundles()
     {
-        return [
-            new TCGUIBundle(),
-            new TCGCMFBundle(),
-        ];
+        if ($this->execRoot != self::EXEC_CMD) {
+            return [
+                new TCGCMFBundle(),
+            ];
+        } else {
+            return [];
+        }
     }
 
 
     public function getParent()
     {
-        return [
-            'TCGWebModule'
-        ];
+        if ($this->execRoot != self::EXEC_CMD) {
+            return [
+                'TCGWebModule'
+            ];
+        } else {
+            return [
+                'TCGConsoleModule'
+            ];
+        }
     }
 }
