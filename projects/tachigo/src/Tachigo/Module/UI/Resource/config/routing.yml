@@ -74,7 +74,12 @@ routing:
     ui_component_carousel:
         path: /component/carousel
         defaults: { _controller: @TachigoUIModule:ComponentController:ActionCarousel }
-
-    ui_vendor_layer:
-        path: /vendor/layer
-        defaults: { _controller: @TachigoUIModule:VendorController:ActionLayer }
+    ui_component_layer:
+        path: /component/layer
+        defaults: { _controller: @TachigoUIModule:ComponentController:ActionLayer }
+    ui_component_layer_iframe:
+        path: /component/layer-iframe
+        defaults: { _controller: @TachigoUIModule:ComponentController:ActionLayerIFrame }
+    ui_component_tab:
+        path: /component/tab
+        defaults: { _controller: @TachigoUIModule:ComponentController:ActionTab }

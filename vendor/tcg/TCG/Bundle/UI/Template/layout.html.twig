@@ -16,9 +16,6 @@
         {% if parameters['tcg_bundle.ui.vendor.code.css.path'] %}
             <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.ui.vendor.code.css.path'] }}">
         {% endif %}
-        {% if parameters['tcg_bundle.ui.vendor.layer.css.path'] %}
-            <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.ui.vendor.layer.css.path'] }}">
-        {% endif %}
         {% if parameters['tcg_bundle.ui.vendor.jquery.path'] %}
             <script type="text/javascript" src="{{ parameters['tcg_bundle.ui.vendor.jquery.path'] }}"></script>
         {% endif %}
@@ -57,9 +54,6 @@
     {% endif %}
     {% if parameters['tcg_bundle.ui.vendor.code.js.path'] %}
         <script type="text/javascript" src="{{ parameters['tcg_bundle.ui.vendor.code.js.path'] }}"></script>
-    {% endif %}
-    {% if parameters['tcg_bundle.ui.vendor.layer.js.path'] %}
-        <script type="text/javascript" src="{{ parameters['tcg_bundle.ui.vendor.layer.js.path'] }}"></script>
     {% endif %}
 {% endblock %}
 <!-- END CORE PLUGINS -->

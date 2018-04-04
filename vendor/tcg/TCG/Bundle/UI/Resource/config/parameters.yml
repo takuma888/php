@@ -6,5 +6,3 @@ parameters:
     tcg_bundle.ui.vendor.code.css.path:
     tcg_bundle.ui.vendor.code.js.path:
     tcg_bundle.ui.vendor.font_awesome.path:
-    tcg_bundle.ui.vendor.layer.css.path:
-    tcg_bundle.ui.vendor.layer.js.path:

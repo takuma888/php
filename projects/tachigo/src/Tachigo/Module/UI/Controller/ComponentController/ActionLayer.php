@@ -1,6 +1,6 @@
 <?php
 
-namespace Tachigo\Module\UI\Controller\VendorController;
+namespace Tachigo\Module\UI\Controller\ComponentController;
 
 use TCG\Bundle\Twig\Component\TwigHttpExec;
 
@@ -8,6 +8,6 @@ class ActionLayer extends TwigHttpExec
 {
     public function exec()
     {
-        return $this->render('vendor/layer.html.twig');
+        return $this->render('component/layer.html.twig');
     }
 }
