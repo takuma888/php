@@ -3,6 +3,8 @@
 namespace
 {
 
+    use TCG\Bundle\Base\TCGBaseBundle;
+    use TCG\Bundle\CMF\TCGCMFBundle;
     use TCG\Module\Base\TCGBaseModule;
 
     use Composer\Autoload\ClassLoader;
@@ -27,6 +29,11 @@ namespace
                 'vendor_root' => VENDOR_ROOT,
             ], __CLASS__);
             parent::setCurrentKernelNamespace($this->getNamespace());
+
+            $this->addBundles([
+                new TCGBaseBundle(),
+                new TCGCMFBundle(TCGCMFBundle::EXEC_CMD),
+            ]);
 
 
             $this->addModules([

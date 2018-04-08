@@ -606,6 +606,15 @@ abstract class Table
         if ($condition) {
             call_user_func_array($condition, [$queryBuilder, $client]);
         }
+        $select = $queryBuilder->getQueryPart('select');
+        if (empty($select)) {
+            $fields = [];
+            foreach ($this->getFields() as $field => $default) {
+                $field = trim($field, '`');
+                $fields[] = '`' . $field . '`';
+            }
+            $queryBuilder->select(implode(', ', $fields));
+        }
         $from = $queryBuilder->getQueryPart('from');
         if (empty($from)) {
             $queryBuilder->from($tableName);

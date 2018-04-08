@@ -26,6 +26,12 @@ class Paginate implements \IteratorAggregate
         $this->last = max($this->first, ceil($this->count / $size));
     }
 
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
     public function getCount()
     {
         return $this->count;
@@ -75,5 +81,27 @@ class Paginate implements \IteratorAggregate
     public function getIterator()
     {
         return new \ArrayIterator($this->data);
+    }
+
+
+    public function getPages()
+    {
+        // 最多显示7页
+        $pages = [];
+        $startPage = $this->page - 2;
+        $startPage = max($this->first, $startPage);
+        $endPage = $this->page + 2;
+        $endPage = min($this->last, $endPage);
+        foreach (range($startPage, $endPage) as $p) {
+            $pages[$p] = $p;
+        }
+        if ($startPage != $this->first) {
+            array_unshift($pages, 0);
+        }
+        if ($endPage != $this->last) {
+            array_push($pages, 0);
+        }
+        return $pages;
+
     }
 }

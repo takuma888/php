@@ -1,0 +1,8 @@
+services:
+    # 初始化数据库
+    tcg_module.cms.cmd_exec.init.mysql:
+        class: TCG\Module\CMS\Cmd\Controller\InitController\ActionMySQL
+
+    tcg_module.console.application:
+        calls:
+            - [add, [@tcg_module.cms.cmd_exec.init.mysql]] # install

@@ -3,6 +3,10 @@
 namespace
 {
 
+    use TCG\Bundle\Base\TCGBaseBundle;
+    use TCG\Bundle\CMF\TCGCMFBundle;
+    use TCG\Bundle\Http\TCGHttpBundle;
+    use TCG\Bundle\Twig\TCGTwigBundle;
     use TCG\Module\CMS\TCGCMSModule;
     use TCG\Module\Web\TCGWebModule;
     use TCG\Module\Base\TCGBaseModule;
@@ -27,6 +31,13 @@ namespace
                 'vendor_root' => VENDOR_ROOT,
             ], __CLASS__);
             parent::setCurrentKernelNamespace($this->getNamespace());
+
+            $this->addBundles([
+                new TCGBaseBundle(),
+                new TCGHttpBundle(),
+                new TCGTwigBundle(),
+                new TCGCMFBundle(),
+            ]);
 
             $this->addModules([
                 new TCGBaseModule(),

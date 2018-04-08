@@ -2,9 +2,7 @@
 
 namespace TCG\Module\Web;
 
-use TCG\Bundle\Http\Component\HttpExec;
-use TCG\Bundle\Http\TCGHttpBundle;
-use TCG\Bundle\Twig\TCGTwigBundle;
+use TCG\Bundle\Twig\Component\TwigHttpExec;
 use TCG\Component\Kernel\AppKernel;
 use TCG\Component\Kernel\Module;
 use TCG\Component\Kernel\StartKernelInterface;
@@ -15,8 +13,8 @@ class TCGWebModule extends Module implements StartKernelInterface
     public function getBundles()
     {
         return [
-            new TCGHttpBundle(),
-            new TCGTwigBundle(),
+            'TCGHttpBundle',
+            'TCGTwigBundle'
         ];
     }
 
@@ -52,8 +50,9 @@ class TCGWebModule extends Module implements StartKernelInterface
             list($module, $controller, $action) = explode(':', $controller);
             $module = trim($module, '@');
             $module = $kernel->getModule($module);
-            /** @var HttpExec $exec */
+            /** @var TwigHttpExec $exec */
             $exec = $module->getExec($controller, $action);
+            $exec->setRoute($routingInfo['_route']);
             $exec->setRequest($request);
             if (method_exists($exec, '__invoke')) {
                 $rcm = new \ReflectionMethod($exec, '__invoke');

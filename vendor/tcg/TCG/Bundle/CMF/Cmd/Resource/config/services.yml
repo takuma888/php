@@ -1,0 +1,8 @@
+services:
+    # 初始化数据库
+    tcg_bundle.cmf.cmd_exec.init.mysql:
+        class: TCG\Bundle\CMF\Cmd\Controller\InitController\ActionMySQL
+
+    tcg_module.console.application:
+        calls:
+            - [add, [@tcg_bundle.cmf.cmd_exec.init.mysql]] # install

@@ -4,8 +4,6 @@
 namespace TCG\Module\CMS;
 
 
-use TCG\Bundle\CMF\TCGCMFBundle;
-use TCG\Bundle\UI\TCGUIBundle;
 use TCG\Component\Kernel\Module;
 
 class TCGCMSModule extends Module
@@ -18,13 +16,10 @@ class TCGCMSModule extends Module
 
     public function getBundles()
     {
-        if ($this->execRoot != self::EXEC_CMD) {
-            return [
-                new TCGCMFBundle(),
-            ];
-        } else {
-            return [];
-        }
+        return [
+            'TCGCMFBundle',
+            'TCGUIBundle'
+        ];
     }
 
 

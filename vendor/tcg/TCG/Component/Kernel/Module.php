@@ -25,7 +25,7 @@ abstract class Module extends Bundle
     }
 
     /**
-     * @return Bundle[]
+     * @return string[]
      */
     public function getBundles()
     {

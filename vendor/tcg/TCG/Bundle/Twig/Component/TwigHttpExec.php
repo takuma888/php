@@ -7,6 +7,37 @@ use TCG\Bundle\Http\Component\HttpExec;
 
 abstract class TwigHttpExec extends HttpExec
 {
+
+    private $route = '';
+
+    private $breadcrumbs = [];
+
+    public function tailBreadcrumbs($key)
+    {
+        $this->breadcrumbs[] = $key;
+        return $this;
+    }
+
+
+    public function headBreadcrumbs($key)
+    {
+        array_unshift($this->breadcrumbs, $key);
+        return $this;
+    }
+
+    public function setRoute($route)
+    {
+        $this->route = $route;
+        return $this;
+    }
+
+
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+
     /**
      * @param string $template_path
      * @param array $context
@@ -15,6 +46,8 @@ abstract class TwigHttpExec extends HttpExec
      */
     public function render($template_path = 'index/index.html.twig', array $context = array())
     {
+        $context['route'] = $this->getRoute();
+        $context['breadcrumbs'] = $this->breadcrumbs;
         if (strpos($template_path, '@') !== false) {
             return $this->renderTemplate($template_path, $context);
         }

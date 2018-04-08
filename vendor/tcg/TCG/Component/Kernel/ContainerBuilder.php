@@ -29,6 +29,9 @@ class ContainerBuilder
 
             $body = '';
             $class_name = $service_configuration->class;
+            if (!$class_name) {
+                continue;
+            }
             $class_name = $this->resolveString($class_name, $configuration->toArray());
             $not_share = (bool) $service_configuration->not_share;
             // 创建对象
@@ -238,6 +241,9 @@ FACTORY;
         $content = array();
         $tags = array();
         foreach ($configuration['services'] as $service_key => $service_configuration) {
+            if (!$service_configuration->class) {
+                continue;
+            }
             if ($service_configuration->tags) {
                 foreach (array_unique($service_configuration->tags->toArray()) as $tag_name) {
                     /*if (!isset($tags[$tag_name])) {
@@ -290,6 +296,9 @@ TAG;
         foreach ($configuration['events'] as $event_name => $event_configuration) {
             $event_key = $this->camelize($event_name);
             $event_class = $this->resolveString($event_configuration->class, $configuration->toArray());
+            if (!$event_class) {
+                continue;
+            }
             $event_dispatcher_prepend = <<<PREPEND
 /**
  * @return \\{$event_class}

@@ -150,9 +150,6 @@ abstract class Kernel
             }
         }
         $this->modules[$moduleName] = $module;
-        // add bundle
-        $moduleBundles = $module->getBundles();
-        $this->addBundles($moduleBundles);
         // config
         $moduleConfigFiles = $module->getConfigFiles();
         $this->addConfigFiles($moduleConfigFiles);

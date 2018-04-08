@@ -1,4 +1,5 @@
 parameters:
+    tcg_bundle.ui.normalize.css.path:
     tcg_bundle.ui.core.css.path:
     tcg_bundle.ui.core.js.path:
     tcg_bundle.ui.vendor.jquery.path:

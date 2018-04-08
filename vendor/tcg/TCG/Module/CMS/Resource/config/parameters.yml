@@ -12,7 +12,7 @@ parameters:
     tcg_module.cms.mysql.main.db: # tcg cms mysql 主库
 
     tcg_module.cms.session.option:
-        db_table: `%tcg_module.cms.mysql.main.db%`.`sessions`
+        db_table: `%tcg_module.cms.mysql.main.db%`.`%tcg_module.cms.mysql.main.table_prefix%sessions`
         db_id_col: `session_id`
         db_data_col: `data`
         db_lifetime_col: `lifetime`

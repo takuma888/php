@@ -1,5 +1,5 @@
 routing:
-    homepage:
+    admin_homepage:
         path: /
         defaults: { _controller: @TCGCMSModule:DefaultController:ActionIndex }
     admin_login:

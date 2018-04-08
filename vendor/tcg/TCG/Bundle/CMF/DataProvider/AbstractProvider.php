@@ -3,7 +3,7 @@
 namespace TCG\Bundle\CMF\DataProvider;
 
 use TCG\Bundle\CMF\PrivateTrait;
-use TCG\Component\Database\MySQL\Client as RedisClient;
+use TCG\Component\Cache\Redis\Client as RedisClient;
 use TCG\Component\Database\MySQL\Client as MySQLClient;
 
 class AbstractProvider
@@ -36,7 +36,7 @@ class AbstractProvider
     }
 
     /**
-     * @param MySQLClient $client
+     * @param RedisClient $client
      */
     public function setRedis(RedisClient $client)
     {
@@ -44,7 +44,7 @@ class AbstractProvider
     }
 
     /**
-     * @return MySQLClient
+     * @return RedisClient
      */
     public function getRedis()
     {
