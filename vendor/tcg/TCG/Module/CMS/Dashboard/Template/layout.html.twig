@@ -36,7 +36,7 @@
                 {% if account|permission('dashboard.role.index') %}
                     <li class="nav-item">
                         <a class="nav-link {% if 'dashboard.role.index' in breadcrumbs %}active{% endif %}" href="{{ url('dashboard.role.index') }}">
-                            <i class="fa fa-users"></i>
+                            <i class="fa fa-group"></i>
                             <span class="title">后台角色管理</span>
                             {% if 'dashboard.role.index' in breadcrumbs %}
                                 <span class="selected"></span>
