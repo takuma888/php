@@ -1,0 +1,32 @@
+{% extends '@TCGCMSModule/layout.html.twig' %}
+{% block stylesheets_page_styles %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ cdn('cms/dashboard/css/login.css') }}">
+{% endblock %}
+{% block html_title %}总控制台登录{{ parent() }}{% endblock %}
+{% block body_class %}tui{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="card card-signin">
+            <img class="img-circle img-thumbnail profile-img" src="{{ cdn('cms/dashboard/img/avatar.png') }}" alt="">
+            <form role="form" id="login-form" class="form form-signin" method="post" action="{{ url('dashboard_login') }}">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        {% include '@TCGUIBundle/alert.html.twig' %}
+                        <div class="tui-form-item">
+                            <div class="tui-control">
+                                <input type="text" class="tui-input" name="username" id="username" placeholder="用户名">
+                            </div>
+                        </div>
+                        <div class="tui-form-item">
+                            <div class="tui-control">
+                                <input type="password" class="tui-input" name="password" id="password" placeholder="密码">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="submit">登录</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

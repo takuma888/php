@@ -43,7 +43,7 @@ class UserProvider extends AbstractProvider
         return $this->dbMain()
             ->tblUsers()
             ->one(function (QueryBuilder $queryBuilder) use ($key, $value) {
-                $queryBuilder->andWhere($queryBuilder->expr()->eq($key, ":{$key}"))->setParameter(":{$key}", $value);
+                $queryBuilder->andWhere($queryBuilder->expr()->eq('`' . $key . '`', ":{$key}"))->setParameter(":{$key}", $value);
             });
     }
 

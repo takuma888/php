@@ -205,7 +205,7 @@ abstract class Model implements \ArrayAccess
         } elseif (($property = $this->hasProperty($key)) != false) {
             return $this->{$property};
         } else {
-            throw new \Exception("field {$key} not exists in model field list: [" . implode(', ', $this->fields) . "]");
+            throw new \Exception("field {$key} not exists in model field list: [" . implode(', ', $this->getFields()) . "]");
         }
     }
 

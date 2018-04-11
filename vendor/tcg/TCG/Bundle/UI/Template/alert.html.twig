@@ -1,0 +1,39 @@
+{% if show_close_btn is not defined %}
+    {% set show_close_btn = true %}
+{% endif %}
+{% set warning = request.session.getFlashBag.get('warning') %}
+{% set danger = request.session.getFlashBag.get('error') %}
+{% set info = request.session.getFlashBag.get('info') %}
+{% set success = request.session.getFlashBag.get('success') %}
+{% if warning is defined and warning %}
+    <div class="tui alert alert-warning alert-dismissible fade show" role="alert">
+        {% for msg in warning %}{{ msg|raw }}{% endfor %}
+        {% if show_close_btn %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {% endif %}
+    </div>
+{% endif %}
+{% if danger is defined and danger %}
+    <div class="tui alert alert-danger alert-dismissible fade show" role="alert">
+        {% for msg in danger %}{{ msg|raw }}{% endfor %}
+        {% if show_close_btn %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {% endif %}
+    </div>
+{% endif %}
+{% if info is defined and info %}
+    <div class="tui alert alert-info alert-dismissible fade show" role="alert">
+        {% for msg in info %}{{ msg|raw }}{% endfor %}
+        {% if show_close_btn %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {% endif %}
+    </div>
+{% endif %}
+{% if success is defined and success %}
+    <div class="tui alert alert-success alert-dismissible fade show" role="alert">
+        {% for msg in success %}{{ msg|raw }}{% endfor %}
+        {% if show_close_btn %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {% endif %}
+    </div>
+{% endif %}

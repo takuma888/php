@@ -1,0 +1,8 @@
+parameters:
+    tcg_module.cms.template_root.dashboard: %vendor_root%/tcg/TCG/Module/CMS/Dashboard/Template
+
+
+services:
+    tcg_bundle.twig.filesystem_loader:
+        calls:
+            - [addPath, [%tcg_module.cms.template_root.dashboard%, TCGCMSModule:Dashboard]]

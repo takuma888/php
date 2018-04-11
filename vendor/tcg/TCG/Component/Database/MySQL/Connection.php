@@ -131,6 +131,7 @@ class Connection extends \PDO
     /**
      * 开启事务
      * @param \Closure $fallback
+     * @throws \Exception
      */
     public function transaction(\Closure $fallback = null)
     {
@@ -143,6 +144,7 @@ class Connection extends \PDO
                 $this->commit();
             } catch (\Exception $e) {
                 $this->rollBack();
+                throw $e;
             }
         }
     }

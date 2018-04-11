@@ -8,7 +8,7 @@ use TCG\Bundle\CMF\Database\MySQL\Model\User;
 class Account
 {
 
-    const ROLE_FOUNDER = 'founder';
+    const ROLE_ROOT = 'root';
     const ROLE_SUPER_ADMIN = 'super_admin';
     const ROLE_DEVELOPER = 'developer';
     /**
@@ -82,7 +82,7 @@ class Account
     public function hasPermission($permissionId)
     {
         $rolesWhitelist = [
-            self::ROLE_FOUNDER, self::ROLE_SUPER_ADMIN, self::ROLE_DEVELOPER,
+            self::ROLE_ROOT, self::ROLE_SUPER_ADMIN, self::ROLE_DEVELOPER,
         ];
         foreach ($rolesWhitelist as $role) {
             if ($this->hasRole($role)) {

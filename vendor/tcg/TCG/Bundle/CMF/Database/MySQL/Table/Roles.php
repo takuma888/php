@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS {@table} (
   `left_value` INT(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '预排续树左值',
   `right_value` INT(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '预排续树右值',
   PRIMARY KEY (`id`),
-  UNIQUE (`key`)
+  UNIQUE (`key`),
   KEY `tree_left` (`left_value`),
   KEY `tree_right` (`right_value`)
 ) ENGINE InnoDB DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_general_ci;

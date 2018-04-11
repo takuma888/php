@@ -63,6 +63,16 @@ class UserService
         return $user;
     }
 
+    /**
+     * @param User $user
+     * @param $password
+     * @return bool
+     */
+    public function checkPassword(User $user, $password)
+    {
+        return $user->password == md5($password);
+    }
+
 
     public function remove(User $user)
     {

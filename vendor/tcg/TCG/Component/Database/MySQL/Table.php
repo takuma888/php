@@ -87,12 +87,15 @@ abstract class Table
         $client = $this->getClient();
         $tableName = $this->getName($partition);
         $queryBuilder = $client->createQueryBuilder()->insert($tableName);
+        $fieldList = [];
         foreach ($fields as $field => $value) {
             $field = trim($field, '`');
             if ($value !== null) {
+                $fieldList['`' . $field . '`'] = '`' . $field . '`';
                 $queryBuilder->setValue('`' . $field . '`', ':' . $field)->setParameter(':' . $field, $value);
             }
         }
+        $queryBuilder->fields($fieldList);
         return $queryBuilder;
     }
 

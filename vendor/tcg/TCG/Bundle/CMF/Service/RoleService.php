@@ -14,6 +14,32 @@ class RoleService
     use PrivateTrait;
 
     /**
+     * @return string|Role
+     */
+    public function createDefaultRoot()
+    {
+        return $this->create('root');
+    }
+
+    /**
+     * @return array|null|string|Role
+     */
+    public function getRoot()
+    {
+        $root = $this->dbMain()
+            ->tblRoles()
+            ->getRootNode();
+        if (!$root) {
+            $root = $this->createDefaultRoot();
+        } else {
+            $root = $this->dbMain()
+                ->tblRoles()
+                ->model($root);
+        }
+        return $root;
+    }
+
+    /**
      * @param $key
      * @param Role|null $parentRole
      * @return string|Role

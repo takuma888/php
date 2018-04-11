@@ -2,7 +2,15 @@ services:
     # 初始化数据库
     tcg_bundle.cmf.cmd_exec.init.mysql:
         class: TCG\Bundle\CMF\Cmd\Controller\InitController\ActionMySQL
+    # 创建用户
+    tcg_bundle.cmf.cmd_exec.account.create_user:
+        class: TCG\Bundle\CMF\Cmd\Controller\AccountController\ActionCreateUser
+    # 创建根角色
+    tcg_bundle.cmf.cmd_exec.account.create_root_role:
+        class: TCG\Bundle\CMF\Cmd\Controller\AccountController\ActionCreateRootRole
 
     tcg_module.console.application:
         calls:
             - [add, [@tcg_bundle.cmf.cmd_exec.init.mysql]] # install
+            - [add, [@tcg_bundle.cmf.cmd_exec.account.create_user]]
+            - [add, [@tcg_bundle.cmf.cmd_exec.account.create_root_role]]

@@ -1,0 +1,11 @@
+parameters:
+    permissions:
+        # admin
+        admin_homepage:
+            title: 管理后台首页
+            desc: 管理后台首页
+
+        # dashboard
+        dashboard_homepage:
+            title: 总控制台首页
+            desc: 总控制台首页

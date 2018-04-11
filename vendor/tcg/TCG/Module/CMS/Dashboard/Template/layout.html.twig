@@ -1,0 +1,58 @@
+{% extends '@TCGCMSModule/layout.html.twig' %}
+{% block stylesheets_global_mandatory %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ cdn('cms/dashboard/css/dashboard.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="tui">
+        <div class="page-top">
+            <a href="{{ url('dashboard_logout') }}"><i class="fa fa-sign-out"></i> 退出 ( {{ account.getUser().name|default(account.getUser().username) }} )</a>
+        </div>
+        <div class="page-sidebar">
+                <button class="page-sidebar-toggler btn btn-block">
+                    <i class="fa fa-bars"></i>
+                </button>
+            <nav class="tui nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link {% if 'dashboard_homepage' in breadcrumbs %}active{% endif %}" href="{{ url('dashboard_homepage') }}">
+                        <i class="fa fa-home"></i>
+                        <span class="title">总控制台首页</span>
+                        {% if 'dashboard_homepage' in breadcrumbs %}
+                            <span class="selected"></span>
+                        {% endif %}
+                    </a>
+                </li>
+                {% if account|permission('dashboard.user.index') %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'dashboard.user.index' in breadcrumbs %}active{% endif %}" href="{{ url('dashboard.user.index') }}">
+                            <i class="fa fa-user-circle-o"></i>
+                            <span class="title">后台用户管理</span>
+                            {% if 'dashboard.user.index' in breadcrumbs %}
+                                <span class="selected"></span>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endif %}
+                {% if account|permission('dashboard.role.index') %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'dashboard.role.index' in breadcrumbs %}active{% endif %}" href="{{ url('dashboard.role.index') }}">
+                            <i class="fa fa-users"></i>
+                            <span class="title">后台角色管理</span>
+                            {% if 'dashboard.role.index' in breadcrumbs %}
+                                <span class="selected"></span>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endif %}
+            </nav>
+        </div>
+        <div class="page-content">
+            {% block page_title %}{% endblock %}
+            {% block main %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
+{% block scripts_core_plugins %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ cdn('cms/dashboard/js/dashboard.js') }}"></script>
+{% endblock %}

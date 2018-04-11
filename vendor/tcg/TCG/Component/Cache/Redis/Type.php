@@ -21,7 +21,7 @@ abstract class Type
      */
     public function __construct(Client $client, $name = null)
     {
-        $this->client;
+        $this->client = $client;
         $this->name = $name;
     }
 

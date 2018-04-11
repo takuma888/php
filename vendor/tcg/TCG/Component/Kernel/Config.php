@@ -390,9 +390,6 @@ class Config implements Countable, Iterator, ArrayAccess
     {
         $return = "array(\n";
         foreach ($this->data as $key => $value) {
-            if (!$value) {
-                continue;
-            }
             if (!is_numeric($key)) {
                 $return .= "'$key'" . ' => ';
             }
@@ -401,6 +398,10 @@ class Config implements Countable, Iterator, ArrayAccess
             } elseif (is_string($value)) {
                 $value = trim($value, "\"'");
                 $return .= "'$value',\n";
+            } elseif (is_null($value)) {
+                $return .= "null,\n";
+            } elseif (is_bool($value)) {
+                $return .= $value ? "true, \n" : "false, \n";
             } else {
                 $return .= $value . ",\n";
             }

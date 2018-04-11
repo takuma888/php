@@ -236,10 +236,18 @@ SQL;
 update {@table} set `right_value` = `right_value` + 2 where `right_value` >= :parent_right_value;
 update {@table} set `left_value` = `left_value` + 2 where `left_value` > :parent_right_value;
 SQL;
+        $sql = strtr($sql, [
+            '{@table}' => $tableName,
+        ]);
+        $this->getClient()
+            ->master()
+            ->statement($sql, [
+                ':parent_right_value' => $parentRightValue,
+            ]);
+
         $insertQuery = $this->getInsertQuery($fields);
-        $sql .= "\n" . $insertQuery->getSQL();
+        $sql = $insertQuery->getSQL();
         $params = $insertQuery->getParameters();
-        $params[':parent_right_value'] = $parentRightValue;
 
         $sql = strtr($sql, [
             '{@table}' => $tableName,

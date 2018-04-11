@@ -1,14 +1,13 @@
 <?php
 
-namespace TCG\Module\CMS\Admin\Controller;
+namespace TCG\Module\CMS\Dashboard\Controller;
 
 use TCG\Bundle\CMF\PublicTrait as CMFTrait;
 use TCG\Module\CMS\CMSExec;
 
-abstract class CMSAdminExec extends CMSExec
+abstract class CMSDashboardExec extends CMSExec
 {
     use CMFTrait;
-
 
     public function __invoke()
     {
@@ -22,14 +21,14 @@ abstract class CMSAdminExec extends CMSExec
         $session = $request->getSession();
         $userId = $session->get('uid');
         if (!$userId) {
-            return $this->redirect('admin_login');
+            return $this->redirect('dashboard_login');
         }
         // 生成account
         $user = $this->tcgCMF()
             ->providerUser()
             ->oneById($userId);
         if (!$user) {
-            return $this->redirect('admin_login');
+            return $this->redirect('dashboard_login');
         }
 
         $account = $this->tcgCMF()

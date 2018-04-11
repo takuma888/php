@@ -12,7 +12,7 @@ class ActionMySQL extends CmdAction
     protected function configure()
     {
         $this
-            ->setName('tcg_cmf.init.mysql')
+            ->setName('tcg_cmf:init.mysql')
             ->setDescription('创建CMF使用到的MySQL库和表')->addOption('show-sql', null, InputOption::VALUE_OPTIONAL, '是否显示SQL', 0)
             ->addOption('drop', null, InputOption::VALUE_OPTIONAL, '是否drop已存在的表', 0);
     }

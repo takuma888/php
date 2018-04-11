@@ -1,0 +1,20 @@
+routing:
+    dashboard_homepage:
+        path: /
+        defaults: { _controller: @TCGCMSModule:DefaultController:ActionIndex }
+    dashboard_login:
+        path: /login
+        defaults: { _controller: @TCGCMSModule:DefaultController:ActionLogin }
+    dashboard_logout:
+        path: /logout
+        defaults: { _controller: @TCGCMSModule:DefaultController:ActionLogout }
+
+    # 用户管理首页
+    dashboard.user.index:
+        path: /user
+        defaults: { _controller: @TCGCMSModule:UserController:ActionIndex }
+
+    # 角色管理首页
+    dashboard.role.index:
+        path: /role
+        defaults: { _controller: @TCGCMSModule:RoleController:ActionIndex }
