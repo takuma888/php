@@ -13,6 +13,15 @@ routing:
     dashboard.user.index:
         path: /user
         defaults: { _controller: @TCGCMSModule:UserController:ActionIndex }
+    dashboard.user.edit:
+        path: /user/edit
+        defaults: { _controller: @TCGCMSModule:UserController:ActionEdit }
+    dashboard.user.delete:
+        path: /user/delete
+        defaults: { _controller: @TCGCMSModule:UserController:ActionDelete }
+    dashboard.user.add:
+        path: /user/add
+        defaults: { _controller: @TCGCMSModule:UserController:ActionAdd }
 
     # 角色管理首页
     dashboard.role.index:

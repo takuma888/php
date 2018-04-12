@@ -1,0 +1,80 @@
+{% extends '@TCGCMSModule:Dashboard/layout.html.twig' %}
+{% block html_title %}后台用户管理{{ parent() }}{% endblock %}
+{% block page_title %}
+    <h5><i class="fa fa-plus"></i> 添加后台用户</h5>
+    <hr>
+{% endblock %}
+
+{% block main %}
+    <div class="row flexible">
+        <div class="col-md-12">
+            <form method="post" action="{{ url('dashboard.user.add') }}">
+                <table class="form-table">
+                    <tr>
+                        <th class="form-table-label">用户名</th>
+                        <td>
+                            <div class="tui-control">
+                                <input type="text" class="tui-input" name="username" id="username">
+                            </div>
+                        </td>
+                        <th class="form-table-label">邮箱</th>
+                        <td>
+                            <div class="tui-control">
+                                <input type="text" class="tui-input" name="email" id="email">
+                            </div>
+                        </td>
+                        <th class="form-table-label">手机号</th>
+                        <td>
+                            <div class="tui-control">
+                                <input type="text" class="tui-input" name="mobile" id="mobile">
+                            </div>
+                        </td>
+                        <th class="form-table-label">名称</th>
+                        <td>
+                            <div class="tui-control">
+                                <input type="text" class="tui-input" name="name" id="name">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="form-table-label">密码</th>
+                        <td>
+                            <div class="tui-control">
+                                <input type="password" class="tui-input" name="password" id="password">
+                            </div>
+                        </td>
+                        <th class="form-table-label">确认密码</th>
+                        <td>
+                            <div class="tui-control">
+                                <input type="password" class="tui-input" name="confirm_password" id="confirm_password">
+                            </div>
+                        </td>
+                        <th class="form-table-label">QQ</th>
+                        <td>
+                            <div class="tui-control">
+                                <input type="text" class="tui-input" name="qq" id="qq">
+                            </div>
+                        </td>
+                        <th class="form-table-label">微信</th>
+                        <td>
+                            <div class="tui-control">
+                                <input type="text" class="tui-input" name="wechat" id="wechat">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="form-table-label">角色</th>
+                        <td colspan="7">
+                            <div class="tui-control">
+                                <div class="tui-control-select">
+                                    <select class="tui-select" data-toggle="tui-select" data-placeholder="请选择角色" data-search="false">
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}

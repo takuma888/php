@@ -245,6 +245,9 @@ SQL;
                 ':parent_right_value' => $parentRightValue,
             ]);
 
+        $fields['right_value'] = $parentRightValue + 2 - 1;
+        $fields['left_value'] = $fields['right_value'] - 1;
+
         $insertQuery = $this->getInsertQuery($fields);
         $sql = $insertQuery->getSQL();
         $params = $insertQuery->getParameters();

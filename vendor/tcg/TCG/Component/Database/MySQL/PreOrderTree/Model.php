@@ -117,6 +117,7 @@ abstract class Model extends BaseModel
         $table = $this->getTable();
         /** @var Model $childId */ // 只是为了编辑器好看增加的注释
         $childId = $table->insertChildNode($fields, $this->rightValue);
+        $this->rightValue += 2;
         if ($returnNewModel) {
             $row = $table->getNode($childId);
             /** @var Model $model */

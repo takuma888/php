@@ -1,6 +1,27 @@
 {% extends '@TCGCMSModule:Dashboard/layout.html.twig' %}
 {% block html_title %}后台用户管理{{ parent() }}{% endblock %}
 {% block page_title %}
-    <h5><i class="fa fa-user-circle-o"></i> 后台用户管理</h5>
+    <h5><i class="fa fa-user-circle-o"></i> 后台用户列表</h5>
     <hr>
+{% endblock %}
+
+{% block main %}
+    <div class="tui tui-table-wrapper"
+         data-toggle="tui-table"
+         data-target="#table"
+         data-url="{{ url('dashboard.user.index') }}"
+         data-page="1"
+         data-fields="id,# ID,width: 60px; text-align: center;|username,用户名|name,名称|create_at,创建,width: 200px;|roles,角色{% if account|permission('dashboard.user.edit') or account|permission('dashboard.user.delete') %}|op,操作,max-width: 150px;{% endif %}"
+         data-filter="id|username|name"
+         id="table-wrapper">
+        <div class="tui-table-header">
+            {% if account|permission('dashboard.user.add') %}
+                <a href="{{ url('dashboard.user.add') }}" class="btn btn-secondary btn-sm mb-1 mr-1"><i class="fa fa-plus"></i> 添加</a>
+            {% endif %}
+        </div>
+        <div class="tui-table-body">
+            <table class="table table-bordered table-hover table-striped table-sm" id="table">
+            </table>
+        </div>
+    </div>
 {% endblock %}

@@ -18,7 +18,25 @@ class RoleService
      */
     public function createDefaultRoot()
     {
-        return $this->create('root');
+        return $this->create('root', 'admin');
+    }
+
+    /**
+     * @param Role $rootRole
+     * @return string|Role
+     */
+    public function createDefaultSuperAdmin(Role $rootRole)
+    {
+        return $this->create('super_admin', 'admin', $rootRole);
+    }
+
+    /**
+     * @param Role $rootRole
+     * @return string|Role
+     */
+    public function createDefaultDeveloper(Role $rootRole)
+    {
+        return $this->create('developer', 'admin', $rootRole);
     }
 
     /**
@@ -41,11 +59,12 @@ class RoleService
 
     /**
      * @param $key
+     * @param $type
      * @param Role|null $parentRole
      * @return string|Role
      * @throws CMFException
      */
-    public function create($key, Role $parentRole = null)
+    public function create($key, $type, Role $parentRole = null)
     {
         $key = trim($key);
         if (!$key) {
@@ -54,6 +73,7 @@ class RoleService
         // 检查重复性
         if (!$parentRole) {
             // 创建根
+            $type = 'admin';
             // 检查根是否存在
             $root = $this->dbMain()
                 ->tblRoles()
@@ -65,6 +85,7 @@ class RoleService
                 ->tblRoles()
                 ->model();
             $rootRole->key = $key;
+            $rootRole->type = $type;
             $rootRole->leftValue = 0;
             $rootRole->rightValue = 1;
             return $this->providerRole()
@@ -77,6 +98,8 @@ class RoleService
             }
             $role = $parentRole->insertChild([
                 'key' => $key,
+                'type' => $type,
+                'create_at' => time(),
             ], true);
             return $role;
         }
@@ -101,10 +124,12 @@ class RoleService
         if ($roleIds) {
             // 批量插入新的关联关系
             $user2role = [];
+            $now = time();
             foreach ($roleIds as $roleId) {
                 $user2role[] = [
                     'user_id' => $user->id,
                     'role_id' => $roleId,
+                    'create_at' => $now,
                 ];
             }
             $this->dbMain()
