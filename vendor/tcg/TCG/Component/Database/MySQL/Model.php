@@ -79,11 +79,28 @@ abstract class Model implements \ArrayAccess
     }
 
     /**
+     * @param $property
+     * @return string
+     */
+    public function property2Key($property)
+    {
+        $field = StringUtil::underscore($property);
+        return $field;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
     {
-        return $this->toRawArray();
+        $return = [];
+        $rc = new \ReflectionClass($this);
+        foreach ($rc->getProperties(\ReflectionProperty::IS_PROTECTED) as $property) {
+            $property = $property->getName();
+            $field = $this->property2Key($property);
+            $return[$field] = $this->{$property};
+        }
+        return $return;
     }
 
     /**

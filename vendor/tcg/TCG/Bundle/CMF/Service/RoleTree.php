@@ -96,9 +96,11 @@ class TreeNode
      */
     public $children = [];
 
+    public $depth = 0;
+
     public function __construct(Role $role)
     {
-        $data = $role->toRawArray();
+        $data = $role->toArray();
         foreach ($data as $key => $value) {
             $property = $role->key2Property($key);
             $this->{$property} = $value;

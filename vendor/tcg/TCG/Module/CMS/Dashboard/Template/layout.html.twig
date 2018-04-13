@@ -22,23 +22,23 @@
                         {% endif %}
                     </a>
                 </li>
-                {% if account|permission('dashboard.user.index') %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'dashboard.user.index' in breadcrumbs %}active{% endif %}" href="{{ url('dashboard.user.index') }}">
-                            <i class="fa fa-user-circle-o"></i>
-                            <span class="title">后台用户管理</span>
-                            {% if 'dashboard.user.index' in breadcrumbs %}
-                                <span class="selected"></span>
-                            {% endif %}
-                        </a>
-                    </li>
-                {% endif %}
                 {% if account|permission('dashboard.role.index') %}
                     <li class="nav-item">
                         <a class="nav-link {% if 'dashboard.role.index' in breadcrumbs %}active{% endif %}" href="{{ url('dashboard.role.index') }}">
                             <i class="fa fa-group"></i>
                             <span class="title">后台角色管理</span>
                             {% if 'dashboard.role.index' in breadcrumbs %}
+                                <span class="selected"></span>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endif %}
+                {% if account|permission('dashboard.user.index') %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'dashboard.user.index' in breadcrumbs %}active{% endif %}" href="{{ url('dashboard.user.index') }}">
+                            <i class="fa fa-user-circle-o"></i>
+                            <span class="title">后台用户管理</span>
+                            {% if 'dashboard.user.index' in breadcrumbs %}
                                 <span class="selected"></span>
                             {% endif %}
                         </a>

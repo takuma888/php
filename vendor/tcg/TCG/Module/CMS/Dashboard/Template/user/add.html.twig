@@ -67,13 +67,21 @@
                         <td colspan="7">
                             <div class="tui-control">
                                 <div class="tui-control-select">
-                                    <select class="tui-select" data-toggle="tui-select" data-placeholder="请选择角色" data-search="false">
+                                    <select class="tui-select" data-toggle="tui-select" name="roles[]" data-placeholder="请选择角色" multiple>
+                                        {% for role in roles %}
+                                            <option value="{{ role.id }}">{{ role.name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
                         </td>
                     </tr>
                 </table>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary btn-sm">提交</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
