@@ -15,3 +15,7 @@ services:
     # aware tcg_module.cms
     tcg_module.cms.module_aware:
         class: TCG\Module\CMS\ModuleAware
+
+    # services ...
+    tcg_module.cms.service.session:
+        class: TCG\Module\CMS\Service\SessionService

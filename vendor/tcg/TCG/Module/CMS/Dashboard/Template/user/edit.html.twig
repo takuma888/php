@@ -1,0 +1,31 @@
+<form class="tui modal-content" method="post" action="{{ url('dashboard.user.edit', { id: user.id}) }}">
+    <div class="modal-header">
+        <h5 class="modal-title" id="user-edit-modal">
+            <i class="fa fa-edit"></i>&nbsp;编辑后台用户角色
+        </h5>
+        <button type="button" class="close" data-dismiss="layer" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="tui-form-item">
+            <label class="tui-label">角色</label>
+            <div class="tui-control-select">
+                <select class="tui-select" name="roles[]" id="roles-selection" multiple>
+                    {% for role in roles %}
+                        <option value="{{ role.id }}" {% if role.id in user_roles %}selected{% endif %}>{{ role.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm">提交</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="layer">取消</button>
+    </div>
+</form>
+<script type="text/javascript">
+    $('#roles-selection').select2({
+        dropdownParent: $('#roles-selection').parent(),
+    });
+</script>

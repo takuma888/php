@@ -25,7 +25,11 @@ SQL;
     public function getFields()
     {
         return [
-
+            'id' => 0,
+            'session_id' => '',
+            'data' => '',
+            'lifetime' => 0,
+            'timestamp' => 0,
         ];
     }
 

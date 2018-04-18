@@ -1,97 +1,108 @@
-{% extends '@TCGCMSModule:Dashboard/layout.html.twig' %}
-{% block html_title %}后台用户管理{{ parent() }}{% endblock %}
-{% block page_title %}
-    <h5><i class="fa fa-plus"></i> 添加后台用户</h5>
-    <hr>
-{% endblock %}
-
-{% block main %}
-    <div class="row flexible">
-        <div class="col-md-12">
-            <form method="post" action="{{ url('dashboard.user.add') }}">
-                <table class="form-table">
-                    <tr>
-                        <th class="form-table-label">用户名</th>
-                        <td>
-                            <div class="tui-control">
-                                <input type="text" class="tui-input" name="username" id="username">
-                            </div>
-                        </td>
-                        <th class="form-table-label">邮箱</th>
-                        <td>
-                            <div class="tui-control">
-                                <input type="text" class="tui-input" name="email" id="email">
-                            </div>
-                        </td>
-                        <th class="form-table-label">手机号</th>
-                        <td>
-                            <div class="tui-control">
-                                <input type="text" class="tui-input" name="mobile" id="mobile">
-                            </div>
-                        </td>
-                        <th class="form-table-label">名称</th>
-                        <td>
-                            <div class="tui-control">
-                                <input type="text" class="tui-input" name="name" id="name">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="form-table-label">密码</th>
-                        <td>
-                            <div class="tui-control">
-                                <input type="password" class="tui-input" name="password" id="password">
-                            </div>
-                        </td>
-                        <th class="form-table-label">确认密码</th>
-                        <td>
-                            <div class="tui-control">
-                                <input type="password" class="tui-input" name="confirm_password" id="confirm_password">
-                            </div>
-                        </td>
-                        <th class="form-table-label">QQ</th>
-                        <td>
-                            <div class="tui-control">
-                                <input type="text" class="tui-input" name="qq" id="qq">
-                            </div>
-                        </td>
-                        <th class="form-table-label">微信</th>
-                        <td>
-                            <div class="tui-control">
-                                <input type="text" class="tui-input" name="wechat" id="wechat">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="form-table-label">角色</th>
-                        <td colspan="7">
-                            <div class="tui-control">
-                                <div class="tui-control-select">
-                                    <select class="tui-select" id="user-roles-selection" name="roles[]" data-placeholder="请选择角色" data-search="true" multiple style="width: 100%;">
-                                        {% for role in roles %}
-                                            <option value="{{ role.id }}">{{ role.name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <div class="form-row">
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary btn-sm">提交</button>
+<form class="tui modal-content" method="post" action="{{ url('dashboard.user.add') }}">
+    <div class="modal-header">
+        <h5 class="modal-title" id="role-add-modal">
+            <i class="fa fa-plus"></i>&nbsp;添加后台角色
+        </h5>
+        <button type="button" class="close" data-dismiss="layer" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered table-hover table-striped table-sm" id="users-table" style="width:100%">
+            <thead>
+            <tr>
+                <th style="width: 1px;">
+                    <div class="tui-control-checkbox">
+                        <input type="checkbox" class="tui-checkbox table-group-check" id="users-group-check">
+                        <label class="tui-label" for="users-group-check"></label>
                     </div>
+                </th>
+                <th>ID</th>
+                <th>用户名</th>
+                <th>名称</th>
+                <th>创建</th>
+            </tr>
+            </thead>
+        </table>
+        <hr>
+        <div class="form-row">
+            <div class="tui-form-item">
+                <label class="tui-label">角色</label>
+                <div class="tui-control-select">
+                    <select class="tui-select" name="roles[]" id="roles-selection" multiple>
+                        {% for role in roles %}
+                            <option value="{{ role.id }}">{{ role.name }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-{% endblock %}
-
-{% block scripts_text %}
-    {{ parent() }}
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            $('#user-roles-selection').select2();
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm">提交</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="layer">取消</button>
+    </div>
+</form>
+<script type="text/javascript">
+    $('#roles-selection').select2({
+        dropdownParent: $('#roles-selection').parent(),
+    });
+    var $table = $('#users-table');
+    $('.table-group-check', $table).on('change', function () {
+        var $set = $('.table-item-check', $table);
+        var checked = $(this).prop("checked");
+        $($set).each(function() {
+            $(this).prop("checked", checked);
         });
-    </script>
-{% endblock %}
+    });
+    $($table).on('change', '.table-item-check',  function () {
+        var total = $('.table-item-check', $table).length;
+        var checkedNum = $('.table-item-check:checked', $table).length;
+        if (total == checkedNum) {
+            $('.table-group-check', $table).prop('checked', true);
+        } else {
+            $('.table-group-check', $table).prop('checked', false);
+        }
+    });
+
+    $table.DataTable({
+        'processing': true,
+        'serverSide': true,
+        'ajax': '{{ url('dashboard.user.add', { action: 'users' }) }}',
+        'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, '所有']],
+        'language': {
+            "sProcessing":   "处理中...",
+            "sLengthMenu":   "显示 _MENU_ 项结果",
+            "sZeroRecords":  "没有匹配结果",
+            "sInfo":         "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty":    "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix":  "",
+            "sSearch":       "搜索:",
+            "sUrl":          "",
+            "sEmptyTable":     "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands":  ",",
+            "oPaginate": {
+                "sFirst":    "首页",
+                "sPrevious": "上页",
+                "sNext":     "下页",
+                "sLast":     "末页"
+            },
+            "oAria": {
+                "sSortAscending":  ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        },
+        'columns': [
+            { 'data': 'op' },
+            { 'data': 'id' },
+            { 'data': 'username' },
+            { 'data': 'name' },
+            { 'data': 'create_at' },
+        ],
+        'columnDefs': [
+            { 'targets': 0, 'searchable': false, 'sortable': false },
+        ],
+    });
+</script>

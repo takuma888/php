@@ -117,24 +117,33 @@ class ActionIndex extends UserController
                     if (isset($user2roles[$row['id']])) {
                         foreach ($user2roles[$row['id']] as $roleId) {
                             $role = $roles[$roleId];
-                            $userRoles[] = '<a href="javascript:void(0);">' . $role['name'] . '</a>';
+                            $roleUrl = $this->url('dashboard.role.index', [
+                                'id' => $roleId,
+                            ]);
+                            $userRoles[] = '<a href="' . $roleUrl . '">' . $role['name'] . '</a>';
                         }
                     }
                     $line['roles'] = implode('&nbsp;&nbsp;', $userRoles);
                     // 操作
                     $operations = [];
-                    // 修改， 删除
+                    // 修改角色 重置密码 删除
                     if ($this->getAccount()->hasPermission('dashboard.user.edit')) {
                         $editUrl = $this->url('dashboard.user.edit', [
                             'id' => $row['id'],
                         ]);
-                        $operations[] = '<a href="' . $editUrl . '"><i class="fa fa-edit"></i> 修改</a>';
+                        $operations[] = '<a href="javascript:void(0);" data-toggle="layer" data-type="modal" data-width="500px" data-url="' . $editUrl . '"><i class="fa fa-edit"></i> 修改角色</a>';
+                    }
+                    if ($this->getAccount()->hasPermission('dashboard.user.password')) {
+                        $passwordUrl = $this->url('dashboard.user.password', [
+                            'id' => $row['id'],
+                        ]);
+                        $operations[] = '<a href="javascript:void(0);" data-toggle="layer" data-type="modal" data-width="500px" data-url="' . $passwordUrl . '"><i class="fa fa-key"></i> 修改密码</a>';
                     }
                     if ($this->getAccount()->hasPermission('dashboard.user.delete')) {
                         $deleteUrl = $this->url('dashboard.user.delete', [
                             'ids' => [$row['id']]
                         ]);
-                        $operations[] = '<a href="javascript:void(0);" data-url="' . $deleteUrl . '" data-toggle="layer" data-type="iframe"><i class="fa fa-remove"></i> 删除</a>';
+                        $operations[] = '<a href="javascript:void(0);" data-url="' . $deleteUrl . '" data-toggle="layer" data-type="modal" data-width="500px"><i class="fa fa-remove"></i> 删除</a>';
                     }
                     $line['op'] = implode('&nbsp;&nbsp;', $operations);
                     $rows[] = $line;

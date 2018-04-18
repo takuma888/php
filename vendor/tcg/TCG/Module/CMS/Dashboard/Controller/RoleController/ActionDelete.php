@@ -29,13 +29,13 @@ class ActionDelete extends RoleController
             try {
                 $this->tcgCMF()
                     ->dbMain()
-                    ->transaction(function () use ($roles) {
+                    ->transaction((function () use ($roles) {
                         foreach ($roles as $role) {
                             $this->tcgCMF()
                                 ->providerRole()
                                 ->remove($role);
                         }
-                    });
+                    })->bindTo($this));
                 $session->getFlashBag()->add('success', '操作成功');
             } catch (\Exception $e) {
                 $session->getFlashBag()->add('error', $e->getMessage());

@@ -22,20 +22,31 @@ routing:
     dashboard.user.add:
         path: /user/add
         defaults: { _controller: @TCGCMSModule:UserController:ActionAdd }
+    dashboard.user.password:
+        path: /user/password
+        defaults: { _controller: @TCGCMSModule:UserController:ActionPassword }
 
     # 角色管理首页
     dashboard.role.index:
         path: /role
         defaults: { _controller: @TCGCMSModule:RoleController:ActionIndex }
+    # 添加角色
     dashboard.role.add:
         path: /role/add
         defaults: { _controller: @TCGCMSModule:RoleController:ActionAdd }
+    # 编辑角色
     dashboard.role.edit:
         path: /role/edit
         defaults: { _controller: @TCGCMSModule:RoleController:ActionEdit }
+    # 删除角色
     dashboard.role.delete:
         path: /role/delete
         defaults: { _controller: @TCGCMSModule:RoleController:ActionDelete }
+    # 移除角色用户
     dashboard.role.delete_users:
         path: /role/delete-users
         defaults: { _controller: @TCGCMSModule:RoleController:ActionDeleteUsers }
+    # 修改角色权限
+    dashboard.role.permission:
+        path: /role/permission
+        defaults: { _controller: @TCGCMSModule:RoleController:ActionPermission }

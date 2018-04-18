@@ -60,10 +60,10 @@ class ActionCreateUser extends CmdAction
                 }
             }
             $this->serviceRole()
-                ->updateUserRole($user, $roleIds);
+                ->updateUserAdminRole($user, $roleIds);
         };
         $transaction->bindTo($this);
 
-        $this->dbMain()->master()->transaction($transaction);
+        $this->dbMain()->transaction($transaction);
     }
 }

@@ -72,59 +72,65 @@
                 </table>
                 <hr>
                 <h6>权限配置</h6>
-                <table class="table table-hover table-striped" id="permission-table" style="width: 100%">
-                    <thead>
-                    <tr>
-                        <th style="width: 1px">
-                            <div class="tui-control-checkbox">
-                                {% set checked = false %}
-                                {% set disabled = false %}
-                                {% if root.key == 'root' or root.key == 'super_admin' or root.key == 'developer' %}
-                                    {% set checked = true %}
-                                    {% set disabled = true %}
-                                {% endif %}
-                                <input type="checkbox" class="tui-checkbox" id="permission-group-check" {% if checked %}checked{% endif %} {% if disabled %}disabled{% endif %}>
-                                <label class="tui-label" for="permission-group-check"></label>
-                            </div>
-                        </th>
-                        <th style="width: 400px;">权限</th>
-                        <th>描述</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for scope, scope_info in parameters['permissions'].toArray() %}
-                        {% if scope == 'admin' or scope == 'dashboard' %}
-                            <tr style="background-color: #efefef;">
-                                <td></td>
-                                <th>{{ scope_info.name }}<div class="d-none">{{ scope }}</div></th>
-                                <td></td>
-                            </tr>
-                            {% for permission_key, permission in scope_info.items %}
-                                <tr>
-                                    <td>
-                                        <div class="tui-control-checkbox">
-                                            {% set checked = false %}
-                                            {% set disabled = false %}
-                                            {% if root.key == 'root' or root.key == 'super_admin' or root.key == 'developer' %}
-                                                {% set checked = true %}
-                                                {% set disabled = true %}
-                                            {% endif %}
-                                            <input type="checkbox" class="tui-checkbox permission-item-check"
-                                                   name="permissions[{{ permission.key }}]" value="1" id="permission-item-{{ permission_key }}"
-                                                   {% if checked %}checked{% endif %} {% if disabled %}disabled{% endif %}>
-                                            <label class="tui-label" for="permission-item-{{ permission_key }}"></label>
-                                        </div>
-                                    </td>
-                                    <td style="text-indent: 2em;">
-                                        <strong class="mb-0">{{ permission.title }}&nbsp;&nbsp;&nbsp;&nbsp;<small class="text-muted">{{ permission_key }}</small></strong>
-                                    </td>
-                                    <td><p lang="zh" class="small mb-0 text-muted">{{ permission.desc }}</p></td>
+                <form method="post" action="{{ url('dashboard.role.permission', { id: root.id }) }}">
+                    <table class="table table-hover table-striped" id="permission-table" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th style="width: 1px">
+                                <div class="tui-control-checkbox">
+                                    {% set checked = false %}
+                                    {% set disabled = false %}
+                                    {% if root.key == 'root' or root.key == 'super_admin' or root.key == 'developer' %}
+                                        {% set checked = true %}
+                                        {% set disabled = true %}
+                                    {% endif %}
+                                    <input type="checkbox" class="tui-checkbox" id="permission-group-check" {% if checked %}checked{% endif %} {% if disabled %}disabled{% endif %}>
+                                    <label class="tui-label" for="permission-group-check"></label>
+                                </div>
+                            </th>
+                            <th style="width: 400px;">权限</th>
+                            <th>描述</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for scope, scope_info in parameters['permissions'].toArray() %}
+                            {% if scope == 'admin' or scope == 'dashboard' %}
+                                <tr style="background-color: #efefef;">
+                                    <td></td>
+                                    <th>{{ scope_info.name }}<div class="d-none">{{ scope }}</div></th>
+                                    <td></td>
                                 </tr>
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
-                    </tbody>
-                </table>
+                                {% for permission_key, permission in scope_info.items %}
+                                    <tr>
+                                        <td>
+                                            <div class="tui-control-checkbox">
+                                                {% set checked = false %}
+                                                {% set disabled = false %}
+                                                {% if root.key == 'root' or root.key == 'super_admin' or root.key == 'developer' %}
+                                                    {% set checked = true %}
+                                                    {% set disabled = true %}
+                                                {% endif %}
+                                                <input type="checkbox" class="tui-checkbox permission-item-check"
+                                                       name="permissions[{{ permission_key }}]" value="1" id="permission-item-{{ permission_key }}"
+                                                       {% if checked %}checked{% endif %} {% if disabled %}disabled{% endif %}>
+                                                <label class="tui-label" for="permission-item-{{ permission_key }}"></label>
+                                            </div>
+                                        </td>
+                                        <td style="text-indent: 2em;">
+                                            <strong class="mb-0">{{ permission.title }}&nbsp;&nbsp;&nbsp;&nbsp;<small class="text-muted">{{ permission_key }}</small></strong>
+                                        </td>
+                                        <td><p lang="zh" class="small mb-0 text-muted">{{ permission.desc }}</p></td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if account|permission('dashboard.role.permission') %}
+                        <hr>
+                        <button type="submit" class="btn btn-primary btn-sm">提交</button>
+                    {% endif %}
+                </form>
             </div>
             <div class="col-md-4">
                 <h6>

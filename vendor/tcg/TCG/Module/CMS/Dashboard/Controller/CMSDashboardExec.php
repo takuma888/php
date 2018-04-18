@@ -4,10 +4,12 @@ namespace TCG\Module\CMS\Dashboard\Controller;
 
 use TCG\Bundle\CMF\PublicTrait as CMFTrait;
 use TCG\Module\CMS\CMSExec;
+use TCG\Module\CMS\PrivateTrait;
 
 abstract class CMSDashboardExec extends CMSExec
 {
     use CMFTrait;
+    use PrivateTrait;
 
     public function __invoke()
     {

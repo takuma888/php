@@ -141,13 +141,30 @@ class RoleService
     }
 
 
-    public function updateUserRole(User $user, array $roleIds)
+
+    public function updateUserAdminRole(User $user, array $roleIds)
     {
+        $this->updateUserRole($user, $roleIds, 'admin');
+    }
+
+
+    public function updateUserRole(User $user, array $roleIds, $roleScope)
+    {
+        $roles = $this->dbMain()
+            ->tblRoles()
+            ->all(function (QueryBuilder $queryBuilder) use ($roleScope) {
+                $queryBuilder->where($queryBuilder->expr()->eq('`type`', ':type'))->setParameter(':type', $roleScope);
+            });
+        $scopeRoleIds = [];
+        foreach ($roles as $role) {
+            $scopeRoleIds[] = $role['id'];
+        }
         // 清除原有的用户角色关联关系
         $this->dbMain()
             ->tblUser2Role()
-            ->delete(function (QueryBuilder $queryBuilder) use ($user) {
-                $queryBuilder->andWhere($queryBuilder->expr()->eq('user_id', ':user_id'))->setParameter(':user_id', $user->id);
+            ->delete(function (QueryBuilder $queryBuilder) use ($user, $scopeRoleIds) {
+                $queryBuilder->andWhere($queryBuilder->expr()->eq('`user_id`', ':user_id'))->setParameter(':user_id', $user->id);
+                $queryBuilder->andWhere($queryBuilder->expr()->in('`role_id`', $scopeRoleIds));
             });
         if ($roleIds) {
             // 批量插入新的关联关系

@@ -7,19 +7,21 @@ parameters:
                 dashboard_homepage:
                     title: 总控制台首页
                     desc: 总控制台首页
-
                 dashboard.user.index:
                     title: 后台用户管理
                     desc: 后台用户管理首页
                 dashboard.user.add:
                     title: 添加后台用户
-                    desc: 添加后台用户
+                    desc: 从已经注册的用户中选择添加到后台用户，并赋予后台角色
                 dashboard.user.edit:
                     title: 修改后台用户
-                    desc: 修改后台用户数据
+                    desc: 修改后台用户角色
+                dashboard.user.password:
+                    title: 修改后台用户密码
+                    desc: 修改后台用户的登录密码
                 dashboard.user.delete:
                     title: 删除后台用户
-                    desc: 删除后台用户数据
+                    desc: 移除后台用户，并不是将这个用户删除，而是解除他再后台的角色
 
                 dashboard.role.index:
                     title: 后台角色管理
@@ -33,6 +35,12 @@ parameters:
                 dashboard.role.delte:
                     title: 删除后台角色
                     desc: 删除后台角色数据
+                dashboard.role.delete_users:
+                    title: 移除角色用户
+                    desc: 移除拥有指定角色的用户
+                dashboard.role.permission:
+                    title: 修改角色权限
+                    desc: 修改角色所拥有的权限
         admin:
             name: 管理后台相关权限
             items:
