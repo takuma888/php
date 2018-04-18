@@ -67,7 +67,7 @@
                         <td colspan="7">
                             <div class="tui-control">
                                 <div class="tui-control-select">
-                                    <select class="tui-select" data-toggle="tui-select" name="roles[]" data-placeholder="请选择角色" multiple>
+                                    <select class="tui-select" id="user-roles-selection" name="roles[]" data-placeholder="请选择角色" data-search="true" multiple style="width: 100%;">
                                         {% for role in roles %}
                                             <option value="{{ role.id }}">{{ role.name }}</option>
                                         {% endfor %}
@@ -85,4 +85,13 @@
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts_text %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $('#user-roles-selection').select2();
+        });
+    </script>
 {% endblock %}

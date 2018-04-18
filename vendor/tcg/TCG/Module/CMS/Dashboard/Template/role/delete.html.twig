@@ -1,0 +1,39 @@
+<form class="tui modal-content" method="post" action="{{ url('dashboard.role.delete', { ids: ids }) }}">
+    <div class="modal-header">
+        <h5 class="modal-title" id="role-edit-modal">
+            <i class="fa fa-remove"></i>&nbsp;删除角色
+        </h5>
+        <button type="button" class="close" data-dismiss="layer" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-danger" role="alert">
+            确认删除以下角色吗？删除后不能恢复！其下子角色不会删除，并提升自该角色的直接父角色的自角色。
+        </div>
+        <table class="table table-sm table-hover table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>KEY</th>
+                <th>名称</th>
+                <th>描述</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for role in roles %}
+                <tr>
+                    <td>#{{ role.id }}</td>
+                    <td>{{ role.key }}</td>
+                    <td>{{ role.name }}</td>
+                    <td>{{ role.description }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm">提交</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="layer">取消</button>
+    </div>
+</form>

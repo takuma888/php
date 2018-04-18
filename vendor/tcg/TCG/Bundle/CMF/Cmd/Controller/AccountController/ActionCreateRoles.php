@@ -13,7 +13,7 @@ class ActionCreateRoles extends CmdAction
     {
         $this
             ->setName('tcg_cmf:account.create_roles')
-            ->setDescription('创建CMF的根角色');
+            ->setDescription('创建CMF的默认角色');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -27,7 +27,7 @@ class ActionCreateRoles extends CmdAction
         $superAdminRole = $this->serviceRole()
             ->createDefaultSuperAdmin($rootRole);
         $superAdminRole->name = '超级管理员';
-        $superAdminRole->description = '拥有所有权限的角色';
+        $superAdminRole->description = '拥有所有权限的角色，用用所有权限';
         $superAdminRole->update();
         // 开发人员
         $developerRole = $this->serviceRole()
@@ -35,5 +35,11 @@ class ActionCreateRoles extends CmdAction
         $developerRole->name = '开发者';
         $developerRole->description = '由于开发原因，拥有所有权限';
         $developerRole->update();
+        // 测试角色
+        $testRole = $this->serviceRole()
+            ->createDefaultTest($rootRole);
+        $testRole->name = '测试角色';
+        $testRole->description = '这个角色是用来测试的，随便设置什么权限';
+        $testRole->update();
     }
 }

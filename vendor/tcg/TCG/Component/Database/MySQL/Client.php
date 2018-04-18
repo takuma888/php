@@ -162,6 +162,14 @@ class Client
     }
 
     /**
+     * @param \Closure|null $fallback
+     */
+    public function transaction(\Closure $fallback = null)
+    {
+        $this->master()->transaction($fallback);
+    }
+
+    /**
      * 获取指定表的从数据库链接对象
      * @return Connection
      */

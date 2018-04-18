@@ -2,7 +2,11 @@ services:
     # 初始化数据库
     tcg_module.cms.cmd_exec.init.mysql:
         class: TCG\Module\CMS\Cmd\Controller\InitController\ActionMySQL
+    # 初始化css和js
+    tcg_module.cms.cmd_exec.init.web:
+        class: TCG\Module\CMS\Cmd\Controller\InitController\ActionWeb
 
     tcg_module.console.application:
         calls:
             - [add, [@tcg_module.cms.cmd_exec.init.mysql]] # install
+            - [add, [@tcg_module.cms.cmd_exec.init.web]]

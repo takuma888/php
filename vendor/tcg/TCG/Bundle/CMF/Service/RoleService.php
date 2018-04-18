@@ -40,7 +40,16 @@ class RoleService
     }
 
     /**
-     * @return array|null|string|Role
+     * @param Role $rootRole
+     * @return string|Role
+     */
+    public function createDefaultTest(Role $rootRole)
+    {
+        return $this->create('test', 'admin', $rootRole);
+    }
+
+    /**
+     * @return array|null|Role
      */
     public function getRoot()
     {
@@ -55,6 +64,25 @@ class RoleService
                 ->model($root);
         }
         return $root;
+    }
+
+    /**
+     * @param $id
+     * @return array|null|Role
+     */
+    public function getNode($id)
+    {
+        $node = $this->dbMain()
+            ->tblRoles()
+            ->getNode($id);
+        if ($node) {
+            $node = $this->dbMain()
+                ->tblRoles()
+                ->model($node);
+        } else {
+            $node = null;
+        }
+        return $node;
     }
 
     /**

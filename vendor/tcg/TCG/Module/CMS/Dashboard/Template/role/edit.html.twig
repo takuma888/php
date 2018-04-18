@@ -1,0 +1,37 @@
+<form class="tui modal-content" method="post" action="{{ url('dashboard.role.edit', { id: role.id }) }}">
+    <div class="modal-header">
+        <h5 class="modal-title" id="role-edit-modal">
+            <i class="fa fa-edit"></i>&nbsp;编辑角色
+        </h5>
+        <button type="button" class="close" data-dismiss="layer" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="tui-form-item">
+            <label class="tui-label" for="key">KEY</label>
+            <div class="tui-control">
+                <input type="text" class="tui-input" placeholder="请输入角色的KEY" name="key" id="key" value="{{ role.key }}">
+                <small class="text-muted">请输入英文字符表示的角色KEY，供程序使用。</small>
+            </div>
+        </div>
+        <div class="tui-form-item">
+            <label class="tui-label" for="name">名称</label>
+            <div class="tui-control">
+                <input type="text" class="tui-input" placeholder="请输入角色的名称" name="name" id="name" value="{{ role.name }}">
+                <small class="text-muted">角色的名称，在管理后台展示使用</small>
+            </div>
+        </div>
+        <div class="tui-form-item">
+            <label class="tui-label" for="description">描述</label>
+            <div class="tui-control">
+                <textarea class="tui-textarea" name="description" id="description">{{ role.description }}</textarea>
+                <small class="text-muted">可以输入这个角色的相关描述信息，方便管理人员对这个角色有更加准确的了解。</small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm">提交</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="layer">取消</button>
+    </div>
+</form>

@@ -6,22 +6,82 @@
 {% endblock %}
 
 {% block main %}
-    <div class="tui tui-table-wrapper"
-         data-toggle="tui-table"
-         data-target="#table"
-         data-url="{{ url('dashboard.user.index') }}"
-         data-page="1"
-         data-fields="id,# ID,width: 60px; text-align: center;|username,用户名|name,名称|create_at,创建,width: 200px;|roles,角色{% if account|permission('dashboard.user.edit') or account|permission('dashboard.user.delete') %}|op,操作,max-width: 150px;{% endif %}"
-         data-filter="id|username|name"
-         id="table-wrapper">
-        <div class="tui-table-header">
-            {% if account|permission('dashboard.user.add') %}
-                <a href="{{ url('dashboard.user.add') }}" class="btn btn-secondary btn-sm mb-1 mr-1"><i class="fa fa-plus"></i> 添加</a>
-            {% endif %}
+    <div class="container-fuild">
+        <div class="row flexible">
+            <div class="col-md-12">
+                {% if account|permission('dashboard.user.add') %}
+                    <a class="btn btn-primary btn-sm" href="{{ url('dashboard.user.add') }}">
+                        <i class="fa fa-plus"></i> 添加后台用户
+                    </a>
+                {% endif %}
+            </div>
         </div>
-        <div class="tui-table-body">
-            <table class="table table-bordered table-hover table-striped table-sm" id="table">
-            </table>
+        <hr>
+        <div class="row flexible">
+            <div class="col-md-12">
+                <table class="table table-bordered table-hover table-striped table-sm" id="table" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>名称</th>
+                        <th>创建</th>
+                        <th>角色</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts_text %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $('#table').DataTable({
+                'processing': true,
+                'serverSide': true,
+                'ajax': '{{ url('dashboard.user.index') }}',
+                'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, '所有']],
+                'language': {
+                    "sProcessing":   "处理中...",
+                    "sLengthMenu":   "显示 _MENU_ 项结果",
+                    "sZeroRecords":  "没有匹配结果",
+                    "sInfo":         "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty":    "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix":  "",
+                    "sSearch":       "搜索:",
+                    "sUrl":          "",
+                    "sEmptyTable":     "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands":  ",",
+                    "oPaginate": {
+                        "sFirst":    "首页",
+                        "sPrevious": "上页",
+                        "sNext":     "下页",
+                        "sLast":     "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                },
+                'columns': [
+                    { 'data': 'id' },
+                    { 'data': 'username' },
+                    { 'data': 'name' },
+                    { 'data': 'create_at' },
+                    { 'data': 'roles' },
+                    { 'data': 'op' }
+                ],
+                'columnDefs': [
+                    { 'targets': 4, 'searchable': false, 'sortable': false },
+                    { 'targets': 5, 'searchable': false, 'sortable': false },
+                ],
+            });
+        });
+    </script>
 {% endblock %}

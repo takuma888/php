@@ -1,0 +1,37 @@
+<form class="tui modal-content" method="post" action="{{ url('dashboard.role.delete_users', { user_ids: user_ids, id: role.id }) }}">
+    <div class="modal-header">
+        <h5 class="modal-title" id="role-edit-modal">
+            <i class="fa fa-remove"></i>&nbsp;移除角色 {{ role.key }} <small>{{ role.name }}</small> 的用户
+        </h5>
+        <button type="button" class="close" data-dismiss="layer" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-danger" role="alert">
+            确认从角色 {{ role.key }} <small>{{ role.name }}</small> 中移除以下用户吗？
+        </div>
+        <table class="table table-sm table-hover table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>用户名</th>
+                <th>名称</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>#{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ role.name }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm">提交</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="layer">取消</button>
+    </div>
+</form>

@@ -1,21 +1,41 @@
 parameters:
     permissions:
-        # admin
-        admin_homepage:
-            title: 管理后台首页
-            desc: 管理后台首页
 
-        # dashboard
-        dashboard_homepage:
-            title: 总控制台首页
-            desc: 总控制台首页
+        dashboard:
+            name: 总控制台相关权限
+            items:
+                dashboard_homepage:
+                    title: 总控制台首页
+                    desc: 总控制台首页
 
-        dashboard.user.index:
-            title: 后台用户管理
-            desc: 后台用户管理首页
-        dashboard.user.edit:
-            title: 修改后台用户
-            desc: 修改后台用户数据
-        dashboard.user.delete:
-            title: 删除后台用户
-            desc: 删除后台用户数据
+                dashboard.user.index:
+                    title: 后台用户管理
+                    desc: 后台用户管理首页
+                dashboard.user.add:
+                    title: 添加后台用户
+                    desc: 添加后台用户
+                dashboard.user.edit:
+                    title: 修改后台用户
+                    desc: 修改后台用户数据
+                dashboard.user.delete:
+                    title: 删除后台用户
+                    desc: 删除后台用户数据
+
+                dashboard.role.index:
+                    title: 后台角色管理
+                    desc: 后台角色管理首页
+                dashboard.role.add:
+                    title: 添加后台角色
+                    desc: 添加后台角色
+                dashboard.role.edit:
+                    title: 编辑后台角色
+                    desc: 修改后台角色相关数据
+                dashboard.role.delte:
+                    title: 删除后台角色
+                    desc: 删除后台角色数据
+        admin:
+            name: 管理后台相关权限
+            items:
+                admin_homepage:
+                    title: 管理后台首页
+                    desc: 管理后台首页

@@ -24,3 +24,8 @@ parameters:
         cookie_lifetime: 0
         gc_maxlifetime: 86400
         cookie_domain: %tcg_module.cms.session.cookie_domain%
+
+
+    # css和js的根路径
+    tcg_module.cms.web_asset.public_root: %app_root%/static
+    tcg_module.cms.web_asset.src_root: %vendor_root%/tcg/TCG/Module/CMS/Resource/public

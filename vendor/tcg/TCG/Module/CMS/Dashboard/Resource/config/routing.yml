@@ -27,3 +27,15 @@ routing:
     dashboard.role.index:
         path: /role
         defaults: { _controller: @TCGCMSModule:RoleController:ActionIndex }
+    dashboard.role.add:
+        path: /role/add
+        defaults: { _controller: @TCGCMSModule:RoleController:ActionAdd }
+    dashboard.role.edit:
+        path: /role/edit
+        defaults: { _controller: @TCGCMSModule:RoleController:ActionEdit }
+    dashboard.role.delete:
+        path: /role/delete
+        defaults: { _controller: @TCGCMSModule:RoleController:ActionDelete }
+    dashboard.role.delete_users:
+        path: /role/delete-users
+        defaults: { _controller: @TCGCMSModule:RoleController:ActionDeleteUsers }

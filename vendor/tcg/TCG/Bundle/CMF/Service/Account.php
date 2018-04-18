@@ -75,6 +75,22 @@ class Account
         $this->permissions[$permissionId] = $permissionId;
     }
 
+
+    public function isRoot()
+    {
+        return $this->hasRole(self::ROLE_ROOT);
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->hasRole(self::ROLE_SUPER_ADMIN);
+    }
+
+    public function isDeveloper()
+    {
+        return $this->hasRole(self::ROLE_DEVELOPER);
+    }
+
     /**
      * @param $permissionId
      * @return bool

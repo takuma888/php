@@ -1,4 +1,9 @@
 services:
+    # components
+    tcg_bundle.cmf.component.directory:
+        class: TCG\Bundle\CMF\Component\Directory
+
+
     # data provider
     # tcg cmf user data provider
     tcg_bundle.cmf.data_provider.user:

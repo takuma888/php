@@ -3,6 +3,7 @@
 namespace TCG\Bundle\CMF;
 
 
+use TCG\Bundle\CMF\Component\Directory;
 use TCG\Bundle\CMF\Database\MySQL\LogClient as LogDbClient;
 use TCG\Bundle\CMF\Database\MySQL\MainClient as MainDbClient;
 use TCG\Bundle\CMF\DataProvider\LogProvider;
@@ -77,5 +78,13 @@ trait PrivateTrait
     public function cache()
     {
         return getContainer()->get('tcg_bundle.cmf.redis.client');
+    }
+
+    /**
+     * @return Directory
+     */
+    public function toolDirectory()
+    {
+        return getContainer()->get('tcg_bundle.cmf.component.directory');
     }
 }

@@ -1,10 +1,235 @@
 {% extends '@TCGCMSModule:Dashboard/layout.html.twig' %}
 {% block html_title %}后台角色管理{{ parent() }}{% endblock %}
 {% block page_title %}
-    <h5><i class="fa fa-group"></i> 后台角色组织结构</h5>
+    <h5><i class="fa fa-group"></i> 后台角色</h5>
+    {% block breadcrumbs %}
+        <nav class="tui" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                {% for i, item in role_path %}
+                    {% set active = false %}
+                    {% if i == role_path|length - 1 %}
+                        {% set active = true %}
+                    {% endif %}
+                    <li class="breadcrumb-item {% if active %}active{% endif %}" {% if active %}aria-current="page"{% endif %}"><a href="{{ url('dashboard.role.index', { id: item.id }) }}">{{ item.name }}</a></li>
+                {% endfor %}
+            </ol>
+        </nav>
+    {% endblock %}
     <hr>
 {% endblock %}
 
 {% block main %}
+    <div class="container-fuild">
+        <dl class="row flexible mb-0">
+            <dt class="col-md-1">ID</dt>
+            <dd class="col">{{ root.key }}</dd>
+        </dl>
+        <dl class="row flexible mb-0">
+            <dt class="col-md-1">名称</dt>
+            <dd class="col">{{ root.name }}</dd>
+        </dl>
+        <dl class="row flexible mb-0">
+            <dt class="col-md-1">描述</dt>
+            <dd class="col">{{ root.description }}</dd>
+        </dl>
+        {% if root.key not in  ['root', 'super_admin', 'developer'] %}
+        <div class="row flexible mt-2">
+            <div class="col-md-12">
+                <a data-url="{{ url('dashboard.role.edit', { id: root.id }) }}" href="javascript:void(0);"
+                   data-toggle="layer"
+                   data-type="modal"
+                   data-width="700px"
+                   class="btn btn-info btn-sm mr-2">
+                    <i class="fa fa-edit"></i>&nbsp;修改
+                </a>
+                <a data-url="{{ url('dashboard.role.delete', { ids: [root.id] }) }}" href="javascript:void(0);"
+                   data-toggle="layer"
+                   data-type="modal"
+                   data-width="700px"
+                   class="btn btn-danger btn-sm">
+                    <i class="fa fa-remove"></i>&nbsp;删除
+                </a>
+            </div>
 
+        </div>
+        {% endif %}
+        <hr>
+        <div class="row flexible">
+            <div class="col-md-8">
+                <h6>拥有该角色的后台用户</h6>
+                <table class="table table-hover table-striped table-bordered table-sm" id="table" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>名称</th>
+                        <th>创建</th>
+                        {% if account|permission('dashboard.role.delete_users') %}
+                        <th>操作</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                </table>
+                <hr>
+                <h6>权限配置</h6>
+                <table class="table table-hover table-striped" id="permission-table" style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th style="width: 1px">
+                            <div class="tui-control-checkbox">
+                                {% set checked = false %}
+                                {% set disabled = false %}
+                                {% if root.key == 'root' or root.key == 'super_admin' or root.key == 'developer' %}
+                                    {% set checked = true %}
+                                    {% set disabled = true %}
+                                {% endif %}
+                                <input type="checkbox" class="tui-checkbox" id="permission-group-check" {% if checked %}checked{% endif %} {% if disabled %}disabled{% endif %}>
+                                <label class="tui-label" for="permission-group-check"></label>
+                            </div>
+                        </th>
+                        <th style="width: 400px;">权限</th>
+                        <th>描述</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for scope, scope_info in parameters['permissions'].toArray() %}
+                        {% if scope == 'admin' or scope == 'dashboard' %}
+                            <tr style="background-color: #efefef;">
+                                <td></td>
+                                <th>{{ scope_info.name }}<div class="d-none">{{ scope }}</div></th>
+                                <td></td>
+                            </tr>
+                            {% for permission_key, permission in scope_info.items %}
+                                <tr>
+                                    <td>
+                                        <div class="tui-control-checkbox">
+                                            {% set checked = false %}
+                                            {% set disabled = false %}
+                                            {% if root.key == 'root' or root.key == 'super_admin' or root.key == 'developer' %}
+                                                {% set checked = true %}
+                                                {% set disabled = true %}
+                                            {% endif %}
+                                            <input type="checkbox" class="tui-checkbox permission-item-check"
+                                                   name="permissions[{{ permission.key }}]" value="1" id="permission-item-{{ permission_key }}"
+                                                   {% if checked %}checked{% endif %} {% if disabled %}disabled{% endif %}>
+                                            <label class="tui-label" for="permission-item-{{ permission_key }}"></label>
+                                        </div>
+                                    </td>
+                                    <td style="text-indent: 2em;">
+                                        <strong class="mb-0">{{ permission.title }}&nbsp;&nbsp;&nbsp;&nbsp;<small class="text-muted">{{ permission_key }}</small></strong>
+                                    </td>
+                                    <td><p lang="zh" class="small mb-0 text-muted">{{ permission.desc }}</p></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <h6>
+                    子角色&nbsp;
+                    {% if account|permission('dashboard.role.add') %}
+                        <a href="javascript:void(0);" class="small"
+                           data-url="{{ url('dashboard.role.add' , { id: root.id }) }}"
+                           data-width="700px"
+                           data-toggle="layer"
+                           data-type="modal">
+                            <i class="fa fa-plus"></i>&nbsp;
+                            添加子角色
+                        </a>
+                    {% endif %}
+                </h6>
+                <div class="list-group list-group-flush">
+                    {% for role in roles %}
+                        <a href="{{ url('dashboard.role.index', { id: role.id }) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ role.name }}</h6>
+                                <small>{{ role.key }}</small>
+                            </div>
+                            <p class="mb-1">{{ role.description }}</p>
+                            <small>创建于 {{ role.createAt|date('Y-m-d H:i:s') }}</small>
+                        </a>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts_text %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $('#table').DataTable({
+                'processing': true,
+                'serverSide': true,
+                'ajax': '{{ url('dashboard.role.index', { action: 'user' }) }}&id={{ root.id }}',
+                'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, '所有']],
+                'language': {
+                    "sProcessing":   "处理中...",
+                    "sLengthMenu":   "显示 _MENU_ 项结果",
+                    "sZeroRecords":  "没有匹配结果",
+                    "sInfo":         "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty":    "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix":  "",
+                    "sSearch":       "搜索:",
+                    "sUrl":          "",
+                    "sEmptyTable":     "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands":  ",",
+                    "oPaginate": {
+                        "sFirst":    "首页",
+                        "sPrevious": "上页",
+                        "sNext":     "下页",
+                        "sLast":     "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                },
+                'columns': [
+                    { 'data': 'id' },
+                    { 'data': 'username' },
+                    { 'data': 'name' },
+                    { 'data': 'create_at' },
+                    { 'data': 'op' }
+                ],
+                'columnDefs': [
+                    { 'targets': 4, 'searchable': false, 'sortable': false },
+                ],
+            });
+            $('#permission-table').DataTable({
+                'lengthMenu': [[20, 35, 50, -1], [20, 35, 50, '所有']],
+                'language': {
+                    "sProcessing":   "处理中...",
+                    "sLengthMenu":   "显示 _MENU_ 项结果",
+                    "sZeroRecords":  "没有匹配结果",
+                    "sInfo":         "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty":    "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix":  "",
+                    "sSearch":       "搜索:",
+                    "sUrl":          "",
+                    "sEmptyTable":     "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands":  ",",
+                    "oPaginate": {
+                        "sFirst":    "首页",
+                        "sPrevious": "上页",
+                        "sNext":     "下页",
+                        "sLast":     "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                },
+                'sort': false,
+            });
+        });
+    </script>
 {% endblock %}
