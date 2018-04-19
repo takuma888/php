@@ -15,25 +15,11 @@ class ActionLogin extends DefaultController
             $posts = $request->request;
             $session = $request->getSession();
             try {
-                $username = trim($posts->get('username'));
-                if (!$username) {
-                    throw new CMSException("用户名不能为空");
-                }
-                $password = trim($posts->get('password'));
-                if (!$password) {
-                    throw new CMSException("密码不能为空");
-                }
-                $user = $this->tcgCMF()
-                    ->providerUser()
-                    ->oneBy('username', $username);
-                if (!$user) {
-                    throw new CMSException("用户不存在");
-                }
-                if (!$this->tcgCMF()->serviceUser()->checkPassword($user, $password)) {
-                    throw new CMSException("密码错误");
-                }
-                // 成功
-                $session->set('uid', $user->id);
+                $username = $posts->get('username');
+                $password = $posts->get('password');
+                $this->tcgCMF()
+                    ->servicePassport()
+                    ->loginByUsername($username, $password);
                 return $this->redirect('dashboard_homepage');
             } catch (\Exception $e) {
                 $session->getFlashBag()->add('error', $e->getMessage());

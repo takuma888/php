@@ -1,0 +1,48 @@
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 767px) {
+    .tui .row-offcanvas:not(.not-tui) {
+        position: relative !important;
+        transition: all .25s ease-out;
+    }
+
+    .tui .row-offcanvas-right:not(.not-tui) {
+        right: 0;
+    }
+
+    .tui .row-offcanvas-left:not(.not-tui) {
+        left: 0;
+    }
+
+    .tui .row-offcanvas-right:not(.not-tui) .sidebar-offcanvas:not(.not-tui) {
+        right: -100%; /* 12 columns */
+    }
+
+    .tui .row-offcanvas-right.active:not(.not-tui) .sidebar-offcanvas:not(.not-tui) {
+        right: -50%; /* 6 columns */
+    }
+
+    .tui .row-offcanvas-left:not(.not-tui) .sidebar-offcanvas:not(.not-tui) {
+        left: -100%; /* 12 columns */
+    }
+
+    .tui .row-offcanvas-left.active:not(.not-tui) .sidebar-offcanvas:not(.not-tui) {
+        left: -50%; /* 6 columns */
+    }
+
+    .tui .row-offcanvas-right.active:not(.not-tui) {
+        right: 50%; /* 6 columns */
+    }
+
+    .tui .row-offcanvas-left.active:not(.not-tui) {
+        left: 50%; /* 6 columns */
+    }
+
+    .tui .sidebar-offcanvas:not(.not-tui) {
+        position: absolute !important;
+        top: 0;
+        width: 50% !important; /* 6 columns */
+    }
+}

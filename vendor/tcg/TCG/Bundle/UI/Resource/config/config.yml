@@ -1,7 +1,0 @@
-parameters:
-    tcg_bundle.ui.template_root: %vendor_root%/tcg/TCG/Bundle/UI/Template
-
-services:
-    tcg_bundle.twig.filesystem_loader:
-        calls:
-            - [addPath, [%tcg_bundle.ui.template_root%, TCGUIBundle]]

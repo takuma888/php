@@ -184,22 +184,32 @@ class RoleService
     }
 
 
+    public function updateRoleAdminPermissions(Role $role, array $permissionIds)
+    {
+        $this->updateRolePermissions($role, $permissionIds, 'admin');
+    }
 
-    public function updateRolePermissions(Role $role, array $permissionIds)
+
+
+    public function updateRolePermissions(Role $role, array $permissionIds, $permissionScope)
     {
         // 先清空原有的角色权限关联关系
         $this->dbMain()
             ->tblRole2Permission()
-            ->delete(function (QueryBuilder $queryBuilder) use ($role) {
+            ->delete(function (QueryBuilder $queryBuilder) use ($role, $permissionScope) {
                 $queryBuilder->andWhere($queryBuilder->expr()->eq('role_id', ':role_id'))->setParameter(':role_id', $role->id);
+                $queryBuilder->andWhere($queryBuilder->expr()->eq('`type`', ':type'))->setParameter(':type', $permissionScope);
             });
         if ($permissionIds) {
             // 批量插入新的关联关系
             $role2permission = [];
+            $now = time();
             foreach ($permissionIds as $permissionId) {
                 $role2permission[] = [
                     'role_id' => $role->id,
                     'permission_id' => $permissionId,
+                    'type' => $permissionScope,
+                    'create_at' => $now,
                 ];
             }
             $this->dbMain()

@@ -1,0 +1,14 @@
+parameters:
+    tcg_bundle.tui.template_root: %vendor_root%/tcg/TCG/Bundle/TUI/Template
+
+services:
+    tcg_bundle.twig.filesystem_loader:
+        calls:
+            - [addPath, [%tcg_bundle.tui.template_root%, TCGTUIBundle]]
+
+    # bundle aware
+    tcg_bundle.tui.bundle_aware:
+        class: TCG\Bundle\TUI\BundleAware
+    # services
+    tcg_bundle.tui.service.data_table:
+        class: TCG\Bundle\TUI\Service\DataTableService

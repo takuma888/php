@@ -2,15 +2,10 @@
 
 namespace TCG\Module\CMS\Dashboard\Controller;
 
-use TCG\Bundle\CMF\PublicTrait as CMFTrait;
 use TCG\Module\CMS\CMSExec;
-use TCG\Module\CMS\PrivateTrait;
 
 abstract class CMSDashboardExec extends CMSExec
 {
-    use CMFTrait;
-    use PrivateTrait;
-
     public function __invoke()
     {
         $this->buildBreadcrumbs();
@@ -19,24 +14,10 @@ abstract class CMSDashboardExec extends CMSExec
 
     protected function authenticate()
     {
-        $request = $this->getRequest();
-        $session = $request->getSession();
-        $userId = $session->get('uid');
-        if (!$userId) {
-            return $this->redirect('dashboard_login');
-        }
-        // 生成account
-        $user = $this->tcgCMF()
-            ->providerUser()
-            ->oneById($userId);
+        $user = $this->getUser();
         if (!$user) {
             return $this->redirect('dashboard_login');
         }
-
-        $account = $this->tcgCMF()
-            ->serviceUser()
-            ->account($user);
-        $this->setAccount($account);
     }
 
 

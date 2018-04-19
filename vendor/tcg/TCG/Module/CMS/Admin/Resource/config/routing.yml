@@ -5,3 +5,6 @@ routing:
     admin_login:
         path: /login
         defaults: { _controller: @TCGCMSModule:DefaultController:ActionLogin }
+    admin_logout:
+        path: /logout
+        defaults: { _controller: @TCGCMSModule:DefaultController:ActionLogout }

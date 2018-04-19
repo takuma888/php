@@ -33,5 +33,6 @@ SQL;
 
     public function model(array $fields = [])
     {
+        return new \TCG\Bundle\CMF\Database\MySQL\Model\User2Role($this, $fields);
     }
 }

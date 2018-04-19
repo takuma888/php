@@ -9,6 +9,7 @@ use TCG\Bundle\Twig\Component\TwigHttpExec;
 
 abstract class CMFExec extends TwigHttpExec
 {
+    use PrivateTrait;
     /**
      * @var Account;
      */
@@ -18,6 +19,7 @@ abstract class CMFExec extends TwigHttpExec
 
     public function __invoke()
     {
+        $this->permission = $this->getRoute();
         if ($this->needAuthenticate()) {
             $response = $this->authenticate();
             if ($response) {
@@ -30,7 +32,11 @@ abstract class CMFExec extends TwigHttpExec
             }
             return parent::__invoke();
         } catch (\Exception $e) {
-            throw $e;
+            if ($e->getCode() == CMFException::CODE_ACCOUNT_PERMISSION_DENY) {
+                return $this->processPermissionDenyRequest();
+            } else {
+                throw $e;
+            }
         }
     }
 
@@ -72,4 +78,27 @@ abstract class CMFExec extends TwigHttpExec
      * @return null|Response
      */
     abstract protected function authenticate();
+
+    /**
+     * @return bool|mixed|null|string|Database\MySQL\Model\User
+     */
+    protected function getUser()
+    {
+        $user = $this->servicePassport()
+            ->login();
+        if ($user) {
+            $account = $this->serviceUser()
+                ->account($user);
+            $this->setAccount($account);
+        }
+        return $user;
+    }
+
+
+    protected function processPermissionDenyRequest()
+    {
+        $request = $this->getRequest();
+
+    }
+
 }

@@ -34,6 +34,8 @@ services:
         class: TCG\Bundle\CMF\Service\UserService
     tcg_bundle.cmf.service.role:
         class: TCG\Bundle\CMF\Service\RoleService
+    tcg_bundle.cmf.service.passport:
+        class: TCG\Bundle\CMF\Service\PassportService
 
 
     # aware tcg_bundle.cmf

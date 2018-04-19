@@ -11,7 +11,7 @@ class TachigoUIModule extends Module
     public function getBundles()
     {
         return [
-            'TCGUIBundle',
+            'TCGTUIBundle',
         ];
     }
 

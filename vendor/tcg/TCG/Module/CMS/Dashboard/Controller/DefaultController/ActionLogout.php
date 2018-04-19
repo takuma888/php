@@ -9,8 +9,14 @@ class ActionLogout extends DefaultController
 {
     public function exec()
     {
-        $session = $this->getRequest()->getSession();
-        $session->remove('uid');
+        $this->tcgCMF()
+            ->servicePassport()
+            ->logout();
         return $this->redirect('dashboard_login');
+    }
+
+    protected function needAuthenticate()
+    {
+        return false;
     }
 }

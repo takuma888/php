@@ -1,1 +1,83 @@
 {% extends '@TCGCMSModule/layout.html.twig' %}
+{% block stylesheets_global_mandatory %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ cdn('cms/admin/style.css') }}">
+{% endblock %}
+{% block stylesheets_page_level_plugin %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ cdn('cms/plugins/DataTables/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ cdn('cms/plugins/select2/css/select2.min.css') }}">
+{% endblock %}
+{% block body_style %}padding-top: 70px;{% endblock %}
+{% block body %}
+    <nav class="tui navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="{{ url('admin_homepage') }}">{{ parameters['site.name'] }} 管理后台</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNav" aria-controls="topNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse collapsing navbar-collapse" id="topNav">
+            <ul class="navbar-nav">
+                {% block top_nav %}
+                {% endblock %}
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item popout">
+                    <a class="nav-link popout-toggle" href="javascript:void(0);" id="userNavbarPopout" role="button"
+                       data-toggle="popout"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-user-circle-o"></i>&nbsp;
+                        {{ account.user.name|default(account.user.username) }}
+                    </a>
+                    <div class="popout-menu popout-menu-right" aria-labelledby="userNavbarPopout">
+                        <a class="popout-item" href="{{ url('admin_logout') }}">
+                            <i class="fa fa-sign-out"></i>&nbsp;
+                            退出
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main class="tui container-fluid">
+        <div class="row flexible {% if has_sidebar %}row-offcanvas row-offcanvas-right{% endif %}">
+            <div class="col-xs-12 {% if has_sidebar %}col-md-9{% endif %}">
+                {% if has_sidebar %}
+                    <p class="float-right d-md-none">
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">
+                            <i class="fa fa-tasks"></i>
+                        </button>
+                    </p>
+                {% endif %}
+                {% block page_title %}{% endblock %}
+                {% block breadcrumbs %}
+                    <nav class="tui" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ url('admin_homepage') }}">后台首页</a></li>
+                            {% for breadcrumb in breadcrumbs %}
+                                {% set info = parameters['permissions']['admin']['items'][breadcrumb] %}
+                                <li class="breadcrumb-item {% if breadcrumb == route %}active{% endif %}" {% if breadcrumb == route %}aria-current="page"{% endif %}><a href="{{ url(breadcrumb) }}">{{ info['title'] }}</a></li>
+                            {% endfor %}
+                        </ol>
+                    </nav>
+                {% endblock %}
+                {% block main %}{% endblock %}
+            </div>
+            {% if has_sidebar %}
+                <div class="col-xs-6 col-md-3 sidebar-offcanvas" id="sidebar">
+                    {% block sidebar %}{% endblock %}
+                </div>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}
+{% block scripts_page_level_plugins %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ cdn('cms/plugins/DataTables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ cdn('cms/plugins/select2/js/select2.full.min.js') }}"></script>
+    <script type="text/javascript" src="{{ cdn('cms/plugins/select2/js/i18n/zh-CN.js') }}"></script>
+{% endblock %}
+{% block scripts_core_plugins %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ cdn('cms/admin/style.js') }}"></script>
+{% endblock %}

@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS {@table} (
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `role_id` INT(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '角色ID',
   `permission_id` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '权限ID',
+  `type` VARCHAR(16) NOT NULL DEFAULT '' COMMENT '权限类型',
   `create_at` INT(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `role` (`role_id`)
@@ -26,11 +27,13 @@ SQL;
         return [
             'role_id' => 0,
             'permission_id' => '',
+            'type' => '',
             'create_at' => 0,
         ];
     }
 
     public function model(array $fields = [])
     {
+        return new \TCG\Bundle\CMF\Database\MySQL\Model\Role2Permission($this, $fields);
     }
 }

@@ -10,6 +10,7 @@ use TCG\Bundle\CMF\DataProvider\LogProvider;
 use TCG\Bundle\CMF\DataProvider\RoleProvider;
 use TCG\Bundle\CMF\DataProvider\UserProvider;
 use TCG\Bundle\CMF\Cache\Redis\Client as CacheClient;
+use TCG\Bundle\CMF\Service\PassportService;
 use TCG\Bundle\CMF\Service\RoleService;
 use TCG\Bundle\CMF\Service\UserService;
 
@@ -70,6 +71,14 @@ trait PrivateTrait
     public function serviceRole()
     {
         return getContainer()->get('tcg_bundle.cmf.service.role');
+    }
+
+    /**
+     * @return PassportService
+     */
+    public function servicePassport()
+    {
+        return getContainer()->get('tcg_bundle.cmf.service.passport');
     }
 
     /**

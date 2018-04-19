@@ -1,12 +1,12 @@
 parameters:
     # ui
-    tcg_bundle.ui.core.css.path: //local.tachigo.com/tui/dist/css/tui.css
-    tcg_bundle.ui.core.js.path: //local.tachigo.com/tui/dist/js/tui.js
-    tcg_bundle.ui.vendor.jquery.path: //local.tachigo.com/tui/plugins/jquery/jquery.js
-    tcg_bundle.ui.vendor.popper.path: //local.tachigo.com/tui/plugins/popper/umd/popper.js
-    tcg_bundle.ui.vendor.code.css.path: //local.tachigo.com/tui/plugins/highlight/styles/github.min.css
-    tcg_bundle.ui.vendor.code.js.path: //local.tachigo.com/tui/plugins/highlight/highlight.min.js
-    tcg_bundle.ui.vendor.font_awesome.path: //local.tachigo.com/tui/plugins/font-awesome/css/font-awesome.min.css
+    tcg_bundle.tui.core.css.path: //local.tachigo.com/tui/dist/css/tui.css
+    tcg_bundle.tui.core.js.path: //local.tachigo.com/tui/dist/js/tui.js
+    tcg_bundle.tui.vendor.jquery.path: //local.tachigo.com/tui/plugins/jquery/jquery.js
+    tcg_bundle.tui.vendor.popper.path: //local.tachigo.com/tui/plugins/popper/umd/popper.js
+    tcg_bundle.tui.vendor.code.css.path: //local.tachigo.com/tui/plugins/highlight/styles/github.min.css
+    tcg_bundle.tui.vendor.code.js.path: //local.tachigo.com/tui/plugins/highlight/highlight.min.js
+    tcg_bundle.tui.vendor.font_awesome.path: //local.tachigo.com/tui/plugins/font-awesome/css/font-awesome.min.css
 
 
     # twig

@@ -1,0 +1,9 @@
+parameters:
+    tcg_bundle.tui.normalize.css.path:
+    tcg_bundle.tui.core.css.path:
+    tcg_bundle.tui.core.js.path:
+    tcg_bundle.tui.vendor.jquery.path:
+    tcg_bundle.tui.vendor.popper.path:
+    tcg_bundle.tui.vendor.code.css.path:
+    tcg_bundle.tui.vendor.code.js.path:
+    tcg_bundle.tui.vendor.font_awesome.path:

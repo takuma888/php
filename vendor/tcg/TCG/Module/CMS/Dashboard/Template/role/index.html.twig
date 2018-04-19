@@ -73,7 +73,7 @@
                 <hr>
                 <h6>权限配置</h6>
                 <form method="post" action="{{ url('dashboard.role.permission', { id: root.id }) }}">
-                    <table class="table table-hover table-striped" id="permission-table" style="width: 100%">
+                    <table class="table table-hover table-striped" id="permissions-table" style="width: 100%">
                         <thead>
                         <tr>
                             <th style="width: 1px">
@@ -84,8 +84,8 @@
                                         {% set checked = true %}
                                         {% set disabled = true %}
                                     {% endif %}
-                                    <input type="checkbox" class="tui-checkbox" id="permission-group-check" {% if checked %}checked{% endif %} {% if disabled %}disabled{% endif %}>
-                                    <label class="tui-label" for="permission-group-check"></label>
+                                    <input type="checkbox" class="tui-checkbox table-group-check" id="table-group-check" {% if checked %}checked{% endif %} {% if disabled %}disabled{% endif %}>
+                                    <label class="tui-label" for="table-group-check"></label>
                                 </div>
                             </th>
                             <th style="width: 400px;">权限</th>
@@ -97,7 +97,7 @@
                             {% if scope == 'admin' or scope == 'dashboard' %}
                                 <tr style="background-color: #efefef;">
                                     <td></td>
-                                    <th>{{ scope_info.name }}<div class="d-none">{{ scope }}</div></th>
+                                    <th>{{ scope_info.name }}&nbsp;&nbsp;&nbsp;&nbsp;<small class="text-muted">{{ scope }}</small></th>
                                     <td></td>
                                 </tr>
                                 {% for permission_key, permission in scope_info.items %}
@@ -110,8 +110,11 @@
                                                     {% set checked = true %}
                                                     {% set disabled = true %}
                                                 {% endif %}
-                                                <input type="checkbox" class="tui-checkbox permission-item-check"
-                                                       name="permissions[{{ permission_key }}]" value="1" id="permission-item-{{ permission_key }}"
+                                                {% if permission_key in role_permissions %}
+                                                    {% set checked = true %}
+                                                {% endif %}
+                                                <input type="checkbox" class="tui-checkbox table-item-check"
+                                                       name="permissions[{{ permission_key }}]" value="{{ permission_key }}" id="permission-item-{{ permission_key }}"
                                                        {% if checked %}checked{% endif %} {% if disabled %}disabled{% endif %}>
                                                 <label class="tui-label" for="permission-item-{{ permission_key }}"></label>
                                             </div>
@@ -168,6 +171,30 @@
     {{ parent() }}
     <script type="text/javascript">
         jQuery(document).ready(function () {
+            var $table = $('#permissions-table');
+            $('.table-group-check', $table).on('change', function () {
+                var $set = $('.table-item-check', $table);
+                var checked = $(this).prop("checked");
+                $($set).each(function() {
+                    $(this).prop("checked", checked);
+                });
+            });
+            $($table).on('change', '.table-item-check',  function () {
+                var total = $('.table-item-check', $table).length;
+                var checkedNum = $('.table-item-check:checked', $table).length;
+                if (total == checkedNum) {
+                    $('.table-group-check', $table).prop('checked', true);
+                } else {
+                    $('.table-group-check', $table).prop('checked', false);
+                }
+            });
+            var total = $('.table-item-check', $table).length;
+            var checkedNum = $('.table-item-check:checked', $table).length;
+            if (total == checkedNum) {
+                $('.table-group-check', $table).prop('checked', true);
+            } else {
+                $('.table-group-check', $table).prop('checked', false);
+            }
             $('#table').DataTable({
                 'processing': true,
                 'serverSide': true,
@@ -208,8 +235,8 @@
                     { 'targets': 4, 'searchable': false, 'sortable': false },
                 ],
             });
-            $('#permission-table').DataTable({
-                'lengthMenu': [[20, 35, 50, -1], [20, 35, 50, '所有']],
+            $('#permissions-table').DataTable({
+                'lengthMenu': [[10, 20, 30, -1], [10, 25, 30, '所有']],
                 'language': {
                     "sProcessing":   "处理中...",
                     "sLengthMenu":   "显示 _MENU_ 项结果",

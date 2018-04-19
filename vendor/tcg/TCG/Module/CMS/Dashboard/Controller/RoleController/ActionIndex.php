@@ -147,10 +147,17 @@ class ActionIndex extends RoleController
         }
 
 
+        // 角色权限
+        $rolePermissions = $this->tcgCMF()
+            ->providerRole()
+            ->permissionsByRole($rootRole);
+
+
         return $this->render('role/index.html.twig', [
             'roles' => $roles,
             'root' => $rootRole,
             'role_path' => $rolePath,
+            'role_permissions' => $rolePermissions,
         ]);
     }
 }

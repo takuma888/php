@@ -1,10 +1,10 @@
 <?php
 
-namespace TCG\Bundle\UI;
+namespace TCG\Bundle\TUI;
 
 use TCG\Component\Kernel\Bundle;
 
-class TCGUIBundle extends Bundle
+class TCGTUIBundle extends Bundle
 {
 
     public function getParent()

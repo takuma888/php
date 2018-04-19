@@ -22,4 +22,5 @@ trait PrivateTrait
     {
         return getContainer()->get('tcg_module.cms.service.session');
     }
+
 }

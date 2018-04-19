@@ -18,7 +18,7 @@ class TCGCMSModule extends Module
     {
         return [
             'TCGCMFBundle',
-            'TCGUIBundle'
+            'TCGTUIBundle'
         ];
     }
 

@@ -7,20 +7,20 @@
     <title>{% block html_title %}{% endblock %}</title>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     {% block stylesheets_global_mandatory %}
-        {% if parameters['tcg_bundle.ui.vendor.font_awesome.path'] %}
-            <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.ui.vendor.font_awesome.path'] }}">
+        {% if parameters['tcg_bundle.tui.vendor.font_awesome.path'] %}
+            <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.tui.vendor.font_awesome.path'] }}">
         {% endif %}
-        {% if parameters['tcg_bundle.ui.normalize.css.path'] %}
-            <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.ui.normalize.css.path'] }}">
+        {% if parameters['tcg_bundle.tui.normalize.css.path'] %}
+            <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.tui.normalize.css.path'] }}">
         {% endif %}
-        {% if parameters['tcg_bundle.ui.core.css.path'] %}
-            <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.ui.core.css.path'] }}">
+        {% if parameters['tcg_bundle.tui.core.css.path'] %}
+            <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.tui.core.css.path'] }}">
         {% endif %}
-        {% if parameters['tcg_bundle.ui.vendor.code.css.path'] %}
-            <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.ui.vendor.code.css.path'] }}">
+        {% if parameters['tcg_bundle.tui.vendor.code.css.path'] %}
+            <link rel="stylesheet" type="text/css" href="{{ parameters['tcg_bundle.tui.vendor.code.css.path'] }}">
         {% endif %}
-        {% if parameters['tcg_bundle.ui.vendor.jquery.path'] %}
-            <script type="text/javascript" src="{{ parameters['tcg_bundle.ui.vendor.jquery.path'] }}"></script>
+        {% if parameters['tcg_bundle.tui.vendor.jquery.path'] %}
+            <script type="text/javascript" src="{{ parameters['tcg_bundle.tui.vendor.jquery.path'] }}"></script>
         {% endif %}
     {% endblock %}
     <!-- END GLOBAL MANDATORY STYLES -->
@@ -34,7 +34,7 @@
     {% block stylesheets_theme_styles %}{% endblock %}
     <!-- END THEME STYLES -->
     {% block styles_text %}
-        {% if parameters['tcg_bundle.ui.vendor.code.css.path'] %}
+        {% if parameters['tcg_bundle.tui.vendor.code.css.path'] %}
             <style type="text/css">
                 .hljs {
                     padding: 0;
@@ -47,14 +47,14 @@
 {% block body %}{% endblock %}
 <!-- BEGIN CORE PLUGINS -->
 {% block scripts_core_plugins %}
-    {% if parameters['tcg_bundle.ui.vendor.popper.path'] %}
-        <script type="text/javascript" src="{{ parameters['tcg_bundle.ui.vendor.popper.path'] }}"></script>
+    {% if parameters['tcg_bundle.tui.vendor.popper.path'] %}
+        <script type="text/javascript" src="{{ parameters['tcg_bundle.tui.vendor.popper.path'] }}"></script>
     {% endif %}
-    {% if parameters['tcg_bundle.ui.core.js.path'] %}
-        <script type="text/javascript" src="{{ parameters['tcg_bundle.ui.core.js.path'] }}"></script>
+    {% if parameters['tcg_bundle.tui.core.js.path'] %}
+        <script type="text/javascript" src="{{ parameters['tcg_bundle.tui.core.js.path'] }}"></script>
     {% endif %}
-    {% if parameters['tcg_bundle.ui.vendor.code.js.path'] %}
-        <script type="text/javascript" src="{{ parameters['tcg_bundle.ui.vendor.code.js.path'] }}"></script>
+    {% if parameters['tcg_bundle.tui.vendor.code.js.path'] %}
+        <script type="text/javascript" src="{{ parameters['tcg_bundle.tui.vendor.code.js.path'] }}"></script>
     {% endif %}
 {% endblock %}
 <!-- END CORE PLUGINS -->
@@ -65,7 +65,7 @@
 {% block scripts_page_level_scripts %}{% endblock %}
 <!-- END PAGE LEVEL SCRIPTS -->
 {% block scripts_text %}
-    {% if parameters['tcg_bundle.ui.vendor.code.js.path'] and parameters['tcg_bundle.ui.vendor.jquery.path'] %}
+    {% if parameters['tcg_bundle.tui.vendor.code.js.path'] and parameters['tcg_bundle.tui.vendor.jquery.path'] %}
         <script type="text/javascript">
             jQuery(document).ready(function () {
                 $('pre.highlight code').each(function (i, block) {
